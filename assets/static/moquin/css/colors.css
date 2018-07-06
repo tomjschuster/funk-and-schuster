@@ -1,0 +1,281 @@
+/*-----------------------------------------------------
+# main_color #c23
+------------------------------------------------------*/
+.decor,
+.btn-rounded:hover,
+.btn-square:hover,
+.share-links a:hover {
+	background: #c23;
+}
+
+.portfolio-item:hover .portfolio-item-overlay {
+	background: rgba(195,32,49, .9);
+}
+
+.read-more-link:hover,
+.navigation a:hover,
+.cat-links,
+.entry-title a:hover,
+a.author:hover,
+.social-icons a:hover,
+.close-nav:hover,
+.aside-nav a:hover,
+.main-footer .social-icons a:hover,
+.container-split-screen .portfolio-item-category,
+.container-split-screen .portfolio-item:hover .portfolio-item-category,
+.social-links-alt a:hover,
+.about-me .section-name,
+a.mail-link:hover,
+.tag-links a:hover,
+.related-posts a:hover,
+a.reply-link:hover,
+.widget_categories ul li a:hover {
+	color: #c23;
+}
+
+/*-----------------------------------------------------
+#  background #68a0dd / color #68a0dd
+------------------------------------------------------*/
+
+.project_05 .project-services,
+.project_05 .project-details h2,
+.detailed-info .role {
+	color: #68a0dd;
+}
+
+.project_05 .color-block {
+	background: #68a0dd;
+}
+
+/*-----------------------------------------------------
+#  background #fff / color #fff
+------------------------------------------------------*/
+
+.sub-nav,
+.blog-agency h2:before,
+.blog-agency-item,
+.aside-nav-container,
+.container-split-screen header,
+.container-split-screen .portfolio-item,
+.team-member-overlay,
+.name input,
+.email input,
+.message textarea,
+.header-reverse .open-nav i,
+.header-reverse .open-nav i:after,
+.header-reverse .open-nav i:before {
+	background: #fff;
+}
+
+a.btn-rounded,
+a.btn-square,
+input.btn-square,
+.hero h1,
+.hero h2,
+.blog-agency h2,
+.main-footer,
+.main-footer .social-icons a,
+a.mail-link,
+.blog-item:hover .cat-links,
+.blog-item:hover .entry-title a,
+.blog-item:hover p,
+.blog-item:hover .entry-meta,
+.pagination a:hover,
+.tag-links span,
+.share-links a:hover,
+.comments h2,
+.leave-comment h2,
+.header-reverse nav .navigation > li > a,
+.color-block p,
+.detailed-info {
+	color: #fff;
+}
+
+.portfolio-item-category, 
+.portfolio-item-title {
+	color: rgba(255, 255, 255, 0);
+}
+
+.portfolio-item:hover .portfolio-item-category,
+.portfolio-item:hover .portfolio-item-title {
+	color: rgba(255,255,255, 1);
+}
+
+/*-----------------------------------------------------
+#  background #000 / color #000
+------------------------------------------------------*/
+
+.btn-rounded,
+.btn-square,
+.open-nav i,
+.open-nav i:after,
+.open-nav i:before,
+.services-agency h2:before,
+.clients-agency h2:before,
+.blog-agency,
+.cite:before,
+.tag-links span,
+.comments h2,
+.leave-comment h2,
+.detailed-info {
+	background: #000;
+}
+
+.navigation a,
+a.open-nav,
+.author,
+.entry-title a,
+.social-icons a,
+.close-nav,
+.aside-nav a,
+.irregular-grid .portfolio-item-title,
+.irregular-grid .portfolio-item:hover .portfolio-item-title,
+.container-split-screen .portfolio-item-title,
+.container-split-screen .portfolio-item:hover .portfolio-item-title,
+.logo-alt,
+.social-links-alt a,
+.share-links a,
+.related-posts a,
+a.reply-link,
+.font-name,
+.projects-nav h2 a,
+.portfolio-links li a.active{
+	color: #000;
+}
+
+.blog-item:before {
+	background: rgba(0, 0, 0, 0);
+}
+
+.blog-item:hover:before {
+	background: rgba(0, 0, 0, .4);
+}
+
+.body-overlay {
+	background: rgba(0, 0, 0, .7);
+}
+
+/*-----------------------------------------------------
+#  background #111 
+------------------------------------------------------*/
+
+.main-footer,
+.contact-me,
+.reversed,
+.pagination a:hover  {
+	background: #111;
+}
+
+/*-----------------------------------------------------
+#  color #333
+------------------------------------------------------*/
+
+.contact-agency p,
+.about-us .content p,
+.comments .items p {
+	color: #333;
+}
+
+/*-----------------------------------------------------
+#  color #444
+------------------------------------------------------*/
+
+.read-more-link,
+.sub-nav li a,
+.services-agency-item p,
+.services-lists li,
+form label,
+.contact .info p,
+.entry-meta,
+.pagination a,
+.tag-links a,
+.widget_categories ul li a,
+.single-project .content p,
+.project_02 .project-services {
+	color: #444;
+}
+
+/*-----------------------------------------------------
+#  background #777 / color #777
+------------------------------------------------------*/
+
+.widget-title:after {
+	background: #777;
+}
+
+.blog-item p,
+.centered-img-container figcaption,
+.posting-date,
+.search-form span,
+.search-form input::placeholder,
+.project_01 .overview .project-services {
+	color: #777;
+}
+
+/*-----------------------------------------------------
+#  color #999
+------------------------------------------------------*/
+
+.irregular-grid .portfolio-item-category,
+.irregular-grid .portfolio-item:hover .portfolio-item-category,
+.team-member-overlay h4 {
+	color: #999;
+}
+
+/*-----------------------------------------------------
+#  color #aaa
+------------------------------------------------------*/
+
+.related-posts span,
+.projects-nav span {
+	color: #aaa;
+}
+
+/*-----------------------------------------------------
+#  color #cdcdcd
+------------------------------------------------------*/
+
+.portfolio-links li a {
+	color: #cdcdcd;
+}
+
+/*-----------------------------------------------------
+#  color #ddd
+------------------------------------------------------*/
+
+.contact-me p,
+.reversed,
+.reversed li a {
+	color: #ddd;
+}
+
+/*-----------------------------------------------------
+#  background #eee 
+------------------------------------------------------*/
+
+.share-links a {
+	background: #eee;
+}
+
+/*-----------------------------------------------------
+#   color #f5f5f5
+------------------------------------------------------*/
+
+.letters {
+	color: #f5f5f5;
+}
+
+/*-----------------------------------------------------
+#  background #f7f7f7 / color #f7f7f7
+------------------------------------------------------*/
+
+.aside-decorative-letter {
+	color: rgba(247, 247, 247, .7);
+}
+
+.entry-content blockquote,
+.responsive-design,
+.project_02 .overview{
+	background: #f7f7f7;
+}
+

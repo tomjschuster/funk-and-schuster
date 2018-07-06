@@ -9,7 +9,7 @@ defmodule FunkAndSchusterWeb.Endpoint do
   # when deploying your static files in production.
   plug Plug.Static,
     at: "/", from: :funk_and_schuster, gzip: false,
-    only: ~w(css fonts images js favicon.ico robots.txt)
+    only: ~w(moquin css fonts images js favicon.ico robots.txt)
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.

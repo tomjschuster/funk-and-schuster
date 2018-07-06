@@ -1,0 +1,2161 @@
+/*-----------------------------------------------------
+Table of Contents
+
+# General Styles
+# Header
+# Navigation
+	= main-navigaton
+	= aside-navigation
+# Hero
+	= hero-agency
+	= hero-personal
+	= hero-split-screen
+# About
+	= agency-about
+	= about-us-page 
+	= about-me-page
+# Portfolio
+	= metro
+	= irregular-grid
+	= portfolio-2-columns
+	= portfolio-3-columns
+	= portfolio-4-columns
+# Portfolio Single Project
+	= single-project_01
+	= single-project_02
+	= single-project_03
+	= single-project_04
+	= single-project_05
+	= single-project_06
+# Services
+	= services-agency
+# Clients
+	= clients-agency
+# Blog
+	= blog-agency
+	= blog-page
+	= blog-post
+# Contact
+	= contact-agency
+	= contact-page
+	= contact-form
+ 	= contact-me
+# Footer
+------------------------------------------------------*/
+
+/*-----------------------------------------------------
+# General Styles
+------------------------------------------------------*/
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	-webkit-font-smoothing: antialiased;
+}
+
+html {
+	overflow-x: hidden;
+	overflow-y: scroll;
+}
+
+body {
+	font-family: Lato, sans-serif;
+	font-size: 100%;
+	line-height: 1.5;
+}
+
+a {
+	text-decoration: none;
+	transition: all .2s ease-in-out;
+}
+
+.btn-rounded,
+.btn-square {
+	border: none;
+	display: block;
+	font-size: .75rem;
+	height: 55px;
+	letter-spacing: 3px;
+	line-height: 55px;
+	text-transform: uppercase;
+	text-align: center;
+	width: 220px;
+}
+
+.btn-rounded {
+	border-radius: 27.5px;
+}
+
+.body-overlay {
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -100%;
+	bottom: 0;
+	right: 0;
+	height: 100vh;
+	width: 100vw;
+	z-index: 3;
+	opacity: 0;
+	transition: opacity .4s, left 0s .4s;
+}
+
+.body-overlay.active {
+	left: 0;
+	opacity: 1;
+	transition: opacity .4s, left 0s;
+}
+
+.container {
+	max-width: 1170px;
+	margin: auto;
+	position: relative;
+}
+
+.container-large {
+	max-width: 1720px;
+	margin: auto;
+}
+
+.clearfix {
+	clear: both;
+}
+
+.img-cover  {
+    display: block;
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+}
+
+.img-responsive{
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+.read-more-link {
+	font-size: .75rem;
+	font-weight: 700;
+	letter-spacing: 3px;
+	text-transform: uppercase;
+}
+
+/*-----------------------------------------------------
+# Header
+------------------------------------------------------*/
+
+.main-header {
+	height: 100px;
+	line-height: 100px;
+	position: relative;
+}
+
+.logo {
+	float: left;
+	margin-top: 6px;
+	width: 120px;
+}
+
+.logo-alt {
+	font-size: 2.5rem;
+	font-weight: 700;
+	text-transform: uppercase;
+	line-height: normal;
+	position: absolute;
+	transform: translateX(-50%);
+	top: 30px;
+	left: 50%;
+}
+/*-----------------------------------------------------
+# Navigation
+------------------------------------------------------*/
+
+/* =============== = main-navigation =============== */
+
+.navigation {
+	float: right;
+}
+
+.navigation li {
+	list-style: none;
+	float: left;
+	margin-left: 50px;
+}
+
+.navigation li a {
+	font-size: .75rem;
+	text-transform: uppercase;
+	letter-spacing: 2.5px;
+}
+
+.navigation .sub-nav {
+	box-shadow: 0 5px 10px rgba(0,0,0,.1);
+	display: none;
+	line-height: 30px;
+	min-width: 200px;
+	padding-top: 5px;
+	position: absolute;
+	transition: all 1s ease-in-out;
+	text-align: left;
+	top: 100px;
+	z-index: 999;
+}
+
+.navigation .sub-nav li {
+	position: relative;
+}
+
+.navigation .sub-nav .sub-nav {
+	left: 100%;
+	top: 0;
+}
+
+.navigation li:hover > .sub-nav {
+	display: block;
+}
+
+ .navigation .sub-nav li {
+	float: none;
+	margin-left: 0;
+	border-bottom: 1px solid #eee;
+}
+
+.navigation .sub-nav li a {
+	display: inline-block;
+	font-size: .65rem;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	padding: 7px 25px;
+}
+
+.open-nav {
+	display: none;
+	position: absolute;
+	transform: translateY(-50%);
+	top: 50%;
+	right: 0;
+	height: 22px;
+	width: 28px;
+	z-index: 1;
+}
+
+.open-nav:hover {
+	cursor: pointer;
+}
+
+.open-nav i {
+	position: absolute;
+	top: 50%;
+	right: 0;
+	height: 2px;
+	width: 100%;
+	transition: all .3s ease-in-out;
+}
+
+.open-nav i:before {
+	position: absolute;
+	top: -9px;
+	content: " ";
+	height: 2px;
+	width: 100%;
+	transition: all .3s ease-in-out;
+}
+
+.open-nav i:after {
+	position: absolute;
+	top: 9px;
+	content: " ";
+	height: 2px;
+	width: 100%;
+	transition: all .3s ease-in-out;
+}
+
+.open-nav:hover i:before,
+.open-nav:hover i:after {
+	width: 80%;
+}
+
+/* =============== = aside-navigation =============== */
+
+.aside-nav-container {
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -100%;
+	padding: 36px 0 0 50px;
+	height: 100vh;
+	width: 450px;
+	z-index: 5;
+	transition: left .6s;
+}
+
+.aside-nav-container.active {
+	left: 0;
+}
+
+.close-nav {
+	font-size: 1.5rem;
+	position: absolute;
+	top: 50px;
+	right: 40px;
+}
+
+.aside-nav {
+	position: absolute;
+	transform: translateY(-50%);
+	top: 50%;
+	left: 46px;
+	list-style: none;
+}
+
+.aside-nav li {
+	margin-bottom: 10px;
+}
+
+.aside-nav li a {
+	font-size: 2.25rem;
+	font-weight: 900;
+	letter-spacing: .3px;
+	text-transform: capitalize;
+}
+
+/*-----------------------------------------------------
+# Hero
+------------------------------------------------------
+
+/* =============== = hero-agency =============== */
+
+.hero {
+	background: url('..//img/image-placeholder_01.png');
+	-webkit-background-size: cover;
+	background-size: cover;
+	background-position: center;
+	position: relative;
+	text-align: center;
+	height: 800px;
+	width: 100%;
+}
+
+.hero .content {
+	position: absolute;
+	transform: translate(-50%, -50%);
+	top: 50%;
+	left: 50%;
+	width: 100%;
+}
+
+.hero h1 {
+	font-size: 9.375rem;
+	text-transform: uppercase;
+	letter-spacing: 25px;
+}
+
+.hero h2 {
+	font-size: .875rem;
+	font-weight: 400;
+	letter-spacing: 3.5px;
+	line-height: 2.5;
+	text-transform: uppercase;
+	margin-top: 10px;
+}
+
+/* =============== = hero-personal =============== */
+
+.hero-personal {
+	text-align: center;
+	margin: 70px 0 120px;
+}
+
+.personal-decorative-letter {
+	font-size: 3.75rem;
+	font-weight: 900;
+	text-transform: uppercase;
+}
+
+.hero-personal h1 {
+	font-size: 2.25rem;
+	font-weight: 400;
+	line-height: 1.8;
+	margin: 20px auto 40px auto;
+	width: 65%;
+}
+
+/* =============== = hero-split-screen =============== */
+
+.aside-header {
+	border-right: 1px solid #ddd;
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 100vh;
+	width: 80px;
+	z-index: 2;
+}
+
+.aside-header .open-nav {
+	display: block;
+	position: absolute;
+	transform: translate(-50%, -50%);
+	top: 50%;
+	left: 50%;
+}
+
+.social-links-alt {
+	font-size: .9rem;
+	line-height: 35px;
+	position: absolute;
+	transform: translateX(-50%);
+	left: 50%;
+	bottom: 30px;
+}
+
+.social-links-alt li {
+	list-style: none;
+}
+
+.split-screen {
+	position: absolute;
+	top: 0;
+	right: 0;
+	left: 100px;
+	bottom: 0;
+	height: 100vh;
+}
+
+.portfolio-links {
+	float: left;
+	position: relative;
+	height: 100%;
+	width: 50%;
+}
+
+.portfolio-links ul {
+	position: absolute;
+	transform: translateY(-50%);
+	top: 50%;
+	left: 20%;
+}
+
+.portfolio-links li {
+	font-size: 1.9rem;
+	list-style: none;
+	margin-bottom: 23px;
+	line-height: 35px;
+}
+
+.portfolio-links li:last-child {
+	margin-bottom: 0;
+}
+
+.portfolio-links li a {
+	text-transform: capitalize;
+	font-weight: 700;
+	transition: all .3s;
+}
+
+.portfolio-links span {
+	display: block;
+	font-size: .75rem;
+	text-transform: uppercase;
+	letter-spacing: 3px;
+}
+
+.portfolio-previews {
+	position: relative;
+	float: right;
+	height: 100%;
+	width: 50%;
+}
+
+.portfolio-previews > div {
+	transition: opacity .6s;
+}
+
+.preview-item {
+	opacity: 0;
+	position: absolute;
+	top: 0;
+	right: 0;
+	height: 100%;
+	width: 100%;
+}
+ .active {
+	opacity: 1;
+}
+
+/*-----------------------------------------------------
+# About
+------------------------------------------------------*/
+
+/* =============== = agency-about =============== */
+
+.agency-about h2 {
+	font-size: 2.25rem;
+	font-weight: 400;
+	line-height: 1.8;
+	letter-spacing: .4px;
+	text-align: center;
+	margin: 120px auto 130px auto;
+	width: 670px;
+}
+
+/* =============== = about-us-page  =============== */
+
+.about-us section {
+	margin-bottom: 110px;
+}
+
+.about-us .intro {
+	margin-top: 70px;
+	margin-bottom: 125px;
+}
+
+.clients {
+	margin-top: -20px;
+}
+
+.about-us .contact-about {
+	margin-bottom: 150px;
+}
+
+.about-us h1 {
+	font-size: 3.75rem;
+	line-height: 1.3;
+	letter-spacing: -1px;
+	text-align: center;
+	margin: 0 auto 40px auto;
+	width: 80%;
+}
+
+.about-us .img-container {
+	background: url('../img/image-placeholder_01.png');
+	-webkit-background-size: cover;
+	background-size: cover;
+	background-position: center;
+	height: 600px;
+}
+.about-us .section-name {
+	float: left;
+	font-size: .75rem;
+	letter-spacing: 3px;
+	text-transform: uppercase;
+	padding-top: 21px;
+	width: 30%;
+}
+
+.about-us .content {
+	float: left;
+	width: 57%;
+}
+
+.about-us .content h2 {
+	font-size: 3.2rem;
+	line-height: 1.3;
+	margin-bottom: 30px;
+}
+
+.about-us .content p,
+.about-me .content p,
+.contact-me p {
+	font-size: 1.125rem;
+	line-height: 2.1;
+	letter-spacing: .2px;
+}
+ 
+.services-lists div,
+.clients-lists ul,
+.my-services ul {
+	float: left;
+	margin-top: 20px;
+}
+
+.services-lists div {
+	margin-top: 40px;
+}
+
+.services-lists div:nth-of-type(2),
+.clients-lists ul:nth-of-type(2){
+	padding: 0 75px;
+}
+
+.services-lists h3 {
+	font-size: 1.7rem;
+	text-transform: capitalize;
+	margin: -10px 0 15px 0;
+}
+
+.services-lists li,
+.clients-lists li,
+.my-services li {
+	font-size: 1rem;
+	margin-bottom: 12px;
+	list-style: none;
+	letter-spacing: .5px;
+	text-transform: capitalize;
+}
+
+.services-lists span {
+	text-transform: uppercase;
+}
+
+.members {
+	margin-top: 45px;
+}
+
+.members div {
+	position: relative;
+	float: left;
+	cursor: pointer;
+	margin-bottom: 35px;
+	height: 200px;
+	width: 30%;
+}
+
+.members div:nth-of-type(2),
+.members div:nth-of-type(5) {
+	margin: 0 5%;
+}
+
+.members div .team-member-overlay {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	transition: all .3s linear;
+	opacity: 0;
+}
+
+.members div:hover .team-member-overlay {
+	opacity: 1;
+}
+
+.team-member-overlay .content {
+	position: absolute;
+	transform: translate(-50%, -50%);
+	top: 50%;
+	left: 50%;
+	height: auto;
+	width: 100%;
+	text-align: center;
+}
+
+.team-member-overlay h3 {
+	text-transform: capitalize;
+	font-size: 1.35rem;
+	letter-spacing: .4px;
+	margin-bottom: 7px;
+}
+
+.team-member-overlay h4 {
+	text-transform: uppercase;
+	font-size: .65rem;
+	letter-spacing: 1.5px;
+}
+
+.clients-lists {
+	margin-top: -12px;
+}
+
+.contact-about p {
+	padding-bottom: 15px;
+}
+
+/* =============== = about-me-page  =============== */
+
+.about-me .info .img-container {
+	float: left;
+	margin-right: 5%;
+	height: 500px;
+	width: 47.5%;
+}
+
+.about-me .info .content,
+.about-me .my-services .content {
+	position: relative;
+	float: right;
+	height: 500px;
+	width: 47.5%;
+}
+
+.wrapper {
+	position: absolute;
+	transform: translateY(-50%);
+	top: 50%;
+	left: 0;
+}
+
+.about-me .section-name {
+	font-size: .75rem;
+	letter-spacing: 3px;
+	text-transform: uppercase;
+}
+
+.about-me h1,
+.about-me h2 {
+	font-size: 2.5rem;
+	line-height: 1.4;
+	margin: 20px 0 21px 0;
+}
+
+.about-me p {
+	padding-bottom: 35px;
+}
+
+.about-me .my-services {
+	margin: 150px 0;
+}
+
+.about-me .my-services .img-container {
+	float: right;
+	margin-left: 5%;
+	height: 500px;
+	width: 47.5%;
+}
+
+.about-me .my-services .content {
+	float: left;
+}
+
+.my-services h2 {
+	margin-bottom: 5px;
+}
+
+.my-services ul:nth-of-type(1) {
+	margin-right: 100px;
+}
+
+/*-----------------------------------------------------
+# Portfolio
+------------------------------------------------------*/
+
+.portfolio-item {
+	position: relative;
+	height: 600px;
+}
+
+.portfolio-item-overlay {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	transition: all .3s linear;
+}
+
+.portfolio-item-info {
+	margin: 50px 0 0 50px;
+}
+
+.portfolio-item-category {
+	font-size: .75rem;
+	letter-spacing: 2.5px;
+	text-transform: uppercase;
+	transition: all .3s linear;
+}
+
+.portfolio-item-title {
+	font-size: 2rem;
+	letter-spacing: .5px;
+	text-transform: capitalize;
+	transition: all .3s linear;
+	margin-top: 3px;
+}
+
+
+/* =============== = metro =============== */
+
+.portfolio-metro a:nth-of-type(odd) .portfolio-item {
+	float: left;
+}
+.portfolio-metro a:nth-of-type(even) .portfolio-item {
+	float: right;
+}
+
+.portfolio-metro a:nth-of-type(1) .portfolio-item {
+	margin-right:3%;
+	margin-bottom: 40px;
+	width: 57%;
+}
+
+.portfolio-metro a:nth-of-type(2) .portfolio-item {
+	width: 40%;
+}
+
+.portfolio-metro a:nth-of-type(3) .portfolio-item {
+	margin-right: 3%;
+	margin-bottom: 40px;
+	width: 35%;
+}
+
+.portfolio-metro a:nth-of-type(4) .portfolio-item {
+	width: 62%;
+}
+
+.portfolio-metro a:nth-of-type(5) .portfolio-item {
+	margin-right: 3%;
+	width: 48.5%;
+}
+
+.portfolio-metro a:nth-of-type(6) .portfolio-item {
+	width: 48.5%;
+}
+
+/* =============== = irregular-grid =============== */
+
+.irregular-grid {
+	margin-bottom: 120px;
+}
+
+.irregular-grid .portfolio-item {
+	float: left;
+	margin-bottom: 100px;
+	width: 47%;
+}
+
+.irregular-grid a:nth-of-type(odd) .portfolio-item {
+	margin-right: 6%;
+}
+
+.irregular-grid a:nth-of-type(even) .portfolio-item {
+	margin-top: 80px;
+}
+
+
+.irregular-grid .portfolio-item-info {
+	margin: 30px 0 0 0;
+}
+
+.irregular-grid .portfolio-item-category {
+	font-size: .75rem;
+	font-weight: 400;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+}
+
+.irregular-grid .portfolio-item-title {
+	font-size: 1.8rem;
+	letter-spacing: .1px;
+	margin-top: 3px;
+}
+
+/* =============== = portfolio-2-columns =============== */
+
+.portfolio-2-columns .portfolio-item {
+	float: left;
+	width:50%;
+}
+
+/* =============== = portfolio-3-columns =============== */
+
+.portfolio-3-columns .portfolio-item {
+	float: left;
+	height: 400px;
+	width: 33.33%;
+}
+
+/* =============== = portfolio-4-columns =============== */
+
+.portfolio-4-columns .portfolio-item {
+	float: left;
+	height: 370px;
+	width: 25%;
+}
+
+/*-----------------------------------------------------
+# Portfolio Single Project
+------------------------------------------------------*/
+
+.hero-single-project-full {
+	background: url('../img/image-placeholder_01.png');
+	background-position: center;
+	-webkit-background-size: cover;
+	background-size: cover;
+	height: 100vh;
+	width: 100%;
+}
+
+.hero-project_02 {
+	background: url('../img/image-placeholder_01.png');
+	background-position: center;
+	-webkit-background-size: cover;
+	background-size: cover;
+}
+
+.single-project .content h2 {
+	font-size: .75rem;
+	letter-spacing: 3px;
+	margin-bottom: 20px;
+	text-transform: uppercase;
+}
+
+.single-project  p {
+	font-size: 1rem;
+	font-weight: 300;
+	line-height: 2.25rem;
+	letter-spacing: .2px;
+}
+
+.projects-nav {
+	padding: 90px 0 125px 0;
+}
+
+.projects-nav span {
+	font-size: .75rem;
+	font-weight: 700;
+	letter-spacing: 3px;
+	text-transform: uppercase;
+}
+
+.projects-nav h2 {
+	font-size: 2.25rem;
+	font-weight: 900;
+	letter-spacing: 2.7px;
+	margin-top: 10px;
+	text-transform: uppercase;
+}
+
+.prev-project {
+	float: left;
+	width: 50%;
+}
+
+.next-project {
+	float: right;
+	text-align: right;
+	width: 50%;
+}
+
+/* =============== = single-project_01 =============== */
+
+.project_01 .overview,
+.typography,
+.color-scheme {
+	margin: 145px 0 140px 0;
+}
+
+.overview header {
+	float: left;
+	width: 50%;
+}
+
+.overview .content {
+	float: right;
+	width: 50%;
+}
+
+.overview .project-title {
+	font-size: 2.5rem;
+	text-transform: capitalize;
+	letter-spacing: -.7px;
+	margin: -11px 0 5px 0;
+}
+
+.overview .project-services {
+	font-size: .75rem;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+}
+
+.typography .examples {
+	float: left;
+	margin-top: -30px;
+	width: 50%;
+}
+
+.typography .content {
+	float: right;
+	width: 50%;
+}
+
+.headlines {
+	position: relative;
+}
+
+.letters {
+	float: left;
+	font-size: 6.25rem;
+	font-weight: 900;
+	line-height: 1;
+	text-transform: capitalize;
+	position: relative;
+}
+
+.font-name {
+	font-size: .75rem;
+	font-weight: 700;
+	letter-spacing: 3px;
+	position: absolute;
+	top: 47px;
+	left: 0;
+	text-transform: uppercase;
+}
+
+.headlines h3,
+.body-text h3 {
+	font-size: 2rem;
+	font-weight: 900;
+	position: absolute;
+	text-transform: capitalize;
+	top: 50px;
+	left: 170px;
+}
+
+.body-text {
+	margin-top: 15px;
+	position: relative;
+}
+
+.body-text h3 {
+	font-weight: 400;
+}
+
+.body-text .letters {
+	font-weight: 300;
+}
+
+.swatches {
+	float: left;
+	margin-top: 5px;
+	width: 50%;
+}
+
+.color-scheme .content {
+	float: right;
+	width: 50%;
+}
+
+.swatches .item {
+	float: left;
+	margin-right: 25px;
+}
+
+.swatch {
+	height: 120px;
+	width: 120px;
+}
+
+.swatches .item:nth-of-type(1) .swatch {
+	background: #dde1e2;
+}
+
+.swatches .item:nth-of-type(2) .swatch {
+	background: #ad9978;
+}
+
+.swatches .item:nth-of-type(3) .swatch {
+	background: #5b77b6;
+}
+
+.swatches .item span {
+	display: block;
+	font-size: .75rem;
+	font-weight: 900;
+	letter-spacing: 1px;
+	margin-top: 10px;
+	text-transform: uppercase;
+}
+
+.responsive-design {
+	margin-top: 150px;
+	padding: 100px 0;
+	width: 100%;
+}
+
+.responsive-design .container {
+	display:flex;
+	justify-content:flex-end;
+	align-items:center;
+}
+
+.responsive-design img {
+	margin-right: 100px;
+}
+
+.responsive-design .content {
+	width: 50%;
+}
+
+/* =============== = single-project_02 =============== */
+
+.project_02 .overview {
+	margin: 0;
+	padding: 145px 0 135px 0;
+}
+
+.project_02 header {
+	margin-top: -5px;
+}
+
+.project_02 .project-title {
+	font-size: 2.25rem;
+	font-weight: 900;
+	letter-spacing: 2.7px;
+	margin-top: 10px;
+	text-transform: uppercase;
+}
+
+.project_02 .project-details {
+	margin-top: 150px;
+}
+
+.project_02 .project-details > div {
+	position: relative;
+	margin-bottom: 100px;
+	width: 100%;
+}
+
+.project_02 .project-details > div:last-child {
+	margin-bottom: 0;
+}
+
+.project_02 .project-details .img-container {
+	float: right;
+	height: 550px;
+	margin-left: 4%;
+	width: 48%;
+}
+
+.project_02 .project-details > div:nth-of-type(2) .img-container {
+	float: left;
+	margin-right: 4%;
+	margin-left: 0;
+}
+
+.project_02 .project-details > div .content {
+	position: absolute;
+	transform: translateY(-50%);
+	top: 50%;
+	left: 0;
+	width: 48%;
+}
+
+.project_02 .project-details > div:nth-of-type(2) .content {
+	right: 0;
+	left: 52%;
+}
+
+/* =============== = single-project_03 =============== */
+
+.project_03 {
+	position: relative;
+}
+
+.project_03 .overview {
+	float: right;
+	padding: 105px 0;
+	position: sticky;
+	top: 30px;
+	width: 48%;
+	overflow: hidden;
+}
+
+.project_03 section:nth-of-type(2) {
+	float: left;
+	margin-right: 4%;
+	width: 48%;
+}
+
+.project_03 .overview h1 {
+	font-size: 3.7rem;
+	line-height: 1.2;
+	margin-bottom: 30px;
+	text-transform: capitalize;
+}
+
+.overview-details {
+	font-size: .75rem;
+	font-weight: 300;
+	letter-spacing: 2px;
+	margin-top: 40px;
+	text-transform: uppercase;
+}
+
+.overview-details div {
+	margin-bottom: 15px;
+}
+
+.overview-details span {
+	font-weight: 700;
+}
+
+.project_03 .img-container {
+	height: 600px;
+	margin-bottom: 50px;
+	width: 100%;
+}
+
+.project_03 .img-container:nth-of-type(3) {
+	margin-bottom: 0;
+}
+
+/* =============== = single-project_04 =============== */
+
+.project_04 h1,
+.project_06 h1 {
+	font-size: 3.7rem;
+	line-height: 1.2;
+	margin: 70px 0 45px 0;
+	text-align: center;
+	text-transform: capitalize;
+}
+
+.project_04 .img-container,
+.project_06 .img-container {
+	height: 600px;
+	width: 100%;
+}
+
+.project_04 .img-container:nth-of-type(3),
+.project_04 .img-container:nth-of-type(4) {
+	float: left;
+	width: 48%;
+}
+
+.project_04 .img-container:nth-of-type(3) {
+	margin-right: 4%;
+}
+
+.project_04 .overview,
+.project_06 .overview {
+	margin: 145px 0 135px 0;
+}
+
+.project_04 .overview-details,
+.project_06 .overview-details {
+	float: left;
+	margin-top: 0;
+	width: 50%;
+}
+
+.project_04 .project-details  {
+	margin: 145px 0 140px 80px;
+	width: 70%;
+}
+
+/* =============== = single-project_05 =============== */
+
+.project_05 .overview {
+	margin: 90px 0 70px 0;
+}
+
+.project_05 .overview header {
+	float: none;
+	width: 100%;
+}
+
+.project_05 .project-services {
+	font-size: .75rem;
+	font-weight: 700;
+	letter-spacing: 3px;
+	text-transform: uppercase;
+}
+
+.project_05 .project-title {
+	font-size: 4.5rem;
+	letter-spacing: -1px;
+	margin: 10px 0 20px 0;
+}
+
+.project_05 .overview p {
+	font-size: 1.2rem;
+	margin-bottom: 40px;
+	width: 60%;
+}
+
+.project_05 .read-more-link i {
+	padding-left: 10px;
+}
+
+.project_05 .intro {
+	font-size: 1.5rem;
+	line-height: 1.8;
+	margin: 130px 0 135px 0;
+	width: 75%;
+}
+
+.project_05 .project-details {
+	margin: 145px 0 135px 0;
+	width: 70%;
+}
+
+.project_05 .color-block {
+	padding: 130px 0 135px 0;
+}
+
+.project_05 .color-block p {
+	font-size: 1.5rem;
+	line-height: 1.8;
+	width: 75%;
+}
+
+.detailed-info {
+	padding: 115px 0 75px 0;
+}
+
+.detailed-info ul {
+	float: left;
+	list-style: none;
+	margin-right: 170px;
+}
+
+.detailed-info li {
+	font-size: 1.125rem;
+	letter-spacing: .3px;
+	margin-bottom: 40px;
+	text-transform: capitalize;
+}
+
+.detailed-info span {
+	display: block;
+	font-size: .75rem;
+	font-weight: 700;
+	letter-spacing: 2.5px;
+	margin-bottom: 12px;
+	text-transform: uppercase;
+}
+
+
+/* =============== = single-project_06 =============== */
+
+
+.project_06 .img-container:nth-of-type(2),
+.project_06 .img-container:nth-of-type(3) {
+	float: left;
+	height: 600px;
+	width: 48%;
+}
+
+.project_06 .img-container:nth-of-type(2) {
+	margin-right: 4%;
+	margin-bottom: 50px;
+}
+
+/*-----------------------------------------------------
+# Services
+------------------------------------------------------*/
+
+/* =============== = services-agency =============== */
+
+.services-agency{
+	margin: 145px 0;
+}
+
+.services-agency h2,
+.clients-agency h2,
+.blog-agency h2 {
+	font-size: .75rem;
+	letter-spacing: 3px;
+	text-transform: uppercase;
+	padding-left: 100px;
+	position: relative;
+	margin-bottom: 50px;
+}
+
+.services-agency h2:before,
+.clients-agency h2:before,
+.blog-agency h2:before {
+	position: absolute;
+	content: "";
+	top: 8px;
+	left: 0;
+	height: 1px;
+	width: 70px;
+}
+
+.services-agency-item {
+	border: 1px solid #ddd;
+	float: left;
+	position: relative;
+	text-align: center;
+	margin-left: -1px;
+	margin-bottom: -1px;
+	height: 300px;
+	width: 25%;
+	transition: all .3s linear;
+}
+
+.services-agency-item .content {
+	position: absolute;
+	transform: translate(-50%, -50%);
+	top: 50%;
+	left: 50%;
+	width: 84%;
+}
+
+.services-agency-item i {
+	font-size: 2.5rem;
+	transition: all .3s linear;
+}
+
+.services-agency-item h3 {
+	font-size: 1.25rem;
+	text-transform: capitalize;
+	letter-spacing: .7px;
+	margin: 13px 0;
+	transition: all .3s linear;
+}
+
+.services-agency-item  p {
+	font-size: .875rem;
+	line-height: 1.9;
+	transition: all .3s linear;
+}
+
+/*-----------------------------------------------------
+# Clients
+------------------------------------------------------*/
+
+/* =============== = clients-agency =============== */
+
+.clients-agency {
+	margin-bottom: 150px;
+}
+
+.clients-agency-item {
+	border: 1px solid #ddd;
+	float: left;
+	position: relative;
+	height: 200px;
+	width: 16.66%;
+	margin-left: -1px;
+	margin-bottom: -1px;
+}
+
+.clients-agency-item img {
+	position: absolute;
+	transform: translate(-50%, -50%);
+	top: 50%;
+	left: 50%;
+	width: 43%;
+}
+
+/*-----------------------------------------------------
+# Blog
+------------------------------------------------------*/
+
+/* =============== = blog-agency =============== */
+
+.blog-agency {
+	padding: 100px 0;
+	width: 100%;
+}
+
+.blog-agency-item {
+	float: left;
+	position: relative;
+	height: 370px;
+	width: 31.33%;
+}
+
+.blog-agency-item:nth-of-type(2) {
+	margin: 0 3%;
+}
+
+.blog-agency-item .header {
+	padding: 0 25px 30px 40px;
+	position: absolute;
+	transform: translateY(-50%);
+	top: 50%;
+}
+
+.cat-links {
+	font-size: .75rem;
+	font-weight: 700;
+	letter-spacing: 3px;
+	text-transform: uppercase;
+}
+
+.blog-agency-item .entry-title {
+	font-size: 1.25rem;
+	font-weight: 900;
+	letter-spacing: 1px;
+	line-height: 1.9;
+	text-transform: uppercase;
+	margin-top: 15px;
+}
+
+.blog-agency-item .footer {
+	border-top: 1px solid #ddd ;
+	bottom: 0;
+	padding: 23px 40px;
+	position: absolute;
+	width: 100%;
+}
+
+.author {
+	font-size: .7rem;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+}
+
+.decor {
+	position: absolute;
+	top: 0;
+	left: 40px;
+	height: 25px;
+	width: 3px;
+}
+
+/* =============== = blog-page =============== */
+
+.blog-item {
+	border-top: 1px solid #ddd;
+	position: relative;
+	height: 400px;
+	height: 400px;
+	width: 100%;
+}
+
+.blog-item:nth-of-type(10) {
+	border-bottom: 1px solid #ddd;
+}
+
+.blog-item:before {
+	content:'';
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    z-index:2;
+    transition: all .3s linear;
+}
+
+.blog-item img {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	right: 0;
+	z-index: 1;
+	transition: all .3s linear;
+	opacity: 0;
+}
+
+.blog-item:hover img {
+	opacity: 1;
+}
+
+.blog-item .content {
+	position: relative;
+	height: 400px;
+	width: 100%;
+}
+
+.blog-item .content .wrapper {
+	position: absolute;
+	transform: translateY(-50%);
+	top: 50%;
+	left: 0;
+	z-index: 3;
+}
+
+.blog-item a {
+	transition: none;
+}
+
+.blog-item .entry-title {
+	font-size: 2.25rem;
+	line-height: 1.4;
+	text-transform: capitalize;
+	margin: 15px 0 18px 0;
+	width: 75%;
+}
+
+.blog-item .entry-title a:hover {
+	border-bottom: 2px solid #fff;
+	transition: all .1s linear;
+}
+
+.blog-item p {
+	font-size: 1rem;
+	line-height: 1.875;
+	letter-spacing: .3px;
+	margin-bottom: 25px;
+	width: 60%;
+}
+
+.entry-meta {
+	font-size: .6875rem;
+	font-weight: 700;
+	letter-spacing: 1px;
+}
+
+/* =============== = blog-post =============== */
+
+.post {
+	margin-top: 90px;
+	position: relative;
+}
+
+.entry-content,
+.entry-footer,
+.related-posts,
+.comments,
+.leave-comment {
+	float: left;
+	margin-right: 5%;
+	width: 65%;
+}
+
+.widget-area {
+	position: absolute;
+	top: 912px;
+	right: 0;
+	width: 30%;
+}
+
+.entry-header {
+	text-align: center;
+}
+
+.entry-header .entry-title {
+	font-size: 2.25rem;
+	line-height: 1.5;
+	text-transform: capitalize;
+	margin: 18px auto 20px auto;
+	width: 60%;
+}
+
+.entry-thumbnail {
+	margin: 45px 0 65px 0;
+	height: 600px;
+	width: 100%;
+}
+
+.entry-content p {
+	font-size: 1rem;
+	font-weight: 400;
+	line-height: 2;
+	letter-spacing: .4px;
+	margin-bottom: 30px;
+	overflow: hidden;
+}
+
+.img-left {
+	float: left;
+	margin-right: 30px;
+	height: 290px;
+	width: 290px;
+}
+
+.img-right {
+	float: right;
+	margin-left: 30px;
+	height: 290px;
+	width: 290px;
+}
+
+.img-center {
+	text-align: center;
+	margin: 40px auto 70px auto;
+	height: 400px;
+	width: 100%;
+}
+
+.img-center img {
+	margin-bottom: 15px;
+}
+
+.img-center figcaption {
+	font-size: .9rem;
+	letter-spacing: .4px;
+}
+
+.entry-content blockquote {
+	border-left: 5px solid #c23;
+	margin: 45px 0;
+	padding: 40px 30px 30px 35px;
+}
+
+.entry-content blockquote p {
+	font-size: 1.1rem;
+	font-weight: 400;
+	line-height: 2;
+	letter-spacing: .5px;
+}
+
+.cite {
+	position: relative;
+	display: block;
+	font-style: italic;
+	font-weight: 700;
+	letter-spacing: .5px;
+	margin-top: -5px;
+	padding-left: 50px;
+}
+
+.cite:before {
+	position: absolute;
+	content: "";
+	top: 13px;
+	left: 0;
+	height: 1px;
+	width: 30px;
+}
+
+.tag-links {
+	float: left;
+	margin-top: 15px;
+}
+
+.tag-links span {
+	display: inline-block;
+	font-size: .75rem;
+	font-weight: 700;
+	line-height: 50px;
+	letter-spacing: 3px;
+	text-align: center;
+	text-transform: uppercase;
+	margin-right: 25px;
+	height: 50px;
+	width: 170px;
+}
+
+.tag-links a {
+	font-size: 1rem;
+	text-transform: capitalize;
+	letter-spacing: .7px;
+}
+
+.share-links {
+	float: right;
+	margin-top: 15px;
+}
+
+.share-links li {
+	list-style: none;
+	display: inline-block;
+	margin-left: 10px;
+}
+
+.share-links a {
+	display: block;
+	line-height: 50px;
+	text-align: center;
+	transition: all .2s linear;
+	height: 50px;
+	width:50px;
+}
+
+.share-links a:hover {
+	cursor: pointer;
+}
+
+.related-posts {
+	margin: 90px 0;
+}
+
+.related-posts span {
+	font-size: .75rem;
+	font-weight: 900;
+	letter-spacing: 3px;
+	text-transform: uppercase;
+}
+
+.related-posts h2 {
+	font-size: 1.125rem;
+	line-height: 1.7;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	margin-top: 20px;
+}
+
+.prev-post,
+.next-post {
+	float: left;
+	width: 50%;
+}
+
+.next-post {
+	text-align: right;
+}
+
+.comments h2,
+.leave-comment h2 {
+	font-size: .75rem;
+	height: 50px;
+	line-height: 50px;
+	letter-spacing: 3px;
+	text-align: center;
+	text-transform: uppercase;
+	width: 100%;
+}
+
+.comments .items-container {
+	margin-top: 70px;
+}
+
+.comment-item {
+	border-bottom: 1px solid #ddd;
+	position: relative;
+	margin-bottom: 70px;
+	padding-bottom: 70px;
+}
+
+.comment-item:last-child {
+	border: none;
+	margin-bottom: 0;
+	padding-bottom: 0;
+}
+
+.comment-reply {
+	margin-left: 70px;
+}
+
+.user-image {
+	border-radius: 50%;
+	float: left;
+	height: 150px;
+	margin-right: 40px;
+	width: 150px;
+}
+
+.user-image img {
+	border-radius: 50%;
+}
+
+.user-name {
+	font-size: 1.125rem;
+	text-transform: capitalize;
+	margin-bottom: 2px;
+}
+
+.posting-date {
+	font-size: .875rem;
+	letter-spacing: .5px;
+}
+
+.reply-link {
+	font-size: .75rem;
+	font-weight: 700;
+	letter-spacing: 3px;
+	position: absolute;
+	top: 0;
+	right: 0;
+	text-transform: uppercase;
+}
+
+.comment-item p {
+	font-size: 1rem;
+	line-height: 1.9;
+	margin-top: 15px;
+	overflow: hidden;
+}
+
+.leave-comment {
+	margin: 100px 0 150px 0;
+}
+
+.leave-comment h2 {
+	margin-bottom: 50px;
+}
+
+.widget {
+	margin-bottom: 35px;
+}
+
+.widget-title {
+	font-size: .75rem;
+	font-weight: 900;
+	letter-spacing: 2.5px;
+	margin-bottom: 25px;
+	text-transform: uppercase;
+	position: relative;
+}
+
+.search-form {
+	height: 50px;
+	position: relative;
+	width: 100%;
+}
+
+.search-form input {
+	border: 1px solid #ccc;
+	height: 100%;
+	outline: none;
+	padding-left: 15px;
+	width: 100%;
+}
+
+.search-form input:focus {
+	border: 1px solid #aaa;
+}
+
+.search-form input::placeholder {
+	font-size: .75rem;
+	letter-spacing: .8px;
+}
+
+.search-form input[type="search"]::-webkit-search-cancel-button {
+ -webkit-appearance: none
+}
+
+.search-form span {
+	position: absolute;
+	top: 18px;
+	right: 25px;
+}
+
+.recent-post-item {
+	margin-bottom: 40px;
+}
+
+.recent-post-item .img-container {
+	float: left;
+	height: 80px;
+	margin-right: 20px;
+	width: 100px;
+}
+
+.recent-post-item .cat-links {
+	font-size: .625rem;
+	letter-spacing: 2px;
+}
+
+.recent-post-item .entry-title {
+	font-size: .875rem;
+	letter-spacing: .2px;
+	margin-top: 3px;
+	overflow: auto;
+	text-transform: capitalize;
+}
+
+.widget_categories {
+	margin-top: 45px;
+}
+
+.widget_categories ul li {
+	border-bottom: 1px solid #ddd;
+	list-style: none;
+	padding: 10px 0;
+}
+
+.widget_categories ul {
+	margin-top: -25px;
+}
+
+.widget_categories ul li:last-child {
+	border: none;
+}
+
+.widget_categories ul li a {
+	font-size: .875rem;
+	letter-spacing: .5px;
+	text-transform: capitalize;
+}
+
+/*-----------------------------------------------------
+# Contact
+------------------------------------------------------*/
+
+/* =============== = contact-agency =============== */
+
+.contact-agency {
+	padding: 200px 0;
+	text-align: center;
+}
+
+.contact-agency h2 {
+	font-size: 5rem;
+	font-weight: 900;
+}
+
+.contact-agency p {
+	font-size: 1.2rem;
+	line-height: 1.8;
+	margin: 8px auto 38px auto;
+	width:45%;
+}
+
+.contact-agency .btn-rounded {
+	margin: auto;
+}
+
+/* =============== = contact-page =============== */
+
+.contact h1 {
+	font-size: 3.375rem;
+	line-height: 1.3;
+	margin: 150px 0 40px 0;
+}
+
+.form-wrapper {
+	float: left;
+	margin-right: 6%;
+	margin-bottom: 150px;
+	width: 64%;
+}
+
+.contact .info {
+	float: right;
+	margin-top: 30px;
+	width: 30%;
+}
+
+.contact .info div {
+	margin-bottom: 25px;
+}
+
+.contact .info h3 {
+	font-size: .8rem;
+	font-weight: 900;
+	letter-spacing: 2.5px;
+	text-transform: uppercase;
+	margin-bottom: 5px;
+}
+
+.contact .info p {
+	letter-spacing: .3px;
+}
+
+/* =============== = contact-form =============== */
+
+.contact-form div.name,
+.contact-form div.email {
+	float: left;
+	width: 48%;
+}
+
+.contact-form div.name {
+	margin-right: 4%;
+}
+
+.contact-form label {
+	display: block;
+	font-size: 1rem;
+	letter-spacing: .5px;
+	text-transform: capitalize;
+	padding-bottom: 10px;
+}
+
+.name input,
+.email input {
+	border: 1px solid #ccc;
+	margin-bottom: 20px;
+	padding-left: 15px;
+	outline: none;
+	height: 45px;
+	width: 100%
+}
+.message textarea {
+	border: 1px solid #ccc;
+	padding: 15px;
+	outline: none;
+	height: 170px;
+	width: 100%;
+}
+
+.name input:focus,
+.email input:focus,
+.message textarea:focus {
+	border: 1px solid #999;
+}
+
+.contact-form input[type="submit"] {
+	border: none;
+	cursor: pointer;
+	float: right;
+	font-family: Lato;
+	transition: all .2s ease-in-out;
+	margin-top: 25px;
+}
+
+/* =============== = contact-me =============== */
+
+.contact-me {
+	padding: 100px 0;
+}
+
+.mail-link {
+	display: block;
+	margin: 20px 0;
+	font-size: 3rem;
+	font-weight: 700;
+	letter-spacing: -1px;
+}
+
+.contact-me p {
+	font-weight: 300;
+	letter-spacing: .4px;
+	padding-bottom: 0;
+	width: 45%;
+}
+/*-----------------------------------------------------
+# Footer
+------------------------------------------------------*/
+
+.main-footer {
+	text-align: center;
+	position: relative;
+	height: 300px;
+	width: 100%;
+}
+
+.main-footer .content {
+	position: absolute;
+	transform: translate(-50%, -50%);
+	top: 50%;
+	left: 50%;
+}
+
+.main-footer .social-icons li {
+	float: none;
+	font-size: 1.5rem;
+	display: inline-block;
+	padding: 0 20px;
+	margin: 0;
+}
+
+.main-footer .copyright-info {
+	font-size: 1rem;
+	font-weight: 300;
+	margin-top: 25px;
+	letter-spacing: 1px;
+	line-height: 2.1;
+}
+
+/* =============== = footer_02 =============== */
+
+.footer_02 {
+	border-top: 1px solid #ddd;
+	height: 100px;
+	line-height: 99px;
+}
+
+.footer-alt {
+	border: none;
+}
+
+.footer_02 .copyright-info {
+	float: left;
+}
+
+.footer_02 .social-icons {
+	float: right;
+}
+
+.copyright-info {
+	font-size: .95rem;
+	letter-spacing: .5px;
+	text-transform: capitalize;
+}
+
+.social-icons li {
+	font-size: .875rem;
+	float: left;
+	list-style: none;
+	margin-left: 35px;
+}
+
+.reversed {
+	border-top: 1px solid #222;
+	border-bottom: 1px solid #111;
+}

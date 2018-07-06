@@ -10,3 +10,30 @@
 .paragraph {
   color: #444;
 }
+
+.main-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  margin-top: 0;
+  width: 250px;
+  max-width: 75%;
+  line-height: 0;
+}
+
+.logo img {
+  width: 100%;
+}
+
+.open-nav {
+  position: relative;
+  top: unset;
+  transform: none;
+}
+
+.navigation li {
+  margin-left: 40px;
+}

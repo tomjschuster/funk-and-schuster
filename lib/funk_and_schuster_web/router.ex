@@ -19,8 +19,8 @@ defmodule FunkAndSchusterWeb.Router do
 
     get "/", PageController, :index
     get "/about", PageController, :about
-    get "/artwork", PageController, :artwork
-    get "/print-with-us", PageController, :print_with_us
+    get "/gallery", PageController, :gallery
+    get "/artists", PageController, :artists
     get "/contact", PageController, :contact
   end
 

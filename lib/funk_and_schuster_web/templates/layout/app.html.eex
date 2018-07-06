@@ -37,8 +37,8 @@
 
           <ul class="navigation">
             <li><a href="<%= page_path(@conn, :about) %>">About</a></li>
-            <li><a href="<%= page_path(@conn, :artwork) %>">Artwork</a></li>
-            <li><a href="<%= page_path(@conn, :print_with_us) %>">Print With Us</a></li>
+            <li><a href="<%= page_path(@conn, :gallery) %>">Gallery</a></li>
+            <li><a href="<%= page_path(@conn, :artists) %>">Artists</a></li>
             <li><a href="<%= page_path(@conn, :contact) %>">Contact</a></li>
           </ul> <!-- /.navigation -->
 
@@ -82,8 +82,8 @@
         <ul class="aside-nav">
           <li><a href="<%= page_path(@conn, :index) %>">Home</a></li>
           <li><a href="<%= page_path(@conn, :about) %>">About</a></li>
-          <li><a href="<%= page_path(@conn, :artwork) %>">Artwork</a></li>
-          <li><a href="<%= page_path(@conn, :print_with_us) %>">Print With Us</a></li>
+          <li><a href="<%= page_path(@conn, :gallery) %>">Gallery</a></li>
+          <li><a href="<%= page_path(@conn, :artists) %>">Artists</a></li>
           <li><a href="<%= page_path(@conn, :contact) %>">Contact</a></li>
         </ul> <!-- /.aside-nav -->
 

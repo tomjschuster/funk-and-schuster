@@ -3,7 +3,7 @@ defmodule FunkAndSchusterWeb.PageController do
 
   def index(conn, _params), do: render(conn, :index)
   def about(conn, _params), do: render(conn, :about)
-  def artwork(conn, _params), do: render(conn, :artwork)
-  def print_with_us(conn, _params), do: render(conn, :print_with_us)
+  def gallery(conn, _params), do: render(conn, :gallery)
+  def artists(conn, _params), do: render(conn, :artists)
   def contact(conn, _params), do: render(conn, :contact)
 end

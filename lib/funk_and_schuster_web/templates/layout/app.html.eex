@@ -24,7 +24,7 @@
   </head>
 
   <body>
-    <div class="container-large">
+    <div class="container-large <%= page_class(@conn) %>">
       <header class="main-header">
 
         <a href="<%= page_path(@conn, :index) %>" class="logo">

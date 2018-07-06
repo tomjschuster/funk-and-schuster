@@ -1,11 +1,5 @@
 <%= thesis_editor(@conn) %>
-<section class="hero">
-
-  <div class="content">
-    <h1>Photo</h1>
-  </div>
-
-</section>
+<section class="hero"></section>
 
 <main class="single-project project_01">
 

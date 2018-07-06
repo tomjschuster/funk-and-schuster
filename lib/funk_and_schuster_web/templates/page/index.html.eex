@@ -1,36 +1,28 @@
-<div class="jumbotron">
-  <h2><%= gettext "Welcome to %{name}!", name: "Phoenix" %></h2>
-  <p class="lead">A productive web framework that<br />does not compromise speed and maintainability.</p>
-</div>
+<section class="hero">
 
-<div class="row marketing">
-  <div class="col-lg-6">
-    <h4>Resources</h4>
-    <ul>
-      <li>
-        <a href="http://phoenixframework.org/docs/overview">Guides</a>
-      </li>
-      <li>
-        <a href="https://hexdocs.pm/phoenix">Docs</a>
-      </li>
-      <li>
-        <a href="https://github.com/phoenixframework/phoenix">Source</a>
-      </li>
-    </ul>
+  <div class="content">
+    <h1>Photo</h1>
   </div>
 
-  <div class="col-lg-6">
-    <h4>Help</h4>
-    <ul>
-      <li>
-        <a href="http://groups.google.com/group/phoenix-talk">Mailing list</a>
-      </li>
-      <li>
-        <a href="http://webchat.freenode.net/?channels=elixir-lang">#elixir-lang on freenode IRC</a>
-      </li>
-      <li>
-        <a href="https://twitter.com/elixirphoenix">@elixirphoenix</a>
-      </li>
-    </ul>
+</section>
+
+<main class="single-project project_01">
+
+  <div class="container">
+
+    <section class="overview">
+
+      <header>
+        <h1 class="project-title">egestas maecenas</h1>
+        <span class="project-services">metus aliquam eleifend mi</span>
+      </header>
+
+      <div class="content">
+        <h2>elit ut</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Viverra tellus in hac habitasse platea. Erat velit scelerisque in dictum non consectetur a erat nam. Nunc scelerisque viverra mauris in aliquam sem fringilla ut morbi. Mi in nulla posuere sollicitudin aliquam ultrices sagittis.</p>
+      </div>
+
+      <div class="clearfix"></div>
+    </section>
   </div>
-</div>
+</main>

@@ -3,33 +3,94 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
     <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="author" content="Tom Schuster">
 
-    <title>Hello FunkAndSchuster!</title>
-    <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+    <title>Funk and Schuster Fine Art Printing</title>
+    <!-- External CSS -->
+    <link rel="stylesheet" href="<%= static_path(@conn, "/moquin/css/themify-icons.css") %>">
+    <link rel="stylesheet" href="<%= static_path(@conn, "/moquin/css/fontawesome-all.min.css") %>">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="<%= static_path(@conn, "/moquin/css/main.css") %>">
+    <link rel="stylesheet" href="<%= static_path(@conn, "/moquin/css/colors.css") %>">
+    <link rel="stylesheet" href="<%= static_path(@conn, "/moquin/css/responsive.css") %>">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
   </head>
 
   <body>
-    <div class="container">
-      <header class="header">
-        <nav role="navigation">
-          <ul class="nav nav-pills pull-right">
-            <li><a href="http://www.phoenixframework.org/docs">Get Started</a></li>
+    <div class="container-large">
+      <header class="main-header">
+
+        <a href="index.html" class="logo">
+          <img src="<%= static_path(@conn, "/images/logo.png") %>" alt="moquin-logo">
+        </a>
+
+        <nav>
+
+          <a href="#" class="open-nav"><i></i></a>
+
+          <ul class="navigation">
+            <li><a href="#">About</a></li>
+            <li><a href="#">Artwork</a></li>
+            <li><a href="#">Print With Us</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul> <!-- /.navigation -->
+
+        </nav> <!-- /nav -->
+
+      </header> <!-- /header -->
+
+      <%= render @view_module, @view_template, assigns %>
+
+    </div> <!-- /.container-large -->
+
+    <div class="body-overlay"></div>
+
+      <footer class="main-footer">
+
+      <div class="content">
+
+        <div class="social-icons">
+          <ul>
+            <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+            <li><a href="#"><i class="fab fa-facebook"></i></a></li>
+            <li><a href="#"><i class="fab fa-pinterest"></i></a></li>
+            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
           </ul>
-        </nav>
-        <span class="logo"></span>
-      </header>
+        </div>
 
-      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+        <div class="copyright-info">
+          <p>copyright &#169; 2018 Funk and Schuster Fine Art Printing.<br> all rights reserved.</p>
+        </div>
 
-      <main role="main">
-        <%= render @view_module, @view_template, assigns %>
-      </main>
+      </div>
 
-    </div> <!-- /container -->
-    <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
+    </footer> <!-- /footer -->
+
+    <div class="aside-nav-container">
+
+      <a href="#" class="close-nav"><i class="ti-close"></i></a>
+
+      <nav>
+
+        <ul class="aside-nav">
+          <li><a href="#">About</a></li>
+          <li><a href="#">Artwork</a></li>
+          <li><a href="#">Print With Us</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul> <!-- /.aside-nav -->
+
+      </nav>
+
+    </div> <!-- /.aside-nav-container -->
+
+    <div class="body-overlay"></div>
+
+    <script src="<%= static_path(@conn, "/moquin/js/main.js") %>"></script>
+
   </body>
 </html>

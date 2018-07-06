@@ -39,7 +39,7 @@
             <%= content(@conn, "Address title", :text, do: "visit us") %>
           </h3>
           <span class="paragraph">
-            <%= content(@conn, "Address", :text, do: "207 Good Templar Pl, Provincetown, MA 02657") %>
+            <%= content(@conn, "Address", :text, do: "207 U.S. 6, Unit B, Provincetown, MA 02657") %>
           </p>
         </div>
 
@@ -48,7 +48,7 @@
             <%= content(@conn, "Phone title", :text, do: "call us") %>
           </h3>
           <span class="paragraph">
-            <%= content(@conn, "Phone", :text, do: "+ 1 555 555 5555") %>
+            <%= content(@conn, "Phone", :text, do: "+ 1 508 487 3318") %>
           </span>
         </div>
 

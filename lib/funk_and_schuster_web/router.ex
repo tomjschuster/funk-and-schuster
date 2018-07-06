@@ -14,9 +14,14 @@ defmodule FunkAndSchusterWeb.Router do
   end
 
   scope "/", FunkAndSchusterWeb do
-    pipe_through :browser # Use the default browser stack
+    # Use the default browser stack
+    pipe_through :browser
 
     get "/", PageController, :index
+    get "/about", PageController, :about
+    get "/artwork", PageController, :artwork
+    get "/print-with-us", PageController, :print_with_us
+    get "/contact", PageController, :contact
   end
 
   # Other scopes may use custom stacks.

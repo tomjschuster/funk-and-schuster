@@ -27,7 +27,7 @@
     <div class="container-large">
       <header class="main-header">
 
-        <a href="/" class="logo">
+        <a href="<%= page_path(@conn, :index) %>" class="logo">
           <img src="<%= static_path(@conn, "/images/logo.png") %>" alt="moquin-logo">
         </a>
 
@@ -36,10 +36,10 @@
           <a href="#" class="open-nav"><i></i></a>
 
           <ul class="navigation">
-            <li><a href="#">About</a></li>
-            <li><a href="#">Artwork</a></li>
-            <li><a href="#">Print With Us</a></li>
-            <li><a href="#">Contact</a></li>
+            <li><a href="<%= page_path(@conn, :about) %>">About</a></li>
+            <li><a href="<%= page_path(@conn, :artwork) %>">Artwork</a></li>
+            <li><a href="<%= page_path(@conn, :print_with_us) %>">Print With Us</a></li>
+            <li><a href="<%= page_path(@conn, :contact) %>">Contact</a></li>
           </ul> <!-- /.navigation -->
 
         </nav> <!-- /nav -->
@@ -80,10 +80,11 @@
       <nav>
 
         <ul class="aside-nav">
-          <li><a href="#">About</a></li>
-          <li><a href="#">Artwork</a></li>
-          <li><a href="#">Print With Us</a></li>
-          <li><a href="#">Contact</a></li>
+          <li><a href="<%= page_path(@conn, :index) %>">Home</a></li>
+          <li><a href="<%= page_path(@conn, :about) %>">About</a></li>
+          <li><a href="<%= page_path(@conn, :artwork) %>">Artwork</a></li>
+          <li><a href="<%= page_path(@conn, :print_with_us) %>">Print With Us</a></li>
+          <li><a href="<%= page_path(@conn, :contact) %>">Contact</a></li>
         </ul> <!-- /.aside-nav -->
 
       </nav>

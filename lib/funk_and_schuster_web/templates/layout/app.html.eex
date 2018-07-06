@@ -24,6 +24,7 @@
   </head>
 
   <body>
+    <%= thesis_editor(@conn) %>
     <div class="container-large <%= page_class(@conn) %>">
       <header class="main-header">
 
@@ -52,9 +53,15 @@
 
     <div class="body-overlay"></div>
 
-      <footer class="main-footer">
+      <footer class="footer_02 reversed">
 
-      <div class="content">
+      <div class="container">
+
+        <div class="copyright-info">
+          <span class="paragraph">
+            <%= content(@conn, "Copyright", :text, do: "copyright © 2018 Funk and Schuster Fine Art Printing.") %>
+          </span>
+        </div>
 
         <div class="social-icons">
           <ul>
@@ -65,9 +72,7 @@
           </ul>
         </div>
 
-        <div class="copyright-info">
-          <p>copyright &#169; 2018 Funk and Schuster Fine Art Printing.<br> all rights reserved.</p>
-        </div>
+        <div class="clearfix"></div>
 
       </div>
 

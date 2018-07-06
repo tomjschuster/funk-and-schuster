@@ -11,6 +11,11 @@
   color: #444;
 }
 
+.reversed .paragraph {
+  color: #ddd;
+}
+
+
 .main-header {
   display: flex;
   align-items: center;

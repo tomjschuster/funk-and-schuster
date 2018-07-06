@@ -1,4 +1,3 @@
-<%= thesis_editor(@conn) %>
 <main class="contact">
 
     <div class="container">

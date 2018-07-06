@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="<%= static_path(@conn, "/moquin/css/colors.css") %>">
     <link rel="stylesheet" href="<%= static_path(@conn, "/moquin/css/responsive.css") %>">
 
+
+    <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
   </head>
@@ -25,7 +27,7 @@
     <div class="container-large">
       <header class="main-header">
 
-        <a href="index.html" class="logo">
+        <a href="/" class="logo">
           <img src="<%= static_path(@conn, "/images/logo.png") %>" alt="moquin-logo">
         </a>
 

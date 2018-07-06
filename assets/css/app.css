@@ -1,1 +1,9 @@
-/* This file is for your main application css. */
+/* Custom Moquin */
+
+.single-project .paragraph {
+  color: #444;
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 2.25rem;
+  letter-spacing: .2px;
+}

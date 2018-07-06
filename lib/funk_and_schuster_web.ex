@@ -23,6 +23,8 @@ defmodule FunkAndSchusterWeb do
       import Plug.Conn
       import FunkAndSchusterWeb.Router.Helpers
       import FunkAndSchusterWeb.Gettext
+
+      use Thesis.Controller
     end
   end
 
@@ -40,6 +42,8 @@ defmodule FunkAndSchusterWeb do
       import FunkAndSchusterWeb.Router.Helpers
       import FunkAndSchusterWeb.ErrorHelpers
       import FunkAndSchusterWeb.Gettext
+
+      use Thesis.View
     end
   end
 
@@ -48,6 +52,8 @@ defmodule FunkAndSchusterWeb do
       use Phoenix.Router
       import Plug.Conn
       import Phoenix.Controller
+
+      use Thesis.Router
     end
   end
 

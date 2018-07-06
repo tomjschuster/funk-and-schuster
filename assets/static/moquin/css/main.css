@@ -12,7 +12,7 @@ Table of Contents
 	= hero-split-screen
 # About
 	= agency-about
-	= about-us-page 
+	= about-us-page
 	= about-me-page
 # Portfolio
 	= metro
@@ -563,7 +563,7 @@ a {
 	line-height: 2.1;
 	letter-spacing: .2px;
 }
- 
+
 .services-lists div,
 .clients-lists ul,
 .my-services ul {

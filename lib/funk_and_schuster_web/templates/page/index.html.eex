@@ -1,3 +1,4 @@
+<%= thesis_editor(@conn) %>
 <section class="hero">
 
   <div class="content">
@@ -13,13 +14,23 @@
     <section class="overview">
 
       <header>
-        <h1 class="project-title">egestas maecenas</h1>
-        <span class="project-services">metus aliquam eleifend mi</span>
+        <h1 class="project-title">
+          <%= content(@conn, "Title", :text, do: "egestas maecenas") %>
+        </h1>
+        <span class="project-services">
+          <%= content(@conn, "Subtitle", :text, do: "metus aliquam eleifend mi") %>
+        </span>
       </header>
 
       <div class="content">
-        <h2>elit ut</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Viverra tellus in hac habitasse platea. Erat velit scelerisque in dictum non consectetur a erat nam. Nunc scelerisque viverra mauris in aliquam sem fringilla ut morbi. Mi in nulla posuere sollicitudin aliquam ultrices sagittis.</p>
+        <h2>
+          <%= content(@conn, "Description header", :text, do: "elit ut") %>
+        </h2>
+        <span class="paragraph">
+          <%= content(@conn, "Description content", :text) do %>
+           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Viverra tellus in hac habitasse platea. Erat velit scelerisque in dictum non consectetur a erat nam. Nunc scelerisque viverra mauris in aliquam sem fringilla ut morbi. Mi in nulla posuere sollicitudin aliquam ultrices sagittis.
+          <% end %>
+        </span>
       </div>
 
       <div class="clearfix"></div>

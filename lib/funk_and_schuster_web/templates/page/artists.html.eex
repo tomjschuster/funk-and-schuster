@@ -1,0 +1,6 @@
+<div class="container about">
+<%= render FunkAndSchusterWeb.LayoutView, "header.html", assigns %>
+</div>
+
+<%= render FunkAndSchusterWeb.LayoutView, "footer.html", assigns %>
+<%= render FunkAndSchusterWeb.LayoutView, "aside-nav.html", assigns %>

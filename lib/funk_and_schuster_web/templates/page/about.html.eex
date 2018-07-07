@@ -1,0 +1,83 @@
+<div class="container about">
+  <%= render FunkAndSchusterWeb.LayoutView, "header.html", assigns %>
+
+  <main class="single-project project_02">
+
+    <section class="overview">
+
+      <div class="container">
+
+        <header>
+          <span class="project-services">art direction, photography</span>
+          <h1 class="project-title">life in motion</h1>
+        </header>
+
+        <div class="content">
+          <h2>project overview</h2>
+          <p>Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.</p>
+        </div>
+
+        <div class="clearfix"></div>
+
+      </div> <!-- /.container -->
+
+    </section> <!-- /.overview -->
+
+    <div class="container">
+
+      <section class="project-details">
+
+        <div>
+
+          <div class="img-container">
+            <img src="assets/img/image-placeholder_03.png" alt="" class="img-cover">
+          </div>
+
+          <div class="content">
+            <h2>project idea</h2>
+            <p>Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.</p>
+          </div>
+
+          <div class="clearfix"></div>
+
+        </div>
+
+        <div>
+
+          <div class="img-container">
+            <img src="assets/img/image-placeholder_03.png" alt="" class="img-cover">
+          </div>
+
+          <div class="content">
+            <h2>vibrant colors</h2>
+            <p>Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.</p>
+          </div>
+
+          <div class="clearfix"></div>
+
+        </div>
+
+        <div>
+
+          <div class="img-container">
+            <img src="assets/img/image-placeholder_03.png" alt="" class="img-cover">
+          </div>
+
+          <div class="content">
+            <h2>life in motion</h2>
+            <p>Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.</p>
+          </div>
+
+          <div class="clearfix"></div>
+
+        </div>
+
+      </section> <!-- /.project-details -->
+
+    </div> <!-- /.container -->
+
+  </main> <!-- /main -->
+<div>
+
+<%= render FunkAndSchusterWeb.LayoutView, "footer.html", assigns %>
+<%= render FunkAndSchusterWeb.LayoutView, "aside-nav.html", assigns %>

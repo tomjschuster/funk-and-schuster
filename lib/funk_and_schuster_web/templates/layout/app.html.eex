@@ -7,6 +7,16 @@
     <meta name="description" content="">
     <meta name="author" content="Tom Schuster">
 
+    <link rel="apple-touch-icon" sizes="180x180" href="<%= static_path(@conn, "/icons/apple-touch-icon.png") %>">
+    <link rel="icon" type="image/png" sizes="32x32" href="<%= static_path(@conn, "/icons/favicon-32x32.png") %>">
+    <link rel="icon" type="image/png" sizes="16x16" href="<%= static_path(@conn, "/icons/favicon-16x16.png") %>">
+    <link rel="manifest" href="<%= static_path(@conn, "/icons/site.webmanifest") %>">
+    <link rel="mask-icon" href="<%= static_path(@conn, "/icons/safari-pinned-tab.svg") %>" color="#000000">
+    <link rel="shortcut icon" href="<%= static_path(@conn, "/icons/favicon.ico") %>">
+    <meta name="msapplication-TileColor" content="#2b5797">
+    <meta name="msapplication-config" content="<%= static_path(@conn, "/icons/browserconfig.xml") %>">
+    <meta name="theme-color" content="#ffffff">
+
     <title>Funk and Schuster Fine Art Printing</title>
     <!-- External CSS -->
     <link rel="stylesheet" href="<%= static_path(@conn, "/moquin/css/themify-icons.css") %>">
@@ -25,80 +35,8 @@
 
   <body>
     <%= thesis_editor(@conn) %>
-    <div class="container-large <%= page_class(@conn) %>">
-      <header class="main-header">
-
-        <a href="<%= page_path(@conn, :index) %>" class="logo">
-          <img src="<%= static_path(@conn, "/images/logo.svg") %>" alt="moquin-logo">
-        </a>
-
-        <nav>
-
-          <a href="#" class="open-nav"><i></i></a>
-
-          <ul class="navigation">
-            <li><a href="<%= page_path(@conn, :about) %>">About</a></li>
-            <li><a href="<%= page_path(@conn, :gallery) %>">Gallery</a></li>
-            <li><a href="<%= page_path(@conn, :artists) %>">Artists</a></li>
-            <li><a href="<%= page_path(@conn, :contact) %>">Contact</a></li>
-          </ul> <!-- /.navigation -->
-
-        </nav> <!-- /nav -->
-
-      </header> <!-- /header -->
-
-      <%= render @view_module, @view_template, assigns %>
-
-    </div> <!-- /.container-large -->
-
-    <div class="body-overlay"></div>
-
-      <footer class="footer_02 reversed">
-
-      <div class="container">
-
-        <div class="copyright-info">
-          <span class="paragraph">
-            <%= content(@conn, "Copyright", :text, do: "copyright © 2018 Funk and Schuster Fine Art Printing.") %>
-          </span>
-        </div>
-
-        <div class="social-icons">
-          <ul>
-            <li><a href="#"><i class="fab fa-instagram"></i></a></li>
-            <li><a href="#"><i class="fab fa-facebook"></i></a></li>
-            <li><a href="#"><i class="fab fa-pinterest"></i></a></li>
-            <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-          </ul>
-        </div>
-
-        <div class="clearfix"></div>
-
-      </div>
-
-    </footer> <!-- /footer -->
-
-    <div class="aside-nav-container">
-
-      <a href="#" class="close-nav"><i class="ti-close"></i></a>
-
-      <nav>
-
-        <ul class="aside-nav">
-          <li><a href="<%= page_path(@conn, :index) %>">Home</a></li>
-          <li><a href="<%= page_path(@conn, :about) %>">About</a></li>
-          <li><a href="<%= page_path(@conn, :gallery) %>">Gallery</a></li>
-          <li><a href="<%= page_path(@conn, :artists) %>">Artists</a></li>
-          <li><a href="<%= page_path(@conn, :contact) %>">Contact</a></li>
-        </ul> <!-- /.aside-nav -->
-
-      </nav>
-
-    </div> <!-- /.aside-nav-container -->
-
-    <div class="body-overlay"></div>
+    <%= render @view_module, @view_template, assigns %>
 
     <script src="<%= static_path(@conn, "/moquin/js/main.js") %>"></script>
-
   </body>
 </html>

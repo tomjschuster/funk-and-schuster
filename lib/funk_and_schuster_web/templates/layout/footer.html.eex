@@ -1,0 +1,24 @@
+<footer class="footer_02 reversed">
+
+  <div class="container">
+
+    <div class="copyright-info">
+      <span class="paragraph">
+        <%= content(@conn, "Copyright", :text, do: "copyright © 2018 Funk and Schuster Fine Art Printing.") %>
+      </span>
+    </div>
+
+    <div class="social-icons">
+      <ul>
+        <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+        <li><a href="#"><i class="fab fa-facebook"></i></a></li>
+        <li><a href="#"><i class="fab fa-pinterest"></i></a></li>
+        <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+      </ul>
+    </div>
+
+    <div class="clearfix"></div>
+
+  </div>
+
+</footer> <!-- /footer -->

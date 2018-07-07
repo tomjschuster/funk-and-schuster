@@ -1,3 +1,6 @@
+<%= render FunkAndSchusterWeb.LayoutView, "header.html", assigns %>
+
+
 <main class="contact">
 
     <div class="container">
@@ -67,3 +70,7 @@
     </div> <!-- /.container -->
 
   </main> <!-- /main -->
+
+
+<%= render FunkAndSchusterWeb.LayoutView, "footer.html", assigns %>
+<%= render FunkAndSchusterWeb.LayoutView, "aside-nav.html", assigns %>

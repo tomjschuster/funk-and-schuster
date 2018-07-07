@@ -1,33 +1,40 @@
-<%= thesis_editor(@conn) %>
-<section class="hero"></section>
+<div class="container home">
+  <%= render FunkAndSchusterWeb.LayoutView, "header.html", assigns %>
+  <section class="hero"></section>
 
-<main class="single-project project_01">
+  <main class="single-project project_01">
 
-  <div class="container">
+    <div class="container">
 
-    <section class="overview">
+      <section class="overview">
 
-      <header>
-        <h1 class="project-title">
-          <%= content(@conn, "Title", :text, do: "egestas maecenas") %>
-        </h1>
-        <span class="project-services">
-          <%= content(@conn, "Subtitle", :text, do: "metus aliquam eleifend mi") %>
-        </span>
-      </header>
+        <header>
+          <h1 class="project-title">
+            <%= content(@conn, "Title", :text, do: "egestas maecenas") %>
+          </h1>
+          <span class="project-services">
+            <%= content(@conn, "Subtitle", :text, do: "metus aliquam eleifend mi") %>
+          </span>
+        </header>
 
-      <div class="content">
-        <h2>
-          <%= content(@conn, "Description header", :text, do: "elit ut") %>
-        </h2>
-        <span class="paragraph">
-          <%= content(@conn, "Description content", :text) do %>
-           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Viverra tellus in hac habitasse platea. Erat velit scelerisque in dictum non consectetur a erat nam. Nunc scelerisque viverra mauris in aliquam sem fringilla ut morbi. Mi in nulla posuere sollicitudin aliquam ultrices sagittis.
-          <% end %>
-        </span>
-      </div>
+        <div class="content">
+          <h2>
+            <%= content(@conn, "Description header", :text, do: "elit ut") %>
+          </h2>
+          <span class="paragraph">
+            <%= content(@conn, "Description content", :text) do %>
+             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Viverra tellus in hac habitasse platea. Erat velit scelerisque in dictum non consectetur a erat nam. Nunc scelerisque viverra mauris in aliquam sem fringilla ut morbi. Mi in nulla posuere sollicitudin aliquam ultrices sagittis.
+            <% end %>
+          </span>
+        </div>
 
-      <div class="clearfix"></div>
-    </section>
-  </div>
-</main>
+        <div class="clearfix"></div>
+      </section>
+    </div>
+  </main>
+
+</div> <!-- /.container-large -->
+
+
+<%= render FunkAndSchusterWeb.LayoutView, "footer.html", assigns %>
+<%= render FunkAndSchusterWeb.LayoutView, "aside-nav.html", assigns %>

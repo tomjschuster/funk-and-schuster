@@ -1,20 +1,22 @@
 defmodule FunkAndSchusterWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :funk_and_schuster
 
-  socket "/socket", FunkAndSchusterWeb.UserSocket
+  socket("/socket", FunkAndSchusterWeb.UserSocket)
 
   # Serve at "/" the static files from "priv/static" directory.
   #
   # You should set gzip to true if you are running phoenix.digest
   # when deploying your static files in production.
   plug Plug.Static,
-    at: "/", from: :funk_and_schuster, gzip: false,
-    only: ~w(moquin css fonts images js favicon.ico robots.txt)
+    at: "/",
+    from: :funk_and_schuster,
+    gzip: false,
+    only: ~w(moquin icons css fonts images js favicon.ico robots.txt)
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
   if code_reloading? do
-    socket "/phoenix/live_reload/socket", Phoenix.LiveReloader.Socket
+    socket("/phoenix/live_reload/socket", Phoenix.LiveReloader.Socket)
     plug Phoenix.LiveReloader
     plug Phoenix.CodeReloader
   end

@@ -1,5 +1,5 @@
 <div class="container about">
-  <%= render FunkAndSchusterWeb.LayoutView, "header.html", assigns %>
+  <%= render LayoutView, "header.html", assigns %>
 
   <main class="single-project project_02">
 
@@ -79,5 +79,5 @@
   </main> <!-- /main -->
 <div>
 
-<%= render FunkAndSchusterWeb.LayoutView, "footer.html", assigns %>
-<%= render FunkAndSchusterWeb.LayoutView, "aside-nav.html", assigns %>
+<%= render LayoutView, "footer.html", assigns %>
+<%= render LayoutView, "aside-nav.html", assigns %>

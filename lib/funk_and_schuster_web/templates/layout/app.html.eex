@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
     <meta name="description" content="">
-    <meta name="author" content="Tom Schuster">
 
+    <title>Funk and Schuster Fine Art Printing</title>
+
+    <!-- Icons-->
     <link rel="apple-touch-icon" sizes="180x180" href="<%= static_path(@conn, "/icons/apple-touch-icon.png") %>">
     <link rel="icon" type="image/png" sizes="32x32" href="<%= static_path(@conn, "/icons/favicon-32x32.png") %>">
     <link rel="icon" type="image/png" sizes="16x16" href="<%= static_path(@conn, "/icons/favicon-16x16.png") %>">
@@ -17,26 +19,25 @@
     <meta name="msapplication-config" content="<%= static_path(@conn, "/icons/browserconfig.xml") %>">
     <meta name="theme-color" content="#ffffff">
 
-    <title>Funk and Schuster Fine Art Printing</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
+
     <!-- External CSS -->
     <link rel="stylesheet" href="<%= static_path(@conn, "/moquin/css/themify-icons.css") %>">
     <link rel="stylesheet" href="<%= static_path(@conn, "/moquin/css/fontawesome-all.min.css") %>">
 
-    <!-- Custom CSS -->
+    <!-- Moquin CSS -->
     <link rel="stylesheet" href="<%= static_path(@conn, "/moquin/css/main.css") %>">
     <link rel="stylesheet" href="<%= static_path(@conn, "/moquin/css/colors.css") %>">
     <link rel="stylesheet" href="<%= static_path(@conn, "/moquin/css/responsive.css") %>">
 
-
+    <!-- App CSS -->
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
   </head>
 
   <body>
     <%= thesis_editor(@conn) %>
     <%= render @view_module, @view_template, assigns %>
-
     <script src="<%= static_path(@conn, "/moquin/js/main.js") %>"></script>
   </body>
 </html>

@@ -10,10 +10,10 @@
       <li><a href="<%= page_path(@conn, :gallery) %>">Gallery</a></li>
       <li><a href="<%= page_path(@conn, :artists) %>">Artists</a></li>
       <li><a href="<%= page_path(@conn, :contact) %>">Contact</a></li>
-    </ul> <!-- /.aside-nav -->
+    </ul>
 
   </nav>
 
-</div> <!-- /.aside-nav-container -->
+</div>
 
 <div class="body-overlay"></div>

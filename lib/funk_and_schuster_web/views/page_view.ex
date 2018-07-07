@@ -1,5 +1,6 @@
 defmodule FunkAndSchusterWeb.PageView do
   use FunkAndSchusterWeb, :view
+  alias FunkAndSchusterWeb.LayoutView
 
   def page_class(conn) do
     case conn.path_info do

@@ -15,7 +15,6 @@
   color: #ddd;
 }
 
-
 .main-header {
   display: flex;
   align-items: center;
@@ -45,4 +44,40 @@
 
 .home .hero {
   background-image: url('/images/paint-blobs.jpg');
+}
+
+.project_02 .project-details {
+  margin-top: 0;
+}
+
+@media(min-width: 801px) {
+
+  .project_02 .project-details > div:nth-of-type(even) .img-container {
+    float: left;
+    margin-right: 4%;
+    margin-left: 0;
+  }
+
+  .project_02 .project-details > div:nth-of-type(even) .content {
+    right: 0;
+    left: 52%;
+  }
+
+}
+
+.project_02 .project-details:first-child > div {
+  margin: 0 0 70px;
+}
+
+.about-us .content .paragraph {
+  font-size: 1.125rem;
+  line-height: 2.1;
+  letter-spacing: .2px;
+}
+
+.single-project  .paragraph {
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 2.25rem;
+  letter-spacing: .2px;
 }

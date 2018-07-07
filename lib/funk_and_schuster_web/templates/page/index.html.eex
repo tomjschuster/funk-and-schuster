@@ -1,4 +1,4 @@
-<div class="container home">
+<div class="container-large home">
   <%= render LayoutView, "header.html", assigns %>
   <section class="hero"></section>
 

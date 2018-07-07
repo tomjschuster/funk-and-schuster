@@ -1,41 +1,21 @@
-<div class="container about">
+<div class="container-large">
   <%= render LayoutView, "header.html", assigns %>
 
-  <main class="single-project project_02">
-
-    <section class="overview">
-
-      <div class="container">
-
-        <header>
-          <span class="project-services">art direction, photography</span>
-          <h1 class="project-title">life in motion</h1>
-        </header>
-
-        <div class="content">
-          <h2>project overview</h2>
-          <p>Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.</p>
-        </div>
-
-        <div class="clearfix"></div>
-
-      </div> <!-- /.container -->
-
-    </section> <!-- /.overview -->
+  <main class="single-project project_02 about-us">
 
     <div class="container">
 
       <section class="project-details">
 
-        <div>
+         <div>
 
           <div class="img-container">
-            <img src="assets/img/image-placeholder_03.png" alt="" class="img-cover">
+            <img src="/moquin/img/image-placeholder_03.png" alt="" class="img-cover">
           </div>
 
           <div class="content">
-            <h2>project idea</h2>
-            <p>Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.</p>
+            <h2>a summary</h2>
+            <span class="paragraph">Use this paragraph to describe what we do as if it were the only thing they read.</p>
           </div>
 
           <div class="clearfix"></div>
@@ -45,12 +25,12 @@
         <div>
 
           <div class="img-container">
-            <img src="assets/img/image-placeholder_03.png" alt="" class="img-cover">
+            <img src="/moquin/img/image-placeholder_03.png" alt="" class="img-cover">
           </div>
 
           <div class="content">
-            <h2>vibrant colors</h2>
-            <p>Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.</p>
+            <h2>who we are</h2>
+            <span class="paragraph">Paragraph about company, people.</p>
           </div>
 
           <div class="clearfix"></div>
@@ -60,12 +40,27 @@
         <div>
 
           <div class="img-container">
-            <img src="assets/img/image-placeholder_03.png" alt="" class="img-cover">
+            <img src="/moquin/img/image-placeholder_03.png" alt="" class="img-cover">
           </div>
 
           <div class="content">
-            <h2>life in motion</h2>
-            <p>Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further the overall value proposition. Organically grow the holistic world view of disruptive innovation via workplace diversity and empowerment.</p>
+            <h2>the process</h2>
+            <span class="paragraph">Paragraph about the process, presses.</p>
+          </div>
+
+          <div class="clearfix"></div>
+
+        </div>
+
+        <div>
+
+          <div class="img-container">
+            <img src="/moquin/img/image-placeholder_03.png" alt="" class="img-cover">
+          </div>
+
+          <div class="content">
+            <h2>the community</h2>
+            <span class="paragraph">Paragraph about involvement and role in the art community.</p>
           </div>
 
           <div class="clearfix"></div>
@@ -77,7 +72,6 @@
     </div> <!-- /.container -->
 
   </main> <!-- /main -->
-<div>
-
+</div>
 <%= render LayoutView, "footer.html", assigns %>
 <%= render LayoutView, "aside-nav.html", assigns %>

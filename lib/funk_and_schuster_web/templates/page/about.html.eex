@@ -10,7 +10,7 @@
          <div>
 
           <div class="img-container">
-            <img src="/moquin/img/image-placeholder_03.png" alt="" class="img-cover">
+            <%= content(@conn, "About summary image", :image, class: "img-cover", do: "/moquin/img/image-placeholder_03.png") %>
           </div>
 
           <div class="content">
@@ -25,7 +25,7 @@
         <div>
 
           <div class="img-container">
-            <img src="/moquin/img/image-placeholder_03.png" alt="" class="img-cover">
+            <%= content(@conn, "About us image", :image, class: "img-cover", do: "/moquin/img/image-placeholder_03.png") %>
           </div>
 
           <div class="content">
@@ -40,13 +40,13 @@
         <div>
 
           <div class="img-container">
-            <img src="/moquin/img/image-placeholder_03.png" alt="" class="img-cover">
+            <%= content(@conn, "About process image", :image, class: "img-cover", do: "/moquin/img/image-placeholder_03.png") %>
           </div>
 
           <div class="content">
             <h2><%= content(@conn, "About process title", :text, do: "the process") %></h2>
             <span class="paragraph">
-              <%= content(@conn, "About process content", :text, do: "Paragraph about the process, presses.") %>
+              <%= content(@conn, "About process content", :html, do: "Paragraph about the process, presses.") %>
             </span>
           </div>
 
@@ -55,7 +55,7 @@
         <div>
 
           <div class="img-container">
-            <img src="/moquin/img/image-placeholder_03.png" alt="" class="img-cover">
+            <%= content(@conn, "About community image", :image, class: "img-cover", do: "/moquin/img/image-placeholder_03.png") %>
           </div>
 
           <div class="content">

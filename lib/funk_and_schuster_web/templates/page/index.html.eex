@@ -1,6 +1,6 @@
 <div class="container-large home">
   <%= render LayoutView, "header.html", assigns %>
-  <section class="hero"></section>
+  <%= content(@conn, "Home hero", :background_image, classes: "hero", do: "/images/paint-blobs.jpg") %>
 
   <main class="single-project project_01">
 

@@ -81,3 +81,26 @@
   line-height: 2.25rem;
   letter-spacing: .2px;
 }
+
+.project_02 .project-details > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.project_02 .project-details > div:nth-of-type(odd) {
+  flex-direction: row-reverse;
+}
+
+.project_02 .project-details > div .content {
+  position: static;
+  transform: none;
+}
+
+@media(max-width: 800px) {
+
+  .project_02 .project-details > div {
+    flex-wrap: wrap;
+  }
+
+}

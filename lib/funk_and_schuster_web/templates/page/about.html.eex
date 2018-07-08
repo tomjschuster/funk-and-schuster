@@ -14,11 +14,11 @@
           </div>
 
           <div class="content">
-            <h2>a summary</h2>
-            <span class="paragraph">Use this paragraph to describe what we do as if it were the only thing they read.</p>
+            <h2><%= content(@conn, "About summary title", :text, do: "a summary") %></h2>
+            <span class="paragraph">
+              <%= content(@conn, "About summary content", :text, do: "Use this paragraph to describe what we do as if it were the only thing they read.") %>
+            </span>
           </div>
-
-          <div class="clearfix"></div>
 
         </div>
 
@@ -29,11 +29,11 @@
           </div>
 
           <div class="content">
-            <h2>who we are</h2>
-            <span class="paragraph">Paragraph about company, people.</p>
+            <h2><%= content(@conn, "About us title", :text, do: "who we are") %></h2>
+            <span class="paragraph">
+              <%= content(@conn, "About us content", :text, do: "Paragraph about company, people.") %>
+            </span>
           </div>
-
-          <div class="clearfix"></div>
 
         </div>
 
@@ -44,11 +44,11 @@
           </div>
 
           <div class="content">
-            <h2>the process</h2>
-            <span class="paragraph">Paragraph about the process, presses.</p>
+            <h2><%= content(@conn, "About process title", :text, do: "the process") %></h2>
+            <span class="paragraph">
+              <%= content(@conn, "About process content", :text, do: "Paragraph about the process, presses.") %>
+            </span>
           </div>
-
-          <div class="clearfix"></div>
 
         </div>
 
@@ -59,11 +59,11 @@
           </div>
 
           <div class="content">
-            <h2>the community</h2>
-            <span class="paragraph">Paragraph about involvement and role in the art community.</p>
+            <h2><%= content(@conn, "About community title", :text, do: "the community") %></h2>
+            <span class="paragraph">
+              <%= content(@conn, "About community content", :text, do: "Paragraph about involvement and role in the art community.") %>
+            </span>
           </div>
-
-          <div class="clearfix"></div>
 
         </div>
 
@@ -73,5 +73,6 @@
 
   </main> <!-- /main -->
 </div>
+s
 <%= render LayoutView, "footer.html", assigns %>
 <%= render LayoutView, "aside-nav.html", assigns %>

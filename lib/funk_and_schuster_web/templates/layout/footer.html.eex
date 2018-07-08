@@ -4,7 +4,7 @@
 
     <div class="copyright-info">
       <span class="paragraph">
-        <%= content(@conn, "Copyright", :text, do: "copyright © 2018 Funk and Schuster Fine Art Printing.") %>
+        <%= global_content(@conn, "Copyright", :text, do: "copyright © 2018 Funk and Schuster Fine Art Printing.") %>
       </span>
     </div>
 

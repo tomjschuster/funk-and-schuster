@@ -1,6 +1,7 @@
 <%= render LayoutView, "header.html", assigns %>
-
-
+<span class="paragraph">
+<%= content(@conn, "Email", :text, do: "contact@funkandschuster.com") %>
+</span>
 <%= render LayoutView, "footer.html", assigns %>
 <%= render LayoutView, "aside-nav.html", assigns %>
 

@@ -102,7 +102,7 @@ Table of Contents
 	.contact-me p {
 		width: 60%;
 	}
-} 
+}
 
 /* Start @media(max-width:1060px) */
 
@@ -249,7 +249,7 @@ Table of Contents
 /* Start @media(max-width:990px) */
 
 @media(max-width: 990px) {
-	
+
 	.about-me .info .img-container,
 	.about-me .info .content,
 	.about-me .my-services .img-container,
@@ -269,8 +269,8 @@ Table of Contents
 		position: static;
 		transform: translateY(0);
 	}
-	
-	.portfolio-metro a:nth-of-type(odd) .portfolio-item, 
+
+	.portfolio-metro a:nth-of-type(odd) .portfolio-item,
 	.portfolio-metro a:nth-of-type(even) .portfolio-item {
 		float: none;
 		height: 400px;
@@ -412,8 +412,8 @@ Table of Contents
 		width: 100%;
 	}
 
-	.portfolio-2-columns .portfolio-item, 
-	.portfolio-3-columns .portfolio-item, 
+	.portfolio-2-columns .portfolio-item,
+	.portfolio-3-columns .portfolio-item,
 	.portfolio-4-columns .portfolio-item {
 		float: none;
 		height: 400px;
@@ -529,7 +529,7 @@ Table of Contents
 	.contact-me p {
 		width: 80%;
 	}
-	
+
 	.social-icons li {
 		float: none;
 		display: inline-block;
@@ -735,7 +735,7 @@ Table of Contents
 		margin: 110px 0;
 	}
 
-	.services-lists div, 
+	.services-lists div,
 	.clients-lists ul  {
 		float: none;
 		margin-top: 40px;
@@ -820,7 +820,7 @@ Table of Contents
 	.contact-me {
 		padding: 100px 0 65px 0;
 	}
-	
+
 	.project_06 .img-container,
 	.project_06 .img-container:nth-of-type(2),
 	.project_06 .img-container:nth-of-type(3) {
@@ -928,7 +928,7 @@ Table of Contents
 
 }
 
-/* Start @media(max-width:390px) */ 
+/* Start @media(max-width:390px) */
 
 @media(max-width: 390px) {
 
@@ -970,7 +970,7 @@ Table of Contents
 	}
 }
 
-/* Start @media(max-width:320px) */ 
+/* Start @media(max-width:320px) */
 
 @media(max-width: 320px) {
 
@@ -999,7 +999,7 @@ Table of Contents
 	.blog-agency-item .entry-title {
 		font-size: 1.1rem;
 	}
-	
+
 	.contact h1 {
 		font-size: 2.5rem;
 	}
@@ -1025,7 +1025,7 @@ Table of Contents
 	.project_05 .overview p {
 		font-size: 1rem;
 	}
-} 
+}
 
 
 

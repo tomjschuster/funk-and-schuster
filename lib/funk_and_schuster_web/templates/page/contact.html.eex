@@ -1,7 +1,7 @@
-<%= render LayoutView, "header.html", assigns %>
+<div class="container-large contact">
+  <%= render LayoutView, "header.html", assigns %>
 
-
-<main class="contact">
+  <main>
 
     <div class="container">
 
@@ -40,27 +40,34 @@
           <h3>
             <%= content(@conn, "Address title", :text, do: "visit us") %>
           </h3>
-          <span class="paragraph">
-            <%= content(@conn, "Address", :text, do: "207 U.S. 6, Unit B, Provincetown, MA 02657") %>
-          </p>
+            <%= content(@conn, "Address", :raw_html) do %>
+              <a href="https://goo.gl/maps/LmRsi9ub8wq" target="blank">
+                <p>
+                  207 U.S. 6, Unit B<br/>
+                  Provincetown, MA 02657
+                </p>
+              </a>
+            <% end %>
         </div>
 
         <div>
           <h3>
             <%= content(@conn, "Phone title", :text, do: "call us") %>
           </h3>
-          <span class="paragraph">
-            <%= content(@conn, "Phone", :text, do: "+ 1 508 487 3318") %>
-          </span>
+            <%= content(@conn, "Phone", :raw_html) do %>
+              <a href="tel:+1-508-487-3318">508-487-3318</a>
+            <% end %>
         </div>
 
         <div>
           <h3>
             <%= content(@conn, "Email title", :text, do: "email us") %>
           </h3>
-          <span class="paragraph">
-            <%= content(@conn, "Email", :text, do: "contact@funkandschuster.com") %>
-          </span>
+            <%= content(@conn, "Email", :raw_html) do %>
+              <a href="mailto:contact@funkandschuster.com" target="blank">
+                contact@funkandschuster.com
+              </a>
+            <% end %>
         </div>
 
       </div> <!-- /.info -->
@@ -70,6 +77,7 @@
     </div> <!-- /.container -->
 
   </main> <!-- /main -->
+</div>
 
 <%= render LayoutView, "footer.html", assigns %>
 <%= render LayoutView, "aside-nav.html", assigns %>

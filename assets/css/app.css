@@ -104,3 +104,159 @@
 .contact .info a p {
   color: inherit;
 }
+
+blockquote {
+  background: #f7f7f7;
+}
+
+blockquote {
+  border-left: 5px solid #c23;
+  margin: 45px 0;
+  padding: 40px 30px 30px 35px;
+}
+
+blockquote p {
+  font-size: 1.1rem;
+  font-weight: 400;
+  line-height: 2;
+  letter-spacing: .5px;
+}
+
+
+
+/* Page Styles */
+.artists blockquote {
+  margin: 25px 0;
+}
+
+.artists .info .img-container {
+  float: left;
+  margin-right: 5%;
+  height: 500px;
+  width: 47.5%;
+}
+
+.artists .info .content {
+  position: relative;
+  float: right;
+  height: 500px;
+  width: 47.5%;
+}
+
+.artists .section-name {
+  font-size: .75rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #c23;
+}
+
+.artists .img-container {
+  height: 600px;
+  width: 100%;
+}
+
+.artists .press {
+  margin: 100px 0;
+}
+
+
+.artists .overview {
+    margin: 100px 0 100px 0;
+}
+
+.artists .overview-details {
+    float: left;
+    margin-top: 0;
+    width: 50%;
+}
+
+.artists .press .content h2 {
+    font-size: .75rem;
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.artists .content > h2 {
+  font-size: 2.5rem;
+  line-height: 1.4;
+  margin: 20px 0 21px 0;
+}
+
+.artists .press > h2 {
+  margin-bottom: 25px;
+}
+
+.artists p {
+    font-size: 1rem;
+    font-weight: 300;
+    line-height: 2.25rem;
+    letter-spacing: .2px;
+}
+
+.artists .press .img-container:nth-of-type(2),
+.artists .press .img-container:nth-of-type(3) {
+  width: 48%;
+  float: left;
+  margin-bottom: 100px;
+}
+
+.artists .press .img-container:nth-of-type(2) {
+  margin-right: 4%;
+}
+
+/*.artists .contact {
+  margin-top: 100px;
+}*/
+
+.artists .contact p {
+  line-height: 24px;
+  font-weight: inherit;
+}
+
+.contact h2 {
+  margin-bottom: 25px;
+}
+
+@media(max-width: 990px) {
+
+  .artists .info .img-container,
+  .artists .info .content,
+  .artists .press .img-container:nth-of-type(2),
+  .artists .press .img-container:nth-of-type(3) {
+    float: none;
+    margin: auto;
+    width: 100%;
+  }
+
+  .artists .info .content {
+    height: auto;
+    margin-top: 50px;
+  }
+
+  .artists .press .img-container:nth-of-type(2),
+  .artists .press .img-container:nth-of-type(3) {
+    margin-right: 0;
+    margin-bottom: 40px;
+  }
+
+  .artists .wrapper {
+    position: static;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 800px) {
+  .artists .overview-details {
+      float: none;
+      width: 80%;
+  }
+
+  .artists .overview {
+    margin: 55px 0 45px 0;
+  }
+
+  .artists .overview .content {
+    margin: 30px 0 0 0;
+}
+}

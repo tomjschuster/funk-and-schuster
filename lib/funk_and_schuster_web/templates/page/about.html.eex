@@ -1,4 +1,4 @@
-<div class="container-large">
+<div class="container">
   <%= render LayoutView, "header.html", assigns %>
 
   <main class="single-project project_02 about-us">
@@ -9,9 +9,7 @@
 
          <div>
 
-          <div class="img-container">
-            <%= content(@conn, "About summary image", :image, class: "img-cover", do: "/moquin/img/image-placeholder_03.png") %>
-          </div>
+          <%= content(@conn, "About summary image", :background_image, classes: "img-container", do: "/moquin/img/image-placeholder_03.png") %>
 
           <div class="content">
             <h2><%= content(@conn, "About summary title", :text, do: "a summary") %></h2>
@@ -23,10 +21,7 @@
         </div>
 
         <div>
-
-          <div class="img-container">
-            <%= content(@conn, "About us image", :image, class: "img-cover", do: "/moquin/img/image-placeholder_03.png") %>
-          </div>
+          <%= content(@conn, "About us image", :background_image, classes: "img-container", do: "/moquin/img/image-placeholder_03.png") %>
 
           <div class="content">
             <h2><%= content(@conn, "About us title", :text, do: "who we are") %></h2>
@@ -39,27 +34,21 @@
 
         <div>
 
-          <div class="img-container">
-            <%= content(@conn, "About process image", :image, class: "img-cover", do: "/moquin/img/image-placeholder_03.png") %>
-          </div>
+          <%= content(@conn, "About process image", :background_image, classes: "img-container", do: "/moquin/img/image-placeholder_03.png") %>
 
           <div class="content">
             <h2><%= content(@conn, "About process title", :text, do: "the process") %></h2>
-            <span class="paragraph">
-              <%= content(@conn, "About process content", :html, do: "Paragraph about the process, presses.") %>
-            </span>
+            <%= content(@conn, "About process content", :html, do: "Paragraph about the process, presses. Link to Artists") %>
           </div>
 
         </div>
 
         <div>
 
-          <div class="img-container">
-            <%= content(@conn, "About community image", :image, class: "img-cover", do: "/moquin/img/image-placeholder_03.png") %>
-          </div>
+          <%= content(@conn, "About community image", :background_image, classes: "img-container", do: "/moquin/img/image-placeholder_03.png") %>
 
           <div class="content">
-            <h2><%= content(@conn, "About community title", :text, do: "the community") %></h2>
+            <h2><%= content(@conn, "About community title", :html, do: "the community") %></h2>
             <span class="paragraph">
               <%= content(@conn, "About community content", :text, do: "Paragraph about involvement and role in the art community.") %>
             </span>

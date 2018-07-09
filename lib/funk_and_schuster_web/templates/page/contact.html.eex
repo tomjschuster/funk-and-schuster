@@ -1,13 +1,13 @@
-<div class="container-large contact">
+<div class="container contact">
   <%= render LayoutView, "header.html", assigns %>
 
   <main>
 
     <div class="container">
 
-      <h1>
-        <%= content(@conn, "Contact title", :text, do: "Contact us for more info") %>
-      </h1>
+      <h2>
+        <%= content(@conn, "Contact title", :text, do: "Contact us for more info:") %>
+      </h2>
 
       <div class="form-wrapper">
 
@@ -40,7 +40,7 @@
           <h3>
             <%= content(@conn, "Address title", :text, do: "visit us") %>
           </h3>
-            <%= content(@conn, "Address", :raw_html) do %>
+            <%= content(@conn, "Address", :html) do %>
               <a href="https://goo.gl/maps/LmRsi9ub8wq" target="blank">
                 <p>
                   207 U.S. 6, Unit B<br/>
@@ -63,7 +63,7 @@
           <h3>
             <%= content(@conn, "Email title", :text, do: "email us") %>
           </h3>
-            <%= content(@conn, "Email", :raw_html) do %>
+            <%= content(@conn, "Email", :html) do %>
               <a href="mailto:contact@funkandschuster.com" target="blank">
                 contact@funkandschuster.com
               </a>

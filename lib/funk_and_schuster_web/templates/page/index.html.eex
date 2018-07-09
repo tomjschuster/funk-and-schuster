@@ -10,20 +10,21 @@
 
         <header>
           <h1 class="project-title">
-            <%= content(@conn, "Title", :text, do: "egestas maecenas") %>
+            <%= content(@conn, "Title", :text, do: "A slogan") %>
           </h1>
           <span class="project-services">
-            <%= content(@conn, "Subtitle", :text, do: "metus aliquam eleifend mi") %>
+            <%= content(@conn, "Subtitle", :text, do: "with a subtitle") %>
           </span>
         </header>
 
         <div class="content">
           <h2>
-            <%= content(@conn, "Description header", :text, do: "elit ut") %>
+            <%= content(@conn, "Description header", :text, do: "Title for statement") %>
           </h2>
           <span class="paragraph">
             <%= content(@conn, "Description content", :text) do %>
-             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Viverra tellus in hac habitasse platea. Erat velit scelerisque in dictum non consectetur a erat nam. Nunc scelerisque viverra mauris in aliquam sem fringilla ut morbi. Mi in nulla posuere sollicitudin aliquam ultrices sagittis.
+             Some sort of mission statement, or vision, or whatever. It can be a
+             whole paragraph.
             <% end %>
           </span>
         </div>

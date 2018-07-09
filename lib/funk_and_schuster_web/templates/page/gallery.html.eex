@@ -1,4 +1,7 @@
-<%= render LayoutView, "header.html", assigns %>
+<div class="container-large">
+  <%= render LayoutView, "header.html", assigns %>
+</div>
+
 <%= render LayoutView, "footer.html", assigns %>
 <%= render LayoutView, "aside-nav.html", assigns %>
 

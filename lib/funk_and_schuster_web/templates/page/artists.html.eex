@@ -1,5 +1,5 @@
-<div class="container about">
-<%= render LayoutView, "header.html", assigns %>
+<div class="container-large">
+  <%= render LayoutView, "header.html", assigns %>
 </div>
 
 <%= render LayoutView, "footer.html", assigns %>

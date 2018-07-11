@@ -12,20 +12,21 @@
       <div class="content">
 
         <div class="wrapper">
-        <h1>Offset, Lithographic Printing
+        <h1>
+          <%= content(@conn, "Artists title", :text, do: "Offset, Lithographic Printing") %>
         </h1>
 
         <blockquote>
           <span class="paragraph">
-            A short quote about how amazing it is to work with us.
+            <%= content(@conn, "Artists quote", :text, do: "A short quote about how amazing it is to work with us.") %>
           </span class="paragraph">
           <span class="cite">
-            Some Artist
+            <%= content(@conn, "Artists quote artist", :text, do: "Some Artist") %>
           </span>
         </blockquote>
 
         <span class="paragraph">
-          A summary of what artists can do with us.
+            <%= content(@conn, "Artists summary", :text, do: " A summary of what artists can do with us.") %>
         </span class="paragraph">
 
         </div>

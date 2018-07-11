@@ -115,13 +115,22 @@ blockquote {
   padding: 40px 30px 30px 35px;
 }
 
-blockquote p {
+
+blockquote p, blockquote .paragraph {
   font-size: 1.1rem;
   font-weight: 400;
   line-height: 2;
   letter-spacing: .5px;
 }
 
+blockquote span > div {
+  margin-bottom: 30px;
+  overflow: hidden;
+}
+
+blockquote span.cite > div {
+  margin-bottom: 0;
+}
 
 
 /* Page Styles */
@@ -263,4 +272,14 @@ blockquote p {
 
 .overview-detail > div, .overview-detail > span > div {
   display: inline-block;
+}
+
+.artists .info .content  {
+    display: flex;
+    align-items: center;
+}
+
+.artists .info .content .wrapper {
+    position: unset;
+    transform: none;
 }

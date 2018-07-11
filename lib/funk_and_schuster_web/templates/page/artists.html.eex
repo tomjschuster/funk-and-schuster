@@ -16,17 +16,17 @@
         </h1>
 
         <blockquote>
-          <p>
+          <span class="paragraph">
             A short quote about how amazing it is to work with us.
-          </p>
+          </span class="paragraph">
           <span class="cite">
             Some Artist
           </span>
         </blockquote>
 
-        <p>
+        <span class="paragraph">
           A summary of what artists can do with us.
-        </p>
+        </span class="paragraph">
 
         </div>
       </div>
@@ -36,7 +36,7 @@
     </section> <!-- /.info -->
 
     <section class="press">
-      <h2>Press 1</h2>
+      <h2><%= content(@conn, "Press 1 title", :text, do: "Press 1") %></h2>
 
       <div class="img-container">
         <img src="/moquin/img/image-placeholder_01.png" alt="" class="img-cover">
@@ -45,14 +45,33 @@
       <section class="overview">
 
         <div class="overview-details">
-          <div><span>print size:</span> 00 X 00</div>
-          <div><span>speed:</span> X sheets per hour</div>
-          <div><span>mediums:</span> x, y, z</div>
+          <div class="overview-detail">
+            <span>
+              <%= content(@conn, "Press 1 size label", :text, do: "print size:") %>
+            </span>
+            <%= content(@conn, "Press 1 size", :text, do: " 00 X 00") %>
+          </div>
+          <div class="overview-detail">
+            <span>
+              <%= content(@conn, "Press 1 speed label", :text, do: "speed:") %>
+            </span>
+              <%= content(@conn, "Press 1 speed", :text, do: " X sheets per hour") %>
+          </div>
+          <div class="overview-detail">
+            <span>
+              <%= content(@conn, "Press 1 mediums label", :text, do: "mediums:") %>
+            </span>
+            <%= content(@conn, "Press 1 mediums", :text, do: " x, y, z") %>
+          </div>
         </div>
 
         <div class="content">
-          <h2>Good at X</h2>
-          <p>A description of the press and the kind of work you can do with it</p>
+          <h2>
+            <%= content(@conn, "Press 1 description header", :text, do: "Good at X") %>
+          </h1>
+          <span class="paragraph">
+            <%= content(@conn, "Press 1 description", :text, do: "A description of the press and the kind of work you can do with it") %>
+          </span>
         </div>
 
         <div class="clearfix"></div>
@@ -69,7 +88,7 @@
     </section>
 
     <section class="press">
-      <h2>Press 2</h2>
+      <h2><%= content(@conn, "Press 2 title", :text, do: "Press 2") %></h2>
 
       <div class="img-container">
         <img src="/moquin/img/image-placeholder_01.png" alt="" class="img-cover">
@@ -78,14 +97,33 @@
       <section class="overview">
 
         <div class="overview-details">
-          <div><span>print size:</span> 00 X 00</div>
-          <div><span>speed:</span> X sheets per hour</div>
-          <div><span>mediums:</span> x, y, z</div>
+          <div class="overview-detail">
+            <span>
+              <%= content(@conn, "Press 2 size label", :text, do: "print size:") %>
+            </span>
+            <%= content(@conn, "Press 2 size", :text, do: "00 X 00") %>
+          </div>
+          <div class="overview-detail">
+            <span>
+              <%= content(@conn, "Press 2 speed label", :text, do: "speed:") %>
+            </span>
+            <%= content(@conn, "Press 2 speed", :text, do: "X sheets per hour") %>
+          </div>
+          <div class="overview-detail">
+            <span>
+              <%= content(@conn, "Press 2 mediums label", :text, do: "mediums:") %>
+            </span>
+            <%= content(@conn, "Press 2 mediums", :text, do: "x, y, z") %>
+          </div>
         </div>
 
         <div class="content">
-          <h2>Good at Y</h2>
-          <p>A description of the press and the kind of work you can do with it</p>
+          <h2>
+            <%= content(@conn, "Press 2 description header", :text, do: "Good at Y") %>
+          </h2>
+          <span class="paragraph">
+            <%= content(@conn, "Press 2 description", :text, do: "A description of the press and the kind of work you can do with it") %>
+          </span>
         </div>
 
         <div class="clearfix"></div>

@@ -5,9 +5,7 @@
   <main>
     <section class="info">
 
-      <div class="img-container">
-        <img src="/moquin/img/image-placeholder_01.png" alt="" class="img-cover">
-      </div>
+      <%= content(@conn, "Artists info image", :background_image, classes: "img-container", do: "/moquin/img/image-placeholder_01.png") %>
 
       <div class="content">
 
@@ -39,9 +37,7 @@
     <section class="press">
       <h2><%= content(@conn, "Press 1 title", :text, do: "Press 1") %></h2>
 
-      <div class="img-container">
-        <img src="/moquin/img/image-placeholder_01.png" alt="" class="img-cover">
-      </div>
+      <%= content(@conn, "Press 1 main image", :background_image, classes: "img-container", do: "/moquin/img/image-placeholder_01.png") %>
 
       <section class="overview">
 
@@ -78,22 +74,15 @@
         <div class="clearfix"></div>
       </section>
 
-      <div class="img-container">
-        <img src="/moquin/img/image-placeholder_02.png" alt="" class="img-cover">
-      </div>
-
-      <div class="img-container">
-        <img src="/moquin/img/image-placeholder_02.png" alt="" class="img-cover">
-      </div>
+      <%= content(@conn, "Press 1 sub image 1", :background_image, classes: "img-container", do: "/moquin/img/image-placeholder_02.png") %>
+      <%= content(@conn, "Press 1 sub image 2", :background_image, classes: "img-container", do: "/moquin/img/image-placeholder_02.png") %>
 
     </section>
 
     <section class="press">
       <h2><%= content(@conn, "Press 2 title", :text, do: "Press 2") %></h2>
 
-      <div class="img-container">
-        <img src="/moquin/img/image-placeholder_01.png" alt="" class="img-cover">
-      </div>
+      <%= content(@conn, "Press 2 main image", :background_image, classes: "img-container", do: "/moquin/img/image-placeholder_01.png") %>
 
       <section class="overview">
 
@@ -130,13 +119,9 @@
         <div class="clearfix"></div>
       </section> <!-- .overview -->
 
-      <div class="img-container">
-        <img src="/moquin/img/image-placeholder_02.png" alt="" class="img-cover">
-      </div>
+      <%= content(@conn, "Press 2 sub image 1", :background_image, classes: "img-container", do: "/moquin/img/image-placeholder_02.png") %>
+      <%= content(@conn, "Press 2 sub image 2", :background_image, classes: "img-container", do: "/moquin/img/image-placeholder_02.png") %>
 
-      <div class="img-container">
-        <img src="/moquin/img/image-placeholder_02.png" alt="" class="img-cover">
-      </div>
     </section>
 
     <div class="contact container">

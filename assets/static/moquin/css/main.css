@@ -327,7 +327,7 @@ body {
 
 /* =============== = hero-agency =============== */
 
-.hero {
+/*.hero {
 	background: url('..//img/image-placeholder_01.png');
 	-webkit-background-size: cover;
 	background-size: cover;
@@ -360,7 +360,7 @@ body {
 	text-transform: uppercase;
 	margin-top: 10px;
 }
-
+*/
 /* =============== = hero-personal =============== */
 
 .hero-personal {
@@ -934,13 +934,13 @@ body {
 
 /* =============== = single-project_01 =============== */
 
-.project_01 .overview,
+/*.project_01 .overview,
 .typography,
 .color-scheme {
 	margin: 145px 0 140px 0;
-}
+}*/
 
-.overview header {
+/*.overview header {
 	float: left;
 	width: 50%;
 }
@@ -948,9 +948,9 @@ body {
 .overview .content {
 	float: right;
 	width: 50%;
-}
+}*/
 
-.overview .project-title {
+/*.overview .project-title {
 	font-size: 2.5rem;
 	text-transform: capitalize;
 	letter-spacing: -.7px;
@@ -961,7 +961,7 @@ body {
 	font-size: .75rem;
 	letter-spacing: 2px;
 	text-transform: uppercase;
-}
+}*/
 
 .typography .examples {
 	float: left;

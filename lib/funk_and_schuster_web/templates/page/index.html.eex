@@ -12,7 +12,7 @@
           <h1 class="project-title">
             <%= content(@conn, "Title", :text, do: "A slogan") %>
           </h1>
-          <span class="project-services">
+          <span class="services">
             <%= content(@conn, "Subtitle", :text, do: "with a subtitle") %>
           </span>
         </header>

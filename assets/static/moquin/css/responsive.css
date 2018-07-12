@@ -166,11 +166,11 @@ Table of Contents
 		margin-top: 65px;
 	}
 
-	.project_01 .overview,
+/*	.project_01 .overview,
 	.typography,
 	.color-scheme {
 		margin: 100px 0 95px 0;
-	}
+	}*/
 
 	.responsive-design {
 		margin-top: 100px;
@@ -565,13 +565,13 @@ Table of Contents
 		float: none;
 	}*/
 
-	.project_01 .overview,
+/*	.project_01 .overview,
 	.typography,
 	.color-scheme {
 		margin: 70px 0 75px 0;
 	}
-
-	.overview header,
+*/
+/*	.overview header,
 	.overview .content,
 	.typography .content,
 	.color-scheme .content {
@@ -582,7 +582,7 @@ Table of Contents
 	.overview header {
 		margin-bottom: 30px;
 	}
-
+*/
 	.examples,
 	.swatches {
 		display: none;

@@ -1,20 +1,20 @@
 /* Custom Moquin */
 
-.single-project .paragraph {
+/*.single-project .paragraph {
   font-size: 1rem;
   font-weight: 300;
   line-height: 2.25rem;
   letter-spacing: .2px;
-}
+}*/
 
-.paragraph {
+/*.paragraph {
   color: #444;
 }
 
 .reversed .paragraph {
   color: #ddd;
 }
-
+*/
 /*.open-nav {
   position: relative;
   top: unset;
@@ -54,12 +54,12 @@
   letter-spacing: .2px;
 }
 
-.single-project  .paragraph {
+/*.single-project  .paragraph {
   font-size: 1rem;
   font-weight: 300;
   line-height: 2.25rem;
   letter-spacing: .2px;
-}
+}*/
 
 .project_02 .project-details > div {
   display: flex;

@@ -343,6 +343,132 @@ a {
   letter-spacing: .2px;
 }
 
+/* CONTACT */
+
+.contact h2 {
+  margin-bottom: 25px;
+}
+
+.form-wrapper {
+  float: left;
+  margin-right: 6%;
+  margin-bottom: 150px;
+  width: 64%;
+}
+
+
+.contact-form div.name,
+.contact-form div.email {
+  float: left;
+  width: 48%;
+}
+
+.contact-form div.name {
+  margin-right: 4%;
+}
+
+.contact-form label {
+  display: block;
+  font-size: 1rem;
+  letter-spacing: .5px;
+  text-transform: capitalize;
+  padding-bottom: 10px;
+}
+
+.name input,
+.email input {
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+  padding-left: 15px;
+  outline: none;
+  height: 45px;
+  width: 100%
+}
+.message textarea {
+  border: 1px solid #ccc;
+  padding: 15px;
+  outline: none;
+  height: 170px;
+  width: 100%;
+}
+
+.name input:focus,
+.email input:focus,
+.message textarea:focus {
+  border: 1px solid #999;
+}
+
+.contact-form input[type="submit"] {
+  border: none;
+  cursor: pointer;
+  float: right;
+  font-family: Lato;
+  transition: all .2s ease-in-out;
+  margin-top: 25px;
+}
+
+
+.contact .info {
+  float: right;
+  margin-top: 30px;
+  width: 30%;
+}
+
+.contact .info div {
+  margin-bottom: 25px;
+}
+
+.contact .info h3 {
+  font-size: .8rem;
+  font-weight: 900;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  margin-bottom: 5px;
+}
+
+.contact .info p {
+  letter-spacing: .3px;
+  color: inherit;
+}
+
+
+@media (max-width: 800px) {
+    .form-wrapper,
+  .contact .info{
+    float: none;
+    width: 100%;
+  }
+
+  .contact .info {
+    margin-bottom: 100px;
+  }
+
+  .form-wrapper input[type="submit"] {
+    width: 100%;
+  }
+
+  .mail-link {
+    font-size: 2.5rem;
+  }
+
+  .contact-me p {
+    width: 80%;
+  }
+}
+
+
+.btn-square {
+  border: none;
+  display: block;
+  font-size: .75rem;
+  height: 55px;
+  letter-spacing: 3px;
+  line-height: 55px;
+  text-transform: uppercase;
+  text-align: center;
+  width: 220px;
+}
+
 /* COLOR */
 
 .paragraph {

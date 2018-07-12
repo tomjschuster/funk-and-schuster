@@ -83,11 +83,11 @@
   }
 
 }
-
+/*
 .contact .info a p {
   color: inherit;
 }
-
+*/
 blockquote {
   background: #f7f7f7;
 }
@@ -206,9 +206,9 @@ blockquote span.cite > div {
   font-weight: inherit;
 }
 
-.contact h2 {
+/*.contact h2 {
   margin-bottom: 25px;
-}
+}*/
 
 @media(max-width: 990px) {
 

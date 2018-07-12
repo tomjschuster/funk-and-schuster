@@ -34,14 +34,14 @@ Table of Contents
 
 /* Start @media(max-width:1720px) */
 
-@media(max-width: 1720px){
+/*@media(max-width: 1720px){
 
 	.container-large {
 		margin-left: 50px;
 		margin-right: 50px;
 	}
 }
-
+*/
 /* Start @media(min-width:1440px) */
 
 @media(min-width: 1440px){
@@ -66,10 +66,10 @@ Table of Contents
 
 @media(max-width: 1200px){
 
-	.container {
+/*	.container {
 		margin-left: 50px;
 		margin-right: 50px;
-	}
+	}*/
 
 	.hero-personal h1 {
 		font-size: 1.5rem;
@@ -359,10 +359,10 @@ Table of Contents
 
 @media(max-width: 800px){
 
-	.navigation {
+/*	.navigation {
 		display: none;
 	}
-
+*/
 	.open-nav {
 		display: block;
 	}
@@ -680,7 +680,7 @@ Table of Contents
 }
 
 /* Start @media(max-width:768px) */
-
+/*
 @media(max-width: 760px) {
 
 	.container,
@@ -690,7 +690,7 @@ Table of Contents
 	}
 }
 
-
+*/
 /* Start @media(max-width:590px) */
 
 @media(max-width: 590px) {

@@ -47,7 +47,7 @@ Table of Contents
 # General Styles
 ------------------------------------------------------*/
 
-* {
+/** {
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
@@ -63,12 +63,12 @@ body {
 	font-family: Lato, sans-serif;
 	font-size: 100%;
 	line-height: 1.5;
-}
+}*/
 
-a {
+/*a {
 	text-decoration: none;
 	transition: all .2s ease-in-out;
-}
+}*/
 
 .btn-rounded,
 .btn-square {
@@ -107,11 +107,11 @@ a {
 	transition: opacity .4s, left 0s;
 }
 
-.container {
+/*.container {
 	max-width: 1170px;
 	margin: auto;
 	position: relative;
-}
+}*/
 
 .container-large {
 	max-width: 1720px;
@@ -146,17 +146,17 @@ a {
 # Header
 ------------------------------------------------------*/
 
-.main-header {
+/*.main-header {
 	height: 100px;
 	line-height: 100px;
 	position: relative;
-}
+}*/
 
-.logo {
+/*.logo {
 	float: left;
 	margin-top: 6px;
 	width: 120px;
-}
+}*/
 
 .logo-alt {
 	font-size: 2.5rem;
@@ -173,23 +173,23 @@ a {
 ------------------------------------------------------*/
 
 /* =============== = main-navigation =============== */
-
+/*
 .navigation {
 	float: right;
-}
+}*/
 
-.navigation li {
+/*.navigation li {
 	list-style: none;
 	float: left;
 	margin-left: 50px;
 }
-
-.navigation li a {
+*/
+/*.navigation li a {
 	font-size: .75rem;
 	text-transform: uppercase;
 	letter-spacing: 2.5px;
 }
-
+*/
 .navigation .sub-nav {
 	box-shadow: 0 5px 10px rgba(0,0,0,.1);
 	display: none;
@@ -229,7 +229,7 @@ a {
 	letter-spacing: 2px;
 	padding: 7px 25px;
 }
-
+/*
 .open-nav {
 	display: none;
 	position: absolute;
@@ -240,21 +240,21 @@ a {
 	width: 28px;
 	z-index: 1;
 }
-
-.open-nav:hover {
+*/
+/*.open-nav:hover {
 	cursor: pointer;
-}
+}*/
 
-.open-nav i {
+/*.open-nav i {
 	position: absolute;
 	top: 50%;
 	right: 0;
 	height: 2px;
 	width: 100%;
 	transition: all .3s ease-in-out;
-}
+}*/
 
-.open-nav i:before {
+/*.open-nav i:before {
 	position: absolute;
 	top: -9px;
 	content: " ";
@@ -276,10 +276,10 @@ a {
 .open-nav:hover i:after {
 	width: 80%;
 }
-
+*/
 /* =============== = aside-navigation =============== */
 
-.aside-nav-container {
+/*.aside-nav-container {
 	display: block;
 	position: absolute;
 	top: 0;
@@ -294,8 +294,8 @@ a {
 .aside-nav-container.active {
 	left: 0;
 }
-
-.close-nav {
+*/
+/*.close-nav {
 	font-size: 1.5rem;
 	position: absolute;
 	top: 50px;
@@ -319,7 +319,7 @@ a {
 	font-weight: 900;
 	letter-spacing: .3px;
 	text-transform: capitalize;
-}
+}*/
 
 /*-----------------------------------------------------
 # Hero
@@ -481,9 +481,9 @@ a {
 	height: 100%;
 	width: 100%;
 }
- .active {
+/* .active {
 	opacity: 1;
-}
+}*/
 
 /*-----------------------------------------------------
 # About

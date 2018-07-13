@@ -272,6 +272,61 @@ a {
   }
 }
 
+/* Block Quote */
+
+
+
+blockquote {
+  border-left: 5px solid #00adf3;
+  margin: 45px 0;
+  padding: 40px 30px 30px 35px;
+}
+
+
+blockquote p, blockquote .paragraph {
+  font-size: 1.1rem;
+  font-weight: 400;
+  line-height: 2;
+  letter-spacing: .5px;
+}
+
+blockquote span > div {
+  margin-bottom: 30px;
+  overflow: hidden;
+}
+
+blockquote span.cite > div {
+  margin-bottom: 0;
+}
+
+.cite {
+  position: relative;
+  display: block;
+  font-style: italic;
+  font-weight: 700;
+  letter-spacing: .5px;
+  margin-top: -5px;
+  padding-left: 50px;
+}
+
+
+.cite:before {
+  position: absolute;
+  content: "";
+  top: 13px;
+  left: 0;
+  height: 1px;
+  width: 30px;
+}
+
+
+/* Color */
+blockquote {
+  background: #f7f7f7;
+}
+
+/* Page Styles */
+
 /* HOME */
 
 .home .overview {
@@ -414,6 +469,53 @@ a {
   .content-grid .img-container,
   .content-grid .content {
     width: 100%;
+  }
+}
+
+/* ARTISTS */
+
+.artists .intro > .img-container {
+  float: left;
+  margin-right: 5%;
+  height: 500px;
+  width: 47.5%;
+}
+
+.artists .intro {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 40px;
+}
+
+.artists .intro > .content,
+.aritsts .intro > .img-container {
+  width: 47.5%;
+}
+
+.artists .intro blockquote {
+  margin: 25px 0;
+}
+
+.artists .intro > .content {
+  display: flex;
+  align-items: center;
+}
+
+/* Responsive */
+
+@media (max-width: 800px) {
+  .artists .intro > .content,
+  .artists .intro > .img-container {
+    width: 100%;
+  }
+
+  .artists .intro {
+    flex-wrap: wrap;
+  }
+
+  .artists .intro > .content {
+    margin-top: 50px;
   }
 }
 

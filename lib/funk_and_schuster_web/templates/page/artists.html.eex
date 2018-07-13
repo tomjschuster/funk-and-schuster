@@ -3,29 +3,29 @@
 
 
   <main>
-    <section class="info">
+    <section class="intro">
 
-      <%= content(@conn, "Artists info image", :background_image, classes: "img-container", do: "/moquin/img/image-placeholder_01.png") %>
+      <%= content(@conn, "Artists intro image", :background_image, classes: "img-container", do: "/moquin/img/image-placeholder_01.png") %>
 
       <div class="content">
 
-        <div class="wrapper">
-        <h1>
-          <%= content(@conn, "Artists title", :text, do: "Offset, Lithographic Printing") %>
-        </h1>
+        <div>
+          <h1>
+            <%= content(@conn, "Artists title", :text, do: "Offset, Lithographic Printing") %>
+          </h1>
 
-        <blockquote>
+          <blockquote>
+            <span class="paragraph">
+              <%= content(@conn, "Artists quote", :text, do: "A short quote about how amazing it is to work with us.") %>
+            </span class="paragraph">
+            <span class="cite">
+              <%= content(@conn, "Artists quote artist", :text, do: "Some Artist") %>
+            </span>
+          </blockquote>
+
           <span class="paragraph">
-            <%= content(@conn, "Artists quote", :text, do: "A short quote about how amazing it is to work with us.") %>
+              <%= content(@conn, "Artists summary", :text, do: " A summary of what artists can do with us.") %>
           </span class="paragraph">
-          <span class="cite">
-            <%= content(@conn, "Artists quote artist", :text, do: "Some Artist") %>
-          </span>
-        </blockquote>
-
-        <span class="paragraph">
-            <%= content(@conn, "Artists summary", :text, do: " A summary of what artists can do with us.") %>
-        </span class="paragraph">
 
         </div>
       </div>

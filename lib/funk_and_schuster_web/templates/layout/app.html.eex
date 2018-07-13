@@ -21,17 +21,10 @@
     <meta name="msapplication-config" content="/icons/browserconfig.xml">
     <meta name="theme-color" content="#fefefe">
 
-    <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
 
-    <!-- External CSS -->
-    <link rel="stylesheet" href="<%= static_path(@conn, "/moquin/css/themify-icons.css") %>">
-    <link rel="stylesheet" href="<%= static_path(@conn, "/moquin/css/fontawesome-all.min.css") %>">
-
-    <!-- Moquin CSS -->
     <link rel="stylesheet" href="<%= static_path(@conn, "/moquin/css/colors.css") %>">
-
-    <!-- App CSS -->
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   </head>
 

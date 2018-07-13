@@ -29,9 +29,7 @@
     <link rel="stylesheet" href="<%= static_path(@conn, "/moquin/css/fontawesome-all.min.css") %>">
 
     <!-- Moquin CSS -->
-    <link rel="stylesheet" href="<%= static_path(@conn, "/moquin/css/main.css") %>">
     <link rel="stylesheet" href="<%= static_path(@conn, "/moquin/css/colors.css") %>">
-    <link rel="stylesheet" href="<%= static_path(@conn, "/moquin/css/responsive.css") %>">
 
     <!-- App CSS -->
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">

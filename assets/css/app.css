@@ -106,6 +106,45 @@ a {
   width: 80%;
 }
 
+.navigation .sub-nav {
+  box-shadow: 0 5px 10px rgba(0,0,0,.1);
+  display: none;
+  line-height: 30px;
+  min-width: 200px;
+  padding-top: 5px;
+  position: absolute;
+  transition: all 1s ease-in-out;
+  text-align: left;
+  top: 100px;
+  z-index: 999;
+}
+
+.navigation .sub-nav li {
+  position: relative;
+}
+
+.navigation .sub-nav .sub-nav {
+  left: 100%;
+  top: 0;
+}
+
+.navigation li:hover > .sub-nav {
+  display: block;
+}
+
+ .navigation .sub-nav li {
+  float: none;
+  margin-left: 0;
+  border-bottom: 1px solid #eee;
+}
+
+.navigation .sub-nav li a {
+  display: inline-block;
+  font-size: .65rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  padding: 7px 25px;
+}
 
 /* Responsive */
 @media (max-width: 800px) {
@@ -382,14 +421,14 @@ blockquote {
 
 }
 
-.single-project .content h2 {
+.home .content h2 {
   font-size: .75rem;
   letter-spacing: 3px;
   margin-bottom: 20px;
   text-transform: uppercase;
 }
 
-.single-project .paragraph {
+.home .paragraph {
   font-size: 1rem;
   font-weight: 300;
   line-height: 2.25rem;
@@ -629,6 +668,9 @@ blockquote {
 }
 
 /* CONTACT */
+.contact main {
+  margin-top: 40px;
+}
 
 .contact h2 {
   margin-bottom: 25px;

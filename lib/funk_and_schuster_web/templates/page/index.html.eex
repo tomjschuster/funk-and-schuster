@@ -2,7 +2,7 @@
   <%= render LayoutView, "header.html", assigns %>
   <%= content(@conn, "Home hero", :background_image, classes: "hero", do: "/images/paint-blobs.jpg") %>
 
-  <main class="single-project project_01">
+  <main>
 
     <div class="container">
 

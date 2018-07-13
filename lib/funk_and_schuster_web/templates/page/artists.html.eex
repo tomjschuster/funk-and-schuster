@@ -39,22 +39,22 @@
 
       <%= content(@conn, "Press 1 main image", :background_image, classes: "img-container", do: "/moquin/img/image-placeholder_01.png") %>
 
-      <section class="overview">
+      <section class="description">
 
-        <div class="overview-details">
-          <div class="overview-detail">
+        <div class="specs">
+          <div class="spec">
             <span>
               <%= content(@conn, "Press 1 size label", :text, do: "print size:") %>
             </span>
             <%= content(@conn, "Press 1 size", :text, do: " 00 X 00") %>
           </div>
-          <div class="overview-detail">
+          <div class="spec">
             <span>
               <%= content(@conn, "Press 1 speed label", :text, do: "speed:") %>
             </span>
               <%= content(@conn, "Press 1 speed", :text, do: " X sheets per hour") %>
           </div>
-          <div class="overview-detail">
+          <div class="spec">
             <span>
               <%= content(@conn, "Press 1 mediums label", :text, do: "mediums:") %>
             </span>
@@ -74,8 +74,10 @@
         <div class="clearfix"></div>
       </section>
 
-      <%= content(@conn, "Press 1 sub image 1", :background_image, classes: "img-container", do: "/moquin/img/image-placeholder_02.png") %>
-      <%= content(@conn, "Press 1 sub image 2", :background_image, classes: "img-container", do: "/moquin/img/image-placeholder_02.png") %>
+      <div class="images">
+        <%= content(@conn, "Press 1 sub image 1", :background_image, classes: "img-container", do: "/moquin/img/image-placeholder_02.png") %>
+        <%= content(@conn, "Press 1 sub image 2", :background_image, classes: "img-container", do: "/moquin/img/image-placeholder_02.png") %>
+      </div>
 
     </section>
 
@@ -84,22 +86,22 @@
 
       <%= content(@conn, "Press 2 main image", :background_image, classes: "img-container", do: "/moquin/img/image-placeholder_01.png") %>
 
-      <section class="overview">
+      <section class="description">
 
-        <div class="overview-details">
-          <div class="overview-detail">
+        <div class="specs">
+          <div class="spec">
             <span>
               <%= content(@conn, "Press 2 size label", :text, do: "print size:") %>
             </span>
             <%= content(@conn, "Press 2 size", :text, do: "00 X 00") %>
           </div>
-          <div class="overview-detail">
+          <div class="spec">
             <span>
               <%= content(@conn, "Press 2 speed label", :text, do: "speed:") %>
             </span>
             <%= content(@conn, "Press 2 speed", :text, do: "X sheets per hour") %>
           </div>
-          <div class="overview-detail">
+          <div class="spec">
             <span>
               <%= content(@conn, "Press 2 mediums label", :text, do: "mediums:") %>
             </span>
@@ -119,9 +121,10 @@
         <div class="clearfix"></div>
       </section> <!-- .overview -->
 
-      <%= content(@conn, "Press 2 sub image 1", :background_image, classes: "img-container", do: "/moquin/img/image-placeholder_02.png") %>
-      <%= content(@conn, "Press 2 sub image 2", :background_image, classes: "img-container", do: "/moquin/img/image-placeholder_02.png") %>
-
+      <div class="images">
+        <%= content(@conn, "Press 2 sub image 1", :background_image, classes: "img-container", do: "/moquin/img/image-placeholder_02.png") %>
+        <%= content(@conn, "Press 2 sub image 2", :background_image, classes: "img-container", do: "/moquin/img/image-placeholder_02.png") %>
+      </div>
     </section>
 
     <div class="contact container">

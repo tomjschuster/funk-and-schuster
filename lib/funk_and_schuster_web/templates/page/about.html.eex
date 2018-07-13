@@ -1,13 +1,13 @@
-<div class="container">
+<div class="container about">
   <%= render LayoutView, "header.html", assigns %>
 
-  <main class="single-project project_02 about-us">
+  <main>
 
     <div class="container">
 
-      <section class="project-details">
+      <section class="details content-grid">
 
-         <div>
+         <div class="content-group">
 
           <%= content(@conn, "About summary image", :background_image, classes: "img-container", do: "/moquin/img/image-placeholder_03.png") %>
 
@@ -20,7 +20,7 @@
 
         </div>
 
-        <div>
+        <div class="content-group">
           <%= content(@conn, "About us image", :background_image, classes: "img-container", do: "/moquin/img/image-placeholder_03.png") %>
 
           <div class="content">
@@ -32,18 +32,20 @@
 
         </div>
 
-        <div>
+        <div class="content-group">
 
           <%= content(@conn, "About process image", :background_image, classes: "img-container", do: "/moquin/img/image-placeholder_03.png") %>
 
           <div class="content">
             <h2><%= content(@conn, "About process title", :text, do: "the process") %></h2>
-            <%= content(@conn, "About process content", :html, do: "Paragraph about the process, presses. Link to Artists") %>
+            <span class="paragraph">
+              <%= content(@conn, "About process content", :html, do: "Paragraph about the process, presses. Link to Artists") %>
+            </span>
           </div>
 
         </div>
 
-        <div>
+        <div class="content-group">
 
           <%= content(@conn, "About community image", :background_image, classes: "img-container", do: "/moquin/img/image-placeholder_03.png") %>
 

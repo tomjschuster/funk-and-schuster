@@ -343,6 +343,80 @@ a {
   letter-spacing: .2px;
 }
 
+/* ABOUT */
+
+
+
+.content-grid .img-container,
+.content-grid .content {
+  width: 48%;
+}
+
+.content-grid .img-container {
+  height: 550px;
+}
+
+.content-grid .content-group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 100px;
+}
+
+.content-grid > .content-group:first-child {
+  margin-top: 0;
+}
+
+.content-grid .content-group:nth-of-type(odd) {
+  flex-direction: row-reverse;
+}
+
+
+.about .details {
+  margin-top: 40px;
+}
+
+.about h2 {
+  font-size: .75rem;
+  letter-spacing: 3px;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+}
+
+.about .paragraph {
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 2.25rem;
+  letter-spacing: .2px;
+}
+
+/* Color */
+.about .paragraph {
+  color: #444;
+}
+
+/* Responsive */
+@media (max-width: 800px) {
+  .content-grid > .content-group {
+    flex-wrap: wrap;
+    margin: 70px 0;
+  }
+
+  .content-grid > .content-group:first-child {
+    margin-top: 0;
+  }
+
+  .content-grid .content {
+    margin-top: 40px;
+  }
+
+  .content-grid .img-container,
+  .content-grid .content {
+    width: 100%;
+  }
+}
+
 /* CONTACT */
 
 .contact h2 {

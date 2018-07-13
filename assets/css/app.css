@@ -16,6 +16,11 @@ body {
   font-family: Lato, sans-serif;
   font-size: 100%;
   line-height: 1.5;
+  height: 100%;
+}
+
+.noscroll {
+  overflow-y: hidden;
 }
 
 /* Header */
@@ -163,7 +168,7 @@ a {
 .aside-nav-container {
   background-color: white;
   display: block;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: -100%;
   padding: 36px 0 0 50px;
@@ -175,13 +180,29 @@ a {
 
 .aside-nav-container.active {
   left: 0;
+  overflow-y: scroll;
 }
 
 .close-nav {
   font-size: 1.5rem;
   position: absolute;
-  top: 50px;
+  top: 30px;
   right: 40px;
+}
+
+.close-nav i {
+  color: #000;
+  font-weight: 100;
+  font-family: Lato, sans-serif;
+  font-size: 2.0em;
+  text-align: center;
+  border-radius: 5px;
+  font-style: normal;
+}
+
+/* Color */
+.close-nav i:hover {
+  color: #00adf3;
 }
 
 .aside-nav {
@@ -212,6 +233,27 @@ a {
 
 .active {
   opacity: 1;
+}
+
+.body-overlay {
+  display: block;
+  position: fixed;
+  top: 0;
+  left: -100%;
+  bottom: 0;
+  right: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: 3;
+  opacity: 0;
+  transition: opacity .4s, left 0s .4s;
+}
+
+.body-overlay.active {
+  position: fixed;
+  left: 0;
+  opacity: 1;
+  transition: opacity .4s, left 0s;
 }
 
 /* Footer */
@@ -796,7 +838,7 @@ blockquote {
   width: 220px;
 }
 
-/* COLOR */
+/* Color */
 
 .paragraph {
   color: #444;

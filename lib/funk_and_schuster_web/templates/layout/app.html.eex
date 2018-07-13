@@ -29,7 +29,6 @@
   </head>
 
   <body>
-    <%= thesis_editor(@conn) %>
     <%= render @view_module, @view_template, assigns %>
     <script src="<%= static_path(@conn, "/moquin/js/main.js") %>"></script>
   </body>

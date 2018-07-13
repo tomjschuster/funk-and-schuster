@@ -1,42 +1,49 @@
-"use strict";
+'use strict'
 
-//Toggle navigation
+// Toggle navigation
+var html = document.querySelector('html')
+var body = document.querySelector('body')
+var openNav = document.querySelector('.open-nav')
+var closeNav = document.querySelector('.close-nav')
+var asideNav = document.querySelector('.aside-nav-container')
+var bodyOverlay = document.querySelector('.body-overlay')
 
-var openNav = document.querySelector(".open-nav");
-var closeNav = document.querySelector(".close-nav");
-var asideNav = document.querySelector(".aside-nav-container")
-var bodyOverlay = document.querySelector(".body-overlay");
+function addClasses () {
+  html.classList.add('noscroll')
+  body.classList.add('noscroll')
+  asideNav.classList.add('active')
+  bodyOverlay.classList.add('active')
+}
 
-openNav.addEventListener("click", function(){
-	asideNav.classList.add("active");
-	bodyOverlay.classList.add("active");
-});
-closeNav.addEventListener("click", function(){
-	asideNav.classList.remove('active'),
-	bodyOverlay.classList.remove('active')
-});
+function removeClasses () {
+	  html.classList.remove('noscroll')
+  body.classList.remove('noscroll')
+  asideNav.classList.remove('active')
+  bodyOverlay.classList.remove('active')
+}
 
-//Split Screen Portfolio
+openNav.addEventListener('click', addClasses)
+bodyOverlay.addEventListener('click', removeClasses)
+closeNav.addEventListener('click', removeClasses)
 
-let previews = {};
-document.querySelectorAll(".portfolio-previews > div").forEach(
-	function(element) {
-		previews[element.getAttribute('data-portfolio-preview')] = element;
-	}
+// Split Screen Portfolio
+
+let previews = {}
+document.querySelectorAll('.portfolio-previews > div').forEach(
+  function (element) {
+    previews[element.getAttribute('data-portfolio-preview')] = element
+  }
 )
 document.querySelectorAll('.portfolio-links ul li').forEach(
-	function(element) {
-		element.addEventListener('mouseover', function(e) {
-			let selectedIndex = element.getAttribute("data-portfolio-link");
+  function (element) {
+    element.addEventListener('mouseover', function (e) {
+      let selectedIndex = element.getAttribute('data-portfolio-link')
 
-			document.querySelector('.portfolio-links .active').classList.remove("active");
-			element.childNodes[0].classList.add("active");
+      document.querySelector('.portfolio-links .active').classList.remove('active')
+      element.childNodes[0].classList.add('active')
 
-			document.querySelector('.portfolio-previews .active').classList.remove("active");
-			previews[selectedIndex].classList.add("active");
-		})
-	}
+      document.querySelector('.portfolio-previews .active').classList.remove('active')
+      previews[selectedIndex].classList.add('active')
+    })
+  }
 )
-
-
-

@@ -849,6 +849,14 @@ blockquote {
 }
 
 
+.navigation a, .close-nav {
+  color: #000;
+}
+
+.aside-nav-container {
+  background: #fff;
+}
+
 .hero {
   background: url(..//img/image-placeholder_01.png);
   -webkit-background-size: cover;
@@ -858,4 +866,9 @@ blockquote {
   text-align: center;
   height: 800px;
   width: 100%;
+}
+
+.reversed {
+  background: #111;
+  color: #ddd;
 }

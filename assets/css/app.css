@@ -840,7 +840,8 @@ blockquote {
 
 /* Color */
 
-.paragraph {
+.paragraph,
+form label {
   color: #444;
 }
 
@@ -851,7 +852,10 @@ a.open-nav,
   color: #000;
 }
 
-.aside-nav-container {
+.aside-nav-container,
+.name input,
+.email input,
+.message textarea {
   background: #fff;
 }
 
@@ -884,6 +888,20 @@ a.open-nav,
 
 .open-nav i,
 .open-nav i:after,
-.open-nav i:before {
+.open-nav i:before,
+.btn-rounded,
+.btn-square,
+.cite:before {
   background: #000;
+}
+
+.btn-rounded:hover,
+.btn-square:hover {
+  background: #00adf3;
+}
+
+a.btn-square,
+a.btn-rounded,
+input.btn-square {
+  color: #fff;
 }

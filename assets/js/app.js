@@ -1,21 +1,51 @@
-// Brunch automatically concatenates all files in your
-// watched paths. Those paths can be configured at
-// config.paths.watched in "brunch-config.js".
-//
-// However, those files will only be executed if
-// explicitly imported. The only exception are files
-// in vendor, which are never wrapped in imports and
-// therefore are always executed.
+'use strict'
 
-// Import dependencies
-//
-// If you no longer want to use a dependency, remember
-// to also remove its path from "config.paths.watched".
-import "phoenix_html"
+import 'phoenix_html'
 
-// Import local files
-//
-// Local files can be imported directly using relative
-// paths "./socket" or full ones "web/static/js/socket".
+// Toggle navigation
+var html = document.querySelector('html')
+var body = document.querySelector('body')
+var openNav = document.querySelector('.open-nav')
+var closeNav = document.querySelector('.close-nav')
+var asideNav = document.querySelector('.aside-nav-container')
+var bodyOverlay = document.querySelector('.body-overlay')
 
-// import socket from "./socket"
+function addClasses () {
+  html.classList.add('noscroll')
+  body.classList.add('noscroll')
+  asideNav.classList.add('active')
+  bodyOverlay.classList.add('active')
+}
+
+function removeClasses () {
+  html.classList.remove('noscroll')
+  body.classList.remove('noscroll')
+  asideNav.classList.remove('active')
+  bodyOverlay.classList.remove('active')
+}
+
+openNav.addEventListener('click', addClasses)
+bodyOverlay.addEventListener('click', removeClasses)
+closeNav.addEventListener('click', removeClasses)
+
+// Split Screen Portfolio
+
+let previews = {}
+document.querySelectorAll('.portfolio-previews > div').forEach(
+  function (element) {
+    previews[element.getAttribute('data-portfolio-preview')] = element
+  }
+)
+document.querySelectorAll('.portfolio-links ul li').forEach(
+  function (element) {
+    element.addEventListener('mouseover', function (e) {
+      let selectedIndex = element.getAttribute('data-portfolio-link')
+
+      document.querySelector('.portfolio-links .active').classList.remove('active')
+      element.childNodes[0].classList.add('active')
+
+      document.querySelector('.portfolio-previews .active').classList.remove('active')
+      previews[selectedIndex].classList.add('active')
+    })
+  }
+)

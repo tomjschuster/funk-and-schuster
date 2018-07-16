@@ -1,7 +1,7 @@
 <header class="main-header">
 
   <a href="<%= page_path(@conn, :index) %>" class="logo">
-    <img src="<%= static_path(@conn, "/images/logo.svg") %>" alt="moquin-logo">
+    <img src="<%= static_path(@conn, "/images/logo.svg") %>" alt="logo">
   </a>
 
   <nav>

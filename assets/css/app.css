@@ -844,12 +844,10 @@ blockquote {
   color: #444;
 }
 
-.reversed .paragraph {
-  color: #ddd;
-}
-
-
-.navigation a, .close-nav {
+.navigation a,
+a.open-nav,
+.close-nav,
+.aside-nav a {
   color: #000;
 }
 
@@ -871,4 +869,21 @@ blockquote {
 .reversed {
   background: #111;
   color: #ddd;
+}
+
+.contact-me .paragraph,
+.reversed,
+.reversed .paragraph,
+.reversed li a {
+  color: #ddd;
+}
+
+.body-overlay {
+  background: rgba(0, 0, 0, .7);
+}
+
+.open-nav i,
+.open-nav i:after,
+.open-nav i:before {
+  background: #000;
 }

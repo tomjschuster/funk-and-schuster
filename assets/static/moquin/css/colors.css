@@ -54,7 +54,7 @@ a.reply-link:hover,
 .sub-nav,
 .blog-agency h2:before,
 .blog-agency-item,
-.aside-nav-container,
+/*.aside-nav-container,*/
 .container-split-screen header,
 .container-split-screen .portfolio-item,
 .team-member-overlay,
@@ -107,9 +107,6 @@ a.mail-link,
 
 .btn-rounded,
 .btn-square,
-.open-nav i,
-.open-nav i:after,
-.open-nav i:before,
 .services-agency h2:before,
 .clients-agency h2:before,
 .blog-agency,
@@ -121,13 +118,8 @@ a.mail-link,
 	background: #000;
 }
 
-.navigation a,
-a.open-nav,
 .author,
 .entry-title a,
-.social-icons a,
-.close-nav,
-.aside-nav a,
 .irregular-grid .portfolio-item-title,
 .irregular-grid .portfolio-item:hover .portfolio-item-title,
 .container-split-screen .portfolio-item-title,
@@ -151,9 +143,6 @@ a.reply-link,
 	background: rgba(0, 0, 0, .4);
 }
 
-.body-overlay {
-	background: rgba(0, 0, 0, .7);
-}
 
 /*-----------------------------------------------------
 #  background #111
@@ -161,7 +150,7 @@ a.reply-link,
 
 .main-footer,
 .contact-me,
-.reversed,
+/*.reversed,*/
 .pagination a:hover  {
 	background: #111;
 }
@@ -243,11 +232,16 @@ form label,
 #  color #ddd
 ------------------------------------------------------*/
 
-.contact-me p,
+.contact-me p {
+	color: #ddd;
+}
+
+/*.contact-me p,
 .reversed,
 .reversed li a {
 	color: #ddd;
 }
+*/
 
 /*-----------------------------------------------------
 #  background #eee
@@ -278,4 +272,6 @@ form label,
 .project_02 .overview{
 	background: #f7f7f7;
 }
+
+
 

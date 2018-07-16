@@ -10,6 +10,10 @@
   z-index: 5;
   transition: left .6s;
 
+  @media (max-width: 590px) {
+    width: 100%;
+  }
+
   &.active {
     left: 0;
     overflow-y: scroll;

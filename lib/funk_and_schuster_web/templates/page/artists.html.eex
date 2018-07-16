@@ -119,7 +119,7 @@
         </div>
 
         <div class="clearfix"></div>
-      </section> <!-- .overview -->
+      </section>
 
       <div class="images">
         <%= content(@conn, "Press 2 sub image 1", :background_image, classes: "img-container", do: "/images/image-placeholder_02.png") %>

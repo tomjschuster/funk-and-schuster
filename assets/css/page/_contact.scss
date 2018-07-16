@@ -11,6 +11,12 @@
     float: right;
     margin-top: 30px;
     width: 30%;
+
+    @media (max-width: 800px) {
+      float: none;
+      width: 100%;
+      margin-bottom: 100px;
+    }
   }
 
   .info div {
@@ -36,6 +42,17 @@
   margin-right: 6%;
   margin-bottom: 150px;
   width: 64%;
+
+  @media (max-width: 800px) {
+    float: none;
+    width: 100%;
+  }
+
+  input[type="submit"] {
+    @media (max-width: 800px) {
+      width: 100%;
+    }
+  }
 }
 
 .contact-form {

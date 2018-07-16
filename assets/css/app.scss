@@ -1,7 +1,7 @@
 @import "normalize";
 @import "layout";
+@import "component";
 @import "page";
-@import "blockquote";
 
 /* Normalize */
 
@@ -33,76 +33,12 @@ a {
   transition: all .2s ease-in-out;
 }
 
-.btn-square {
-  border: none;
-  display: block;
-  font-size: .75rem;
-  height: 55px;
-  letter-spacing: 3px;
-  line-height: 55px;
-  text-transform: uppercase;
-  text-align: center;
-  width: 220px;
-}
-
 .clearfix {
   clear: both;
 }
 
-.container {
-  max-width: 1170px;
-  margin: auto;
-  position: relative;
-}
-
-.overview header {
-  float: left;
-  width: 50%;
-}
-
-.overview .content {
-  float: right;
-  width: 50%;
-}
-
-.overview .project-title {
-  font-size: 2.5rem;
-  text-transform: capitalize;
-  letter-spacing: -.7px;
-  margin: -11px 0 5px 0;
-}
-
-.overview .services {
-  font-size: .75rem;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-}
-
-.content-grid .img-container,
-.content-grid .content {
-  width: 48%;
-}
-
-.content-grid .img-container {
-  height: 550px;
-}
-
-.content-grid .content-group {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 100px;
-}
-
-.content-grid > .content-group:first-child {
-  margin-top: 0;
-}
-
-.content-grid .content-group:nth-of-type(odd) {
-  flex-direction: row-reverse;
-}
-
 /* Color */
+
 blockquote {
   background: #f7f7f7;
 }
@@ -128,17 +64,6 @@ a.open-nav,
 .email input,
 .message textarea {
   background: #fff;
-}
-
-.hero {
-  background: url(..//img/image-placeholder_01.png);
-  -webkit-background-size: cover;
-  background-size: cover;
-  background-position: center;
-  position: relative;
-  text-align: center;
-  height: 800px;
-  width: 100%;
 }
 
 .reversed {
@@ -177,178 +102,6 @@ input.btn-square {
   color: #fff;
 }
 
-/* Responsive */
-
-@media (max-width: 800px) {
-  .navigation {
-    display: none;
-  }
-}
-
-@media (max-width: 800px) {
-  .main-header .open-nav {
-    display: block;
-  }
-}
-
-@media (max-width: 590px) {
-  .aside-nav-container {
-    width: 100%;
-  }
-}
-
-@media (max-width: 800px) {
-  .footer {
-    height: 0;
-    line-height: normal;
-    padding: 50px 0 120px 0;
-    text-align: center;
-  }
-
-  .footer .copyright-info,
-  .footer .social-icons {
-    float: none;
-  }
-
-  .footer .social-icons li {
-    float: none;
-    display: inline-block;
-    margin: 30px 0 0 0;
-    padding: 0 15px;
-  }
-}
-
-@media (max-width: 760px) {
-  .container,
-  .container-large {
-    margin-left: 30px;
-    margin-right: 30px;
-  }
-}
-
-@media (max-width: 1720px) {
-  .container-large {
-    margin-left: 50px;
-    margin-right: 50px;
-  }
-}
-
-@media (max-width: 1200px) {
-  .container {
-    margin-left: 50px;
-    margin-right: 50px;
-  }
-}
-
-@media (max-width: 1060px) {
-  .home .overview {
-    margin: 100px 0 95px 0;
-  }
-}
-
-@media (max-width: 800px) {
-  .home .overview {
-    margin: 70px 0 75px 0;
-  }
-
-  .overview header,
-  .overview .content {
-    float: none;
-    width: 95%;
-  }
-
-  .overview header {
-    margin-bottom: 30px;
-  }
-}
-
-@media (max-width: 800px) {
-  .content-grid > .content-group {
-    flex-wrap: wrap;
-    margin: 70px 0;
-  }
-
-  .content-grid > .content-group:first-child {
-    margin-top: 0;
-  }
-
-  .content-grid .content {
-    margin-top: 40px;
-  }
-
-  .content-grid .img-container,
-  .content-grid .content {
-    width: 100%;
-  }
-}
-
-@media (max-width: 800px) {
-  .artists .intro > .content,
-  .artists .intro > .img-container {
-    width: 100%;
-  }
-
-  .artists .intro {
-    flex-wrap: wrap;
-    margin-bottom: 70px;
-  }
-
-  .artists .press {
-    margin-bottom: 70px;
-  }
-
-  .artists .intro > .content {
-    margin-top: 50px;
-  }
-
-  .artists .press .description {
-    margin: 55px 0 45px 0;
-  }
-
-  .artists .press .specs {
-    float: none;
-    width: 80%;
-  }
-
-  .artists .press .content {
-    float: none;
-    width: 95%;
-    margin-top: 30px;
-  }
-
-  .artists .press .images {
-    flex-wrap: wrap;
-  }
-
-  .artists .press .images .img-container {
-    width: 100%;
-  }
-
-  .artists .press .images .img-container:first-child {
-    margin-bottom: 40px;
-  }
-}
-
-@media (max-width: 800px) {
-  .form-wrapper,
-  .contact .info {
-    float: none;
-    width: 100%;
-  }
-
-  .contact .info {
-    margin-bottom: 100px;
-  }
-
-  .form-wrapper input[type="submit"] {
-    width: 100%;
-  }
-
-  .mail-link {
-    font-size: 2.5rem;
-  }
-
-  .contact-me p {
-    width: 80%;
-  }
+.services {
+  color: #777;
 }

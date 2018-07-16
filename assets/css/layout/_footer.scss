@@ -4,26 +4,48 @@
   height: 100px;
   line-height: 99px;
 
+  @media (max-width: 800px) {
+    height: 0;
+    line-height: normal;
+    padding: 50px 0 120px 0;
+    text-align: center;
+  }
+
   .copyright-info {
     float: left;
     font-size: .95rem;
     letter-spacing: .5px;
     text-transform: capitalize;
+
+    @media (max-width: 800px) {
+      float: none;
+    }
   }
 
   .social-icons {
     float: right;
+
+    @media (max-width: 800px) {
+      float: none;
+    }
 
     li {
       font-size: .875rem;
       float: left;
       list-style: none;
       margin-left: 35px;
+
+      @media (max-width: 800px) {
+        float: none;
+        display: inline-block;
+        margin: 30px 0 0 0;
+        padding: 0 15px;
+      }
     }
   }
-}
 
-.reversed {
-  border-top: 1px solid #222;
-  border-bottom: 1px solid #111;
+  &.reversed {
+    border-top: 1px solid #222;
+    border-bottom: 1px solid #111;
+  }
 }

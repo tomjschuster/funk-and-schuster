@@ -19,6 +19,10 @@
 }
 
 .navigation {
+  @media (max-width: 800px) {
+    display: none;
+  }
+
   li {
     list-style: none;
     float: left;
@@ -76,6 +80,10 @@
   height: 22px;
   width: 28px;
   z-index: 1;
+
+  @media (max-width: 800px) {
+    display: block;
+  }
 
   i {
     position: absolute;

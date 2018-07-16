@@ -1,0 +1,40 @@
+blockquote {
+  border-left: 5px solid #00adf3;
+  margin: 45px 0;
+  padding: 40px 30px 30px 35px;
+
+  .paragraph, p {
+    font-size: 1.1rem;
+    font-weight: 400;
+    line-height: 2;
+    letter-spacing: .5px;
+  }
+
+  span > div {
+    margin-bottom: 30px;
+    overflow: hidden;
+  }
+
+  span.cite > div {
+    margin-bottom: 0;
+  }
+
+  .cite {
+    position: relative;
+    display: block;
+    font-style: italic;
+    font-weight: 700;
+    letter-spacing: .5px;
+    margin-top: -5px;
+    padding-left: 50px;
+
+    &:before {
+      position: absolute;
+      content: "";
+      top: 13px;
+      left: 0;
+      height: 1px;
+      width: 30px;
+    }
+  }
+}

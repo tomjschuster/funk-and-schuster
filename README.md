@@ -2,6 +2,7 @@
 
 ## TODO:
 - SASS/Refactor CSS
+- Active Nav link
 - Refactor JS
 - Optimize brunch
 - Deploy

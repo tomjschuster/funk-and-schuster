@@ -1,0 +1,114 @@
+.main-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100px;
+  line-height: 100px;
+  position: relative;
+}
+
+.logo {
+  margin-top: 0;
+  width: 275px;
+  max-width: 80%;
+  line-height: 0;
+
+  img {
+    width: 100%;
+  }
+}
+
+.navigation {
+  li {
+    list-style: none;
+    float: left;
+    margin-left: 40px;
+
+    &:hover > .sub-nav {
+      display: block;
+    }
+  }
+
+  a {
+    font-size: .75rem;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+  }
+
+  .sub-nav {
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    display: none;
+    line-height: 30px;
+    min-width: 200px;
+    padding-top: 5px;
+    position: absolute;
+    transition: all 1s ease-in-out;
+    text-align: left;
+    top: 100px;
+    z-index: 999;
+
+    li {
+      position: relative;
+      float: none;
+      margin-left: 0;
+      border-bottom: 1px solid #eee;
+
+      a {
+        display: inline-block;
+        font-size: .65rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        padding: 7px 25px;
+      }
+    }
+
+    .sub-nav {
+      left: 100%;
+      top: 0;
+    }
+  }
+}
+
+.open-nav {
+  display: none;
+  position: relative;
+  right: 0;
+  height: 22px;
+  width: 28px;
+  z-index: 1;
+
+  i {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    height: 2px;
+    width: 100%;
+    transition: all .3s ease-in-out;
+
+    &:before {
+      position: absolute;
+      top: -9px;
+      content: " ";
+      height: 2px;
+      width: 100%;
+      transition: all .3s ease-in-out;
+    }
+
+    &:after {
+      position: absolute;
+      top: 9px;
+      content: " ";
+      height: 2px;
+      width: 100%;
+      transition: all .3s ease-in-out;
+    }
+  }
+
+  &:hover {
+    cursor: pointer;
+
+    i:before, i:after {
+      width: 80%;
+    }
+  }
+}

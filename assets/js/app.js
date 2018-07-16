@@ -27,25 +27,3 @@ function removeClasses () {
 openNav.addEventListener('click', addClasses)
 bodyOverlay.addEventListener('click', removeClasses)
 closeNav.addEventListener('click', removeClasses)
-
-// Split Screen Portfolio
-
-let previews = {}
-document.querySelectorAll('.portfolio-previews > div').forEach(
-  function (element) {
-    previews[element.getAttribute('data-portfolio-preview')] = element
-  }
-)
-document.querySelectorAll('.portfolio-links ul li').forEach(
-  function (element) {
-    element.addEventListener('mouseover', function (e) {
-      let selectedIndex = element.getAttribute('data-portfolio-link')
-
-      document.querySelector('.portfolio-links .active').classList.remove('active')
-      element.childNodes[0].classList.add('active')
-
-      document.querySelector('.portfolio-previews .active').classList.remove('active')
-      previews[selectedIndex].classList.add('active')
-    })
-  }
-)

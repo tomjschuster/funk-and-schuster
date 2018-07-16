@@ -1,0 +1,29 @@
+.footer {
+  display: block;
+  border-top: 1px solid #ddd;
+  height: 100px;
+  line-height: 99px;
+
+  .copyright-info {
+    float: left;
+    font-size: .95rem;
+    letter-spacing: .5px;
+    text-transform: capitalize;
+  }
+
+  .social-icons {
+    float: right;
+
+    li {
+      font-size: .875rem;
+      float: left;
+      list-style: none;
+      margin-left: 35px;
+    }
+  }
+}
+
+.reversed {
+  border-top: 1px solid #222;
+  border-bottom: 1px solid #111;
+}

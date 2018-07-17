@@ -1,0 +1,20 @@
+APP="funk_and_schuster"
+
+BUILD_HOST="fas.tomjschuster.com"
+BUILD_USER="tom"
+BUILD_AT="/home/tom/app_build"
+
+PRODUCTION_HOSTS="fas.tomjschuster.com" 
+PRODUCTION_USER="tom" 
+DELIVER_TO="/home/tom/app_release" 
+
+
+pre_erlang_get_and_update_deps() {
+  local _prod_secret_path="/home/tom/app_config/prod.secret.exs"
+  if [ "$TARGET_MIX_ENV" = "prod" ]; then
+    __sync_remote "
+      ln -sfn '$_prod_secret_path' '$BUILD_AT/config/prod.secret.exs'
+    "
+  fi
+}
+

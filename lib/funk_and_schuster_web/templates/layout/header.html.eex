@@ -9,10 +9,10 @@
     <a href="#" class="open-nav"><i></i></a>
 
     <ul class="navigation">
-      <li><a href="<%= page_path(@conn, :about) %>">About</a></li>
-      <li><a href="<%= page_path(@conn, :gallery) %>">Gallery</a></li>
-      <li><a href="<%= page_path(@conn, :artists) %>">Artists</a></li>
-      <li><a href="<%= page_path(@conn, :contact) %>">Contact</a></li>
+      <li><%= nav_link(@conn, :about, "About") %></li>
+      <li><%= nav_link(@conn, :gallery, "Gallery") %></li>
+      <li><%= nav_link(@conn, :artists, "Artists") %></li>
+      <li><%= nav_link(@conn, :contact, "Contact") %></li>
     </ul>
 
   </nav>

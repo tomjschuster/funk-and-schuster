@@ -38,6 +38,10 @@
     font-size: .75rem;
     text-transform: uppercase;
     letter-spacing: 2.5px;
+
+    &.active {
+      font-weight: 900;
+    }
   }
 
   .sub-nav {

@@ -1,12 +1,12 @@
 APP="funk_and_schuster"
 
-BUILD_HOST="fas.tomjschuster.com"
+BUILD_HOST="206.189.176.130"
 BUILD_USER="tom"
 BUILD_AT="/home/tom/app_build"
 
-PRODUCTION_HOSTS="fas.tomjschuster.com" 
-PRODUCTION_USER="tom" 
-DELIVER_TO="/home/tom/app_release" 
+PRODUCTION_HOSTS="206.189.176.130"
+PRODUCTION_USER="tom"
+DELIVER_TO="/home/tom/app_release"
 
 
 pre_erlang_get_and_update_deps() {

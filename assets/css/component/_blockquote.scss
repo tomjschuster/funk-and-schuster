@@ -2,6 +2,7 @@ blockquote {
   border-left: 5px solid #00adf3;
   margin: 45px 0;
   padding: 40px 30px 30px 35px;
+  background: $color-off-white;
 
   .paragraph, p {
     font-size: 1.1rem;
@@ -35,6 +36,7 @@ blockquote {
       left: 0;
       height: 1px;
       width: 30px;
+      background: $color-black;
     }
   }
 }

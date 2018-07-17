@@ -1,0 +1,51 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+html {
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+body {
+  font-family: Lato, sans-serif;
+  font-size: 100%;
+  line-height: 1.5;
+  height: 100%;
+}
+
+.noscroll {
+  overflow-y: hidden;
+}
+
+a {
+  text-decoration: none;
+  transition: all .2s ease-in-out;
+}
+
+.clearfix {
+  clear: both;
+}
+
+a {
+  color: $text-color;
+}
+
+.paragraph,
+form label {
+  color: $text-color-medium;
+}
+
+.reversed {
+  background: $background-color-reversed;
+  color: $text-color-reversed;
+}
+
+.reversed,
+.reversed .paragraph,
+.reversed li a {
+  color: $text-color-reversed;
+}

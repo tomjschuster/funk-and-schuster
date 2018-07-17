@@ -102,8 +102,12 @@
   width: 100%;
 }
 
-.name input:focus,
-.email input:focus,
-.message textarea:focus {
-  border: 1px solid #999;
+.name input,
+.email input,
+.message textarea {
+  background: $background-color;
+
+  &:focus {
+    border: 1px solid #999;
+  }
 }

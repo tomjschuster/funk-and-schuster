@@ -34,6 +34,7 @@
   }
 
   a {
+    color: $text-color;
     font-size: .75rem;
     text-transform: uppercase;
     letter-spacing: 2.5px;
@@ -74,6 +75,7 @@
 }
 
 .open-nav {
+  color: $text-color;
   display: none;
   position: relative;
   right: 0;
@@ -118,5 +120,11 @@
     i:before, i:after {
       width: 80%;
     }
+  }
+
+  i,
+  i:after,
+  i:before {
+    background: $color-black;
   }
 }

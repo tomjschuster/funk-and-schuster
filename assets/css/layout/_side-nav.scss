@@ -1,5 +1,5 @@
 .aside-nav-container {
-  background-color: white;
+  background: $background-color;
   display: block;
   position: fixed;
   top: 0;
@@ -21,23 +21,29 @@
   }
 
   .close-nav {
+    color: $text-color;
     font-size: 1.5rem;
     position: absolute;
     top: 30px;
     right: 40px;
 
     i {
-      color: #000;
+      color: $text-color;
       font-weight: 100;
       font-family: Lato, sans-serif;
       font-size: 2.0em;
       text-align: center;
       border-radius: 5px;
       font-style: normal;
+
+      &:hover {
+        color: $primary-color;
+      }
     }
   }
 
   .aside-nav {
+    color: $text-color;
     position: absolute;
     transform: translateY(-50%);
     top: 50%;
@@ -69,6 +75,7 @@
   z-index: 3;
   opacity: 0;
   transition: opacity .4s, left 0s .4s;
+  background: rgba(0, 0, 0, 0.7);
 
   &.active {
     position: fixed;

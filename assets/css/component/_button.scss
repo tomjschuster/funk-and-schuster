@@ -9,3 +9,18 @@
   text-align: center;
   width: 220px;
 }
+
+.btn-rounded,
+.btn-square {
+  background: $color-black;
+
+  &:hover {
+    background: $primary-color;
+  }
+}
+
+a.btn-square,
+a.btn-rounded,
+input.btn-square {
+  color: $color-white;
+}

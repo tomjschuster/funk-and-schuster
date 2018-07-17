@@ -97,7 +97,7 @@ _build/
 /*.ez
 /priv/static/
 /config/prod.secret.exs
-/rel
+#/rel
 
 ### macOS ###
 # General

@@ -42,7 +42,7 @@ defmodule FunkAndSchuster.Mixfile do
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
       #{:thesis, "~> 0.3.0"},
-      {:thesis, path: "../libraries/thesis-phoenix"},
+      {:thesis, path: "./libraries/thesis-phoenix"},
       {:edeliver, "~> 1.4.3"},
       {:distillery, "~> 1.4"}
     ]

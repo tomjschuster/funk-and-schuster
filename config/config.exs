@@ -34,6 +34,7 @@ config :thesis,
 
 # Thesis Store Config
 config :thesis, Thesis.EctoStore, repo: FunkAndSchuster.Repo
+config :thesis, :mix_env, Mix.env
 
 # Thesis Notifications Config
 # config :thesis, :notifications,

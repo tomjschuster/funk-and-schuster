@@ -1,207 +1,205 @@
-<div class="container artists">
-  <%= render LayoutView, "header.html", assigns %>
+<%= render LayoutView, "header.html", assigns %>
 
 
-  <main>
-    <section class="intro">
+<main class="artists content container">
+  <section class="intro">
 
-      <%= content(@conn, "Artists intro image", :image, classes: "img-container", do: "/images/image-placeholder_01.png") %>
+    <%= content(@conn, "Artists intro image", :image, classes: "img-container", do: "/images/image-placeholder_01.png") %>
+
+    <div class="content">
+
+      <div>
+        <h1>
+          <%= content(@conn, "Artists title", :text, do: "Offset, Lithographic Printing") %>
+        </h1>
+
+        <blockquote>
+          <span class="paragraph">
+            <%= content(@conn, "Artists quote", :text, do: "A short quote about how amazing it is to work with us.") %>
+          </span class="paragraph">
+          <span class="cite">
+            <%= content(@conn, "Artists quote artist", :text, do: "Some Artist") %>
+          </span>
+        </blockquote>
+
+        <span class="paragraph">
+            <%= content(@conn, "Artists summary", :text, do: " A summary of what artists can do with us.") %>
+        </span class="paragraph">
+
+      </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+  </section> <!-- /.info -->
+
+  <section class="press">
+    <h2><%= content(@conn, "Press 1 title", :text, do: "Press 1") %></h2>
+
+    <%= content(@conn, "Press 1 main image", :background_image, classes: "img-container", do: "/images/image-placeholder_01.png") %>
+
+    <section class="description">
+
+      <div class="specs">
+        <div class="spec">
+          <span>
+            <%= content(@conn, "Press 1 size label", :text, do: "print size:") %>
+          </span>
+          <%= content(@conn, "Press 1 size", :text, do: " 00 X 00") %>
+        </div>
+        <div class="spec">
+          <span>
+            <%= content(@conn, "Press 1 speed label", :text, do: "speed:") %>
+          </span>
+            <%= content(@conn, "Press 1 speed", :text, do: " X sheets per hour") %>
+        </div>
+        <div class="spec">
+          <span>
+            <%= content(@conn, "Press 1 mediums label", :text, do: "mediums:") %>
+          </span>
+          <%= content(@conn, "Press 1 mediums", :text, do: " x, y, z") %>
+        </div>
+      </div>
 
       <div class="content">
-
-        <div>
-          <h1>
-            <%= content(@conn, "Artists title", :text, do: "Offset, Lithographic Printing") %>
-          </h1>
-
-          <blockquote>
-            <span class="paragraph">
-              <%= content(@conn, "Artists quote", :text, do: "A short quote about how amazing it is to work with us.") %>
-            </span class="paragraph">
-            <span class="cite">
-              <%= content(@conn, "Artists quote artist", :text, do: "Some Artist") %>
-            </span>
-          </blockquote>
-
-          <span class="paragraph">
-              <%= content(@conn, "Artists summary", :text, do: " A summary of what artists can do with us.") %>
-          </span class="paragraph">
-
-        </div>
+        <h2>
+          <%= content(@conn, "Press 1 description header", :text, do: "Good at X") %>
+        </h1>
+        <span class="paragraph">
+          <%= content(@conn, "Press 1 description", :text, do: "A description of the press and the kind of work you can do with it") %>
+        </span>
       </div>
 
       <div class="clearfix"></div>
-
-    </section> <!-- /.info -->
-
-    <section class="press">
-      <h2><%= content(@conn, "Press 1 title", :text, do: "Press 1") %></h2>
-
-      <%= content(@conn, "Press 1 main image", :background_image, classes: "img-container", do: "/images/image-placeholder_01.png") %>
-
-      <section class="description">
-
-        <div class="specs">
-          <div class="spec">
-            <span>
-              <%= content(@conn, "Press 1 size label", :text, do: "print size:") %>
-            </span>
-            <%= content(@conn, "Press 1 size", :text, do: " 00 X 00") %>
-          </div>
-          <div class="spec">
-            <span>
-              <%= content(@conn, "Press 1 speed label", :text, do: "speed:") %>
-            </span>
-              <%= content(@conn, "Press 1 speed", :text, do: " X sheets per hour") %>
-          </div>
-          <div class="spec">
-            <span>
-              <%= content(@conn, "Press 1 mediums label", :text, do: "mediums:") %>
-            </span>
-            <%= content(@conn, "Press 1 mediums", :text, do: " x, y, z") %>
-          </div>
-        </div>
-
-        <div class="content">
-          <h2>
-            <%= content(@conn, "Press 1 description header", :text, do: "Good at X") %>
-          </h1>
-          <span class="paragraph">
-            <%= content(@conn, "Press 1 description", :text, do: "A description of the press and the kind of work you can do with it") %>
-          </span>
-        </div>
-
-        <div class="clearfix"></div>
-      </section>
-
-      <div class="images">
-        <%= content(@conn, "Press 1 sub image 1", :background_image, classes: "img-container", do: "/images/image-placeholder_02.png") %>
-        <%= content(@conn, "Press 1 sub image 2", :background_image, classes: "img-container", do: "/images/image-placeholder_02.png") %>
-      </div>
-
     </section>
 
-    <section class="press">
-      <h2><%= content(@conn, "Press 2 title", :text, do: "Press 2") %></h2>
+    <div class="images">
+      <%= content(@conn, "Press 1 sub image 1", :background_image, classes: "img-container", do: "/images/image-placeholder_02.png") %>
+      <%= content(@conn, "Press 1 sub image 2", :background_image, classes: "img-container", do: "/images/image-placeholder_02.png") %>
+    </div>
 
-      <%= content(@conn, "Press 2 main image", :background_image, classes: "img-container", do: "/images/image-placeholder_01.png") %>
+  </section>
 
-      <section class="description">
+  <section class="press">
+    <h2><%= content(@conn, "Press 2 title", :text, do: "Press 2") %></h2>
 
-        <div class="specs">
-          <div class="spec">
-            <span>
-              <%= content(@conn, "Press 2 size label", :text, do: "print size:") %>
-            </span>
-            <%= content(@conn, "Press 2 size", :text, do: "00 X 00") %>
-          </div>
-          <div class="spec">
-            <span>
-              <%= content(@conn, "Press 2 speed label", :text, do: "speed:") %>
-            </span>
-            <%= content(@conn, "Press 2 speed", :text, do: "X sheets per hour") %>
-          </div>
-          <div class="spec">
-            <span>
-              <%= content(@conn, "Press 2 mediums label", :text, do: "mediums:") %>
-            </span>
-            <%= content(@conn, "Press 2 mediums", :text, do: "x, y, z") %>
-          </div>
-        </div>
+    <%= content(@conn, "Press 2 main image", :background_image, classes: "img-container", do: "/images/image-placeholder_01.png") %>
 
-        <div class="content">
-          <h2>
-            <%= content(@conn, "Press 2 description header", :text, do: "Good at Y") %>
-          </h2>
-          <span class="paragraph">
-            <%= content(@conn, "Press 2 description", :text, do: "A description of the press and the kind of work you can do with it") %>
+    <section class="description">
+
+      <div class="specs">
+        <div class="spec">
+          <span>
+            <%= content(@conn, "Press 2 size label", :text, do: "print size:") %>
           </span>
+          <%= content(@conn, "Press 2 size", :text, do: "00 X 00") %>
         </div>
-
-        <div class="clearfix"></div>
-      </section>
-
-      <div class="images">
-        <%= content(@conn, "Press 2 sub image 1", :background_image, classes: "img-container", do: "/images/image-placeholder_02.png") %>
-        <%= content(@conn, "Press 2 sub image 2", :background_image, classes: "img-container", do: "/images/image-placeholder_02.png") %>
+        <div class="spec">
+          <span>
+            <%= content(@conn, "Press 2 speed label", :text, do: "speed:") %>
+          </span>
+          <%= content(@conn, "Press 2 speed", :text, do: "X sheets per hour") %>
+        </div>
+        <div class="spec">
+          <span>
+            <%= content(@conn, "Press 2 mediums label", :text, do: "mediums:") %>
+          </span>
+          <%= content(@conn, "Press 2 mediums", :text, do: "x, y, z") %>
+        </div>
       </div>
-    </section>
 
-    <div class="contact container">
-
-      <h2>
-        <%= content(@conn, "Artists contact", :text, do: "Contact us to plan your next project:") %>
-      </h2>
-
-      <div class="form-wrapper">
-
-        <form action="#" class="contact-form">
-
-          <div class="name">
-            <label for="name">name</label>
-            <input id="name" name="name" type="text" required>
-          </div>
-
-          <div class="email">
-            <label for="email">email</label>
-            <input id="email" name="email" type="email" required>
-          </div>
-
-          <div class="message">
-            <label for="message">message</label>
-            <textarea name="message" id="message" cols="25" rows="7" required></textarea>
-          </div>
-
-          <input class="btn-square" type="submit" value="contact us">
-
-        </form>
-
-      </div> <!-- /.form-wrapper -->
-
-      <div class="info">
-
-        <div>
-          <h3>
-            <%= global_content(@conn, "Address title", :text, do: "visit us") %>
-          </h3>
-            <%= global_content(@conn, "Address", :html) do %>
-              <a href="https://goo.gl/maps/LmRsi9ub8wq" target="blank">
-                <p>
-                  207 U.S. 6, Unit B<br/>
-                  Provincetown, MA 02657
-                </p>
-              </a>
-            <% end %>
-        </div>
-
-        <div>
-          <h3>
-            <%= global_content(@conn, "Phone title", :text, do: "call us") %>
-          </h3>
-            <%= global_content(@conn, "Phone", :raw_html) do %>
-              <a href="tel:+1-508-487-3318">508-487-3318</a>
-            <% end %>
-        </div>
-
-        <div>
-          <h3>
-            <%= global_content(@conn, "Email title", :text, do: "email us") %>
-          </h3>
-            <%= global_content(@conn, "Email", :html) do %>
-              <a href="mailto:contact@funkandschuster.com" target="blank">
-                contact@funkandschuster.com
-              </a>
-            <% end %>
-        </div>
-
-      </div> <!-- /.info -->
+      <div class="content">
+        <h2>
+          <%= content(@conn, "Press 2 description header", :text, do: "Good at Y") %>
+        </h2>
+        <span class="paragraph">
+          <%= content(@conn, "Press 2 description", :text, do: "A description of the press and the kind of work you can do with it") %>
+        </span>
+      </div>
 
       <div class="clearfix"></div>
+    </section>
 
-    </div> <!-- /.container -->
-  </main> <!-- /main -->
+    <div class="images">
+      <%= content(@conn, "Press 2 sub image 1", :background_image, classes: "img-container", do: "/images/image-placeholder_02.png") %>
+      <%= content(@conn, "Press 2 sub image 2", :background_image, classes: "img-container", do: "/images/image-placeholder_02.png") %>
+    </div>
+  </section>
 
-</div>
+  <div class="contact container">
+
+    <h2>
+      <%= content(@conn, "Artists contact", :text, do: "Contact us to plan your next project:") %>
+    </h2>
+
+    <div class="form-wrapper">
+
+      <form action="#" class="contact-form">
+
+        <div class="name">
+          <label for="name">name</label>
+          <input id="name" name="name" type="text" required>
+        </div>
+
+        <div class="email">
+          <label for="email">email</label>
+          <input id="email" name="email" type="email" required>
+        </div>
+
+        <div class="message">
+          <label for="message">message</label>
+          <textarea name="message" id="message" cols="25" rows="7" required></textarea>
+        </div>
+
+        <input class="btn-square" type="submit" value="contact us">
+
+      </form>
+
+    </div> <!-- /.form-wrapper -->
+
+    <div class="info">
+
+      <div>
+        <h3>
+          <%= global_content(@conn, "Address title", :text, do: "visit us") %>
+        </h3>
+          <%= global_content(@conn, "Address", :html) do %>
+            <a href="https://goo.gl/maps/LmRsi9ub8wq" target="blank">
+              <p>
+                207 U.S. 6, Unit B<br/>
+                Provincetown, MA 02657
+              </p>
+            </a>
+          <% end %>
+      </div>
+
+      <div>
+        <h3>
+          <%= global_content(@conn, "Phone title", :text, do: "call us") %>
+        </h3>
+          <%= global_content(@conn, "Phone", :raw_html) do %>
+            <a href="tel:+1-508-487-3318">508-487-3318</a>
+          <% end %>
+      </div>
+
+      <div>
+        <h3>
+          <%= global_content(@conn, "Email title", :text, do: "email us") %>
+        </h3>
+          <%= global_content(@conn, "Email", :html) do %>
+            <a href="mailto:contact@funkandschuster.com" target="blank">
+              contact@funkandschuster.com
+            </a>
+          <% end %>
+      </div>
+
+    </div>
+
+    <div class="clearfix"></div>
+
+  </div>
+</main>
+
 
 <%= render LayoutView, "footer.html", assigns %>
 <%= render LayoutView, "aside-nav.html", assigns %>

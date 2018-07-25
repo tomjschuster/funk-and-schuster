@@ -1,6 +1,5 @@
-<div class="container">
-  <%= render LayoutView, "header.html", assigns %>
-</div>
+<%= render LayoutView, "header.html", assigns %>
+<main class="gallery content container"></main>
 
 <%= render LayoutView, "footer.html", assigns %>
 <%= render LayoutView, "aside-nav.html", assigns %>

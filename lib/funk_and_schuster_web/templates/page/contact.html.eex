@@ -1,83 +1,81 @@
-<div class="container contact">
-  <%= render LayoutView, "header.html", assigns %>
+<%= render LayoutView, "header.html", assigns %>
 
-  <main>
+<main class="contact content container">
 
-    <div class="container">
+  <div class="container">
 
-      <h2>
-        <%= content(@conn, "Contact title", :text, do: "Contact us for more info:") %>
-      </h2>
+    <h2>
+      <%= content(@conn, "Contact title", :text, do: "Contact us for more info:") %>
+    </h2>
 
-      <div class="form-wrapper">
+    <div class="form-wrapper">
 
-        <form action="#" class="contact-form">
+      <form action="#" class="contact-form">
 
-          <div class="name">
-            <label for="name">name</label>
-            <input id="name" name="name" type="text" required>
-          </div>
-
-          <div class="email">
-            <label for="email">email</label>
-            <input id="email" name="email" type="email" required>
-          </div>
-
-          <div class="message">
-            <label for="message">message</label>
-            <textarea name="message" id="message" cols="25" rows="7" required></textarea>
-          </div>
-
-          <input class="btn-square" type="submit" value="contact us">
-
-        </form>
-
-      </div> <!-- /.form-wrapper -->
-
-      <div class="info">
-
-        <div>
-          <h3>
-            <%= content(@conn, "Address title", :text, do: "visit us") %>
-          </h3>
-            <%= content(@conn, "Address", :html) do %>
-              <a href="https://goo.gl/maps/LmRsi9ub8wq" target="blank">
-                <p>
-                  207 U.S. 6, Unit B<br/>
-                  Provincetown, MA 02657
-                </p>
-              </a>
-            <% end %>
+        <div class="name">
+          <label for="name">name</label>
+          <input id="name" name="name" type="text" required>
         </div>
 
-        <div>
-          <h3>
-            <%= content(@conn, "Phone title", :text, do: "call us") %>
-          </h3>
-            <%= content(@conn, "Phone", :raw_html) do %>
-              <a href="tel:+1-508-487-3318">508-487-3318</a>
-            <% end %>
+        <div class="email">
+          <label for="email">email</label>
+          <input id="email" name="email" type="email" required>
         </div>
 
-        <div>
-          <h3>
-            <%= content(@conn, "Email title", :text, do: "email us") %>
-          </h3>
-            <%= content(@conn, "Email", :html) do %>
-              <a href="mailto:contact@funkandschuster.com" target="blank">
-                contact@funkandschuster.com
-              </a>
-            <% end %>
+        <div class="message">
+          <label for="message">message</label>
+          <textarea name="message" id="message" cols="25" rows="7" required></textarea>
         </div>
 
-      </div> <!-- /.info -->
+        <input class="btn-square" type="submit" value="contact us">
 
-      <div class="clearfix"></div>
+      </form>
 
-    </div> <!-- /.container -->
+    </div>
 
-  </main> <!-- /main -->
-</div>
+    <div class="info">
+
+      <div>
+        <h3>
+          <%= content(@conn, "Address title", :text, do: "visit us") %>
+        </h3>
+          <%= content(@conn, "Address", :html) do %>
+            <a href="https://goo.gl/maps/LmRsi9ub8wq" target="blank">
+              <p>
+                207 U.S. 6, Unit B<br/>
+                Provincetown, MA 02657
+              </p>
+            </a>
+          <% end %>
+      </div>
+
+      <div>
+        <h3>
+          <%= content(@conn, "Phone title", :text, do: "call us") %>
+        </h3>
+          <%= content(@conn, "Phone", :raw_html) do %>
+            <a href="tel:+1-508-487-3318">508-487-3318</a>
+          <% end %>
+      </div>
+
+      <div>
+        <h3>
+          <%= content(@conn, "Email title", :text, do: "email us") %>
+        </h3>
+          <%= content(@conn, "Email", :html) do %>
+            <a href="mailto:contact@funkandschuster.com" target="blank">
+              contact@funkandschuster.com
+            </a>
+          <% end %>
+      </div>
+
+    </div>
+
+    <div class="clearfix"></div>
+
+  </div>
+
+</main>
 
 <%= render LayoutView, "footer.html", assigns %>
 <%= render LayoutView, "aside-nav.html", assigns %>

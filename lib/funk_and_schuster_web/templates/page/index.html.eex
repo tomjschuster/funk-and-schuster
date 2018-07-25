@@ -1,40 +1,37 @@
-<div class="container home">
-  <%= render LayoutView, "header.html", assigns %>
+<%= render LayoutView, "header.html", assigns %>
+
+<main class="home content container">
   <%= content(@conn, "Home hero", :image, classes: "hero", do: "/images/paint-blobs.jpg") %>
+  <div class="container">
 
-  <main>
+    <section class="overview">
 
-    <div class="container">
+      <header>
+        <h1 class="project-title">
+          <%= content(@conn, "Title", :text, do: "A slogan") %>
+        </h1>
+        <span class="services">
+          <%= content(@conn, "Subtitle", :text, do: "with a subtitle") %>
+        </span>
+      </header>
 
-      <section class="overview">
+      <div class="content">
+        <h2>
+          <%= content(@conn, "Description header", :text, do: "Title for statement") %>
+        </h2>
+        <span class="paragraph">
+          <%= content(@conn, "Description content", :text) do %>
+           Some sort of mission statement, or vision, or whatever. It can be a
+           whole paragraph.
+          <% end %>
+        </span>
+      </div>
 
-        <header>
-          <h1 class="project-title">
-            <%= content(@conn, "Title", :text, do: "A slogan") %>
-          </h1>
-          <span class="services">
-            <%= content(@conn, "Subtitle", :text, do: "with a subtitle") %>
-          </span>
-        </header>
+      <div class="clearfix"></div>
+    </section>
+  </div>
+</main>
 
-        <div class="content">
-          <h2>
-            <%= content(@conn, "Description header", :text, do: "Title for statement") %>
-          </h2>
-          <span class="paragraph">
-            <%= content(@conn, "Description content", :text) do %>
-             Some sort of mission statement, or vision, or whatever. It can be a
-             whole paragraph.
-            <% end %>
-          </span>
-        </div>
-
-        <div class="clearfix"></div>
-      </section>
-    </div>
-  </main>
-
-</div> <!-- /.container-large -->
 
 
 <%= render LayoutView, "footer.html", assigns %>

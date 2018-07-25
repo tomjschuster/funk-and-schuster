@@ -24,6 +24,12 @@
       margin-right: 5%;
       height: 500px;
       width: 47.5%;
+
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+      }
     }
 
     blockquote {
@@ -33,6 +39,12 @@
     > .content,
     > .img-container {
       width: 47.5%;
+
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+      }
 
       @media (max-width: 800px) {
         width: 100%;
@@ -54,6 +66,12 @@
     .img-container:first-of-type {
       height: 600px;
       width: 100%;
+
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+      }
     }
 
     .images {
@@ -67,6 +85,12 @@
       .img-container {
         height: 600px;
         width: 48%;
+
+        img {
+          height: 100%;
+          width: 100%;
+          object-fit: cover;
+        }
 
         @media (max-width: 800px) {
           width: 100%;

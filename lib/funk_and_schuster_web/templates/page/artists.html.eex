@@ -5,7 +5,7 @@
   <main>
     <section class="intro">
 
-      <%= content(@conn, "Artists intro image", :background_image, classes: "img-container", do: "/images/image-placeholder_01.png") %>
+      <%= content(@conn, "Artists intro image", :image, classes: "img-container", do: "/images/image-placeholder_01.png") %>
 
       <div class="content">
 

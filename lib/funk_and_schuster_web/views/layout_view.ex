@@ -1,8 +1,12 @@
 defmodule FunkAndSchusterWeb.LayoutView do
   use FunkAndSchusterWeb, :view
 
-  def nav_link(conn, page, label),
-    do: link(label, to: page_path(conn, page), class: active_class(conn, page))
+  def nav_link(conn, page, label, opts \\ []) do
+    all_opts =
+      [to: page_path(conn, page), role: "menuitem", class: active_class(conn, page)] ++ opts
+
+    link(label, all_opts)
+  end
 
   def active_class(conn, page),
     do: if(page_path(conn, page) == conn.request_path, do: "active", else: "")

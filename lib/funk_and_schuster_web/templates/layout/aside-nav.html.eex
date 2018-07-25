@@ -1,19 +1,19 @@
-<div class="aside-nav-container">
+<aside class="aside-nav-container" hidden>
 
-  <a href="#" class="close-nav"><i>x</i></a>
+  <button tabindex="0" class="close-nav"><i>x</i></button>
 
   <nav>
 
     <ul class="aside-nav">
-      <li><%= nav_link(@conn, :index, "Home") %></li>
-      <li><%= nav_link(@conn, :about, "About") %></li>
-      <li><%= nav_link(@conn, :gallery, "Gallery") %></li>
-      <li><%= nav_link(@conn, :artists, "Artists") %></li>
-      <li><%= nav_link(@conn, :contact, "Contact") %></li>
+      <li><%= nav_link(@conn, :index, "Home", tabindex: -1) %></li>
+      <li><%= nav_link(@conn, :about, "About", tabindex: -1) %></li>
+      <li><%= nav_link(@conn, :gallery, "Gallery", tabindex: -1) %></li>
+      <li><%= nav_link(@conn, :artists, "Artists", tabindex: -1) %></li>
+      <li><%= nav_link(@conn, :contact, "Contact", tabindex: -1) %></li>
     </ul>
 
   </nav>
 
-</div>
+</aside>
 
 <div class="body-overlay"></div>

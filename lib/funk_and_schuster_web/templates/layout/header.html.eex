@@ -6,13 +6,13 @@
 
   <nav>
 
-    <a href="#" class="open-nav"><i></i></a>
+    <button class="open-nav"><i></i></button>
 
-    <ul class="navigation">
-      <li><%= nav_link(@conn, :about, "About") %></li>
-      <li><%= nav_link(@conn, :gallery, "Gallery") %></li>
-      <li><%= nav_link(@conn, :artists, "Artists") %></li>
-      <li><%= nav_link(@conn, :contact, "Contact") %></li>
+    <ul role="menubar" class="navigation">
+      <li role="none"><%= nav_link(@conn, :about, "About") %></li>
+      <li role="none"><%= nav_link(@conn, :gallery, "Gallery") %></li>
+      <li role="none"><%= nav_link(@conn, :artists, "Artists") %></li>
+      <li role="none"><%= nav_link(@conn, :contact, "Contact") %></li>
     </ul>
 
   </nav>

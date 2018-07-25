@@ -3,66 +3,63 @@
 
   <main>
 
-    <div class="container">
+    <section class="details content-grid">
 
-      <section class="details content-grid">
+       <div class="content-group">
 
-         <div class="content-group">
+        <%= content(@conn, "About summary image", :image, classes: "img-container", do: "/images/image-placeholder_03.png") %>
 
-          <%= content(@conn, "About summary image", :background_image, classes: "img-container", do: "/images/image-placeholder_03.png") %>
-
-          <div class="content">
-            <h2><%= content(@conn, "About summary title", :text, do: "a summary") %></h2>
-            <span class="paragraph">
-              <%= content(@conn, "About summary content", :text, do: "Use this paragraph to describe what we do as if it were the only thing they read.") %>
-            </span>
-          </div>
-
+        <div class="content">
+          <h2><%= content(@conn, "About summary title", :text, do: "a summary") %></h2>
+          <span class="paragraph">
+            <%= content(@conn, "About summary content", :text, do: "Use this paragraph to describe what we do as if it were the only thing they read.") %>
+          </span>
         </div>
 
-        <div class="content-group">
-          <%= content(@conn, "About us image", :background_image, classes: "img-container", do: "/images/image-placeholder_03.png") %>
+      </div>
 
-          <div class="content">
-            <h2><%= content(@conn, "About us title", :text, do: "who we are") %></h2>
-            <span class="paragraph">
-              <%= content(@conn, "About us content", :text, do: "Paragraph about company, people.") %>
-            </span>
-          </div>
+      <div class="content-group">
+        <%= content(@conn, "About us image", :image, classes: "img-container", do: "/images/image-placeholder_03.png") %>
 
+        <div class="content">
+          <h2><%= content(@conn, "About us title", :text, do: "who we are") %></h2>
+          <span class="paragraph">
+            <%= content(@conn, "About us content", :text, do: "Paragraph about company, people.") %>
+          </span>
         </div>
 
-        <div class="content-group">
+      </div>
 
-          <%= content(@conn, "About process image", :background_image, classes: "img-container", do: "/images/image-placeholder_03.png") %>
+      <div class="content-group">
 
-          <div class="content">
-            <h2><%= content(@conn, "About process title", :text, do: "the process") %></h2>
-            <span class="paragraph">
-              <%= content(@conn, "About process content", :html, do: "Paragraph about the process, presses. Link to Artists") %>
-            </span>
-          </div>
+        <%= content(@conn, "About process image", :image, classes: "img-container", do: "/images/image-placeholder_03.png") %>
 
+        <div class="content">
+          <h2><%= content(@conn, "About process title", :text, do: "the process") %></h2>
+          <span class="paragraph">
+            <%= content(@conn, "About process content", :html, do: "Paragraph about the process, presses. Link to Artists") %>
+          </span>
         </div>
 
-        <div class="content-group">
+      </div>
 
-          <%= content(@conn, "About community image", :background_image, classes: "img-container", do: "/images/image-placeholder_03.png") %>
+      <div class="content-group">
 
-          <div class="content">
-            <h2><%= content(@conn, "About community title", :html, do: "the community") %></h2>
-            <span class="paragraph">
-              <%= content(@conn, "About community content", :text, do: "Paragraph about involvement and role in the art community.") %>
-            </span>
-          </div>
+        <%= content(@conn, "About community image", :image, classes: "img-container", do: "/images/image-placeholder_03.png") %>
 
+        <div class="content">
+          <h2><%= content(@conn, "About community title", :html, do: "the community") %></h2>
+          <span class="paragraph">
+            <%= content(@conn, "About community content", :text, do: "Paragraph about involvement and role in the art community.") %>
+          </span>
         </div>
 
-      </section> <!-- /.project-details -->
+      </div>
 
-    </div> <!-- /.container -->
+    </section>
 
-  </main> <!-- /main -->
+
+  </main>
 </div>
 <%= render LayoutView, "footer.html", assigns %>
 <%= render LayoutView, "aside-nav.html", assigns %>

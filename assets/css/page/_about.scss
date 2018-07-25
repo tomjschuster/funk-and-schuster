@@ -4,21 +4,21 @@
   }
 
   h2 {
-    font-size: .75rem;
+    font-size: 1rem;
     letter-spacing: 3px;
     margin-bottom: 20px;
     text-transform: uppercase;
   }
 
   .paragraph {
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-weight: 300;
     line-height: 2.25rem;
-    letter-spacing: .2px;
+    letter-spacing: .5px;
   }
 
   .content-grid {
-    .img-container,
+    div.img-container,
     .content {
       width: 48%;
 
@@ -33,8 +33,13 @@
       }
     }
 
-    .img-container {
+    div.img-container {
       height: 550px;
+
+      img {
+        height: 100%;
+        width: 100%;
+      }
     }
 
     .content-group {

@@ -2,6 +2,7 @@
 
 ## TODO:
 - Scrolling Header
+- Contact Form
 - File Uploader
 - Gallery
 - Admin Experience

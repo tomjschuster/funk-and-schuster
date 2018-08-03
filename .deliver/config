@@ -1,6 +1,7 @@
 APP="funk_and_schuster"
 
-BUILD_HOST="funkandschuster.art"
+#BUILD_HOST="funkandschuster.art"
+BUILD_HOST="localhost"
 BUILD_USER="tom"
 BUILD_AT="/home/tom/funk_and_schuster_build"
 

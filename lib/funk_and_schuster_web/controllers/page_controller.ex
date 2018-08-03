@@ -3,7 +3,7 @@ defmodule FunkAndSchusterWeb.PageController do
 
   def admin_host?(conn) do
     case conn.host do
-      "admin.funkandschuster.com" -> true
+      "admin.funkandschuster.art" -> true
       "admin.localhost" -> true
       _ -> false
     end

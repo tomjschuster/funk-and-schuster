@@ -6,3 +6,9 @@
 - File Uploader
 - Gallery
 - Admin Experience
+
+## Optimization
+- CSS/JS inline?
+- [next-gen images](https://developers.google.com/web/fundamentals/)
+- Show text for social icons while loading [font-display](https://developers.google.com/web/updates/2016/02/font-display)
+- HTTP/2

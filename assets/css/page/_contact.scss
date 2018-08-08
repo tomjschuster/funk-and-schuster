@@ -60,6 +60,11 @@
   div.email {
     float: left;
     width: 48%;
+
+    @media (max-width: 800px) {
+      float: none;
+      width: 100%;
+    }
   }
 
   div.name {

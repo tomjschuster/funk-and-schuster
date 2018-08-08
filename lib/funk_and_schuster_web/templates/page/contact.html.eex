@@ -4,10 +4,9 @@
 
   <div class="container">
 
-    <h2>
-      <%= content(@conn, "Contact title", :text, do: "Contact us for more info:") %>
-    </h2>
-
+    <h1 class="page-title">
+      <%= content(@conn, "Contact title", :text, do: "Contact us") %>
+    </h1>
     <div class="form-wrapper">
 
       <form action="#" class="contact-form">

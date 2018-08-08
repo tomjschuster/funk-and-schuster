@@ -80,7 +80,7 @@ main.content {
   li {
     list-style: none;
     float: left;
-    margin-left: 40px;
+    margin-left: 35px;
 
     &:hover > .sub-nav {
       display: block;
@@ -91,7 +91,7 @@ main.content {
     color: $text-color;
     font-size: 1rem;
     text-transform: uppercase;
-    letter-spacing: 2.5px;
+    letter-spacing: 2.25px;
 
     &.active {
       font-weight: 900;

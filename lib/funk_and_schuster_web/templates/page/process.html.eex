@@ -1,7 +1,7 @@
 <%= render LayoutView, "header.html", assigns %>
 
 <main class="process content container">
-
+  <h1 class="page-title">The Process</h1>
   <section class="details content-grid">
 
      <div class="content-group">

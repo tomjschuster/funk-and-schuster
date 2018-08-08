@@ -1,0 +1,78 @@
+<%= render LayoutView, "header.html", assigns %>
+
+<main class="process content container">
+
+  <section class="details content-grid">
+
+     <div class="content-group">
+
+      <%= content(@conn, "Prcoess summary image", :image, classes: "img-container", do: "/images/image-placeholder_03.png") %>
+
+      <div class="content">
+        <h2><%= content(@conn, "Process summary title", :text, do: "process summary") %></h2>
+        <span class="paragraph">
+          <%= content(@conn, "Process summary content", :text, do: "Use this paragraph to give an overview of the process.") %>
+        </span>
+      </div>
+
+    </div>
+
+    <div class="content-group">
+      <%= content(@conn, "Phase 1 image", :image, classes: "img-container", do: "/images/image-placeholder_03.png") %>
+
+      <div class="content">
+        <h2><%= content(@conn, "Phase 1 title", :text, do: "Phase 1: Name of phase") %></h2>
+        <span class="paragraph">
+          <%= content(@conn, "Phase 1 content", :text, do: "Phase description") %>
+        </span>
+      </div>
+
+    </div>
+
+    <div class="content-group">
+
+      <%= content(@conn, "Phase 2 image", :image, classes: "img-container", do: "/images/image-placeholder_03.png") %>
+
+      <div class="content">
+        <h2><%= content(@conn, "Phase 2 title", :text, do: "Phase 2: Name of phase") %></h2>
+        <span class="paragraph">
+          <%= content(@conn, "Phase 2 content", :html, do: "Phase description") %>
+        </span>
+      </div>
+
+    </div>
+
+    <div class="content-group">
+
+      <%= content(@conn, "Phase 3 image", :image, classes: "img-container", do: "/images/image-placeholder_03.png") %>
+
+      <div class="content">
+        <h2><%= content(@conn, "Phase 3 title", :html, do: "Phase 3: Name of phase") %></h2>
+        <span class="paragraph">
+          <%= content(@conn, "Phase 3 content", :text, do: "Phase description") %>
+        </span>
+      </div>
+
+    </div>
+
+    <div class="content-group">
+
+      <%= content(@conn, "Phase 4 image", :image, classes: "img-container", do: "/images/image-placeholder_03.png") %>
+
+      <div class="content">
+        <h2><%= content(@conn, "Phase 4 title", :html, do: "Phase 4: Name of phase") %></h2>
+        <span class="paragraph">
+          <%= content(@conn, "Phase 4 content", :text, do: "Phase description") %>
+        </span>
+      </div>
+
+    </div>
+
+
+  </section>
+
+
+</main>
+
+<%= render LayoutView, "footer.html", assigns %>
+<%= render LayoutView, "aside-nav.html", assigns %>

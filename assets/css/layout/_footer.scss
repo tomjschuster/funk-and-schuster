@@ -4,7 +4,7 @@
   height: 100px;
   line-height: 99px;
 
-  @media (max-width: 800px) {
+  @media (max-width: 870) {
     height: 0;
     line-height: normal;
     padding: 50px 0 120px 0;
@@ -17,7 +17,7 @@
     letter-spacing: .5px;
     text-transform: capitalize;
 
-    @media (max-width: 800px) {
+    @media (max-width: 870) {
       float: none;
     }
   }
@@ -25,7 +25,7 @@
   .social-icons {
     float: right;
 
-    @media (max-width: 800px) {
+    @media (max-width: 870) {
       float: none;
     }
 
@@ -35,7 +35,7 @@
       list-style: none;
       margin-left: 35px;
 
-      @media (max-width: 800px) {
+      @media (max-width: 870) {
         float: none;
         display: inline-block;
         margin: 30px 0 0 0;

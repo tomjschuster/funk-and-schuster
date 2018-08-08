@@ -6,9 +6,9 @@
 
     <ul class="aside-nav">
       <li><%= nav_link(@conn, :index, "Home", tabindex: -1) %></li>
-      <li><%= nav_link(@conn, :about, "About", tabindex: -1) %></li>
+      <li><%= nav_link(@conn, :about, "About Us", tabindex: -1) %></li>
+      <li><%= nav_link(@conn, :process, "The Process", tabindex: -1) %></li>
       <li><%= nav_link(@conn, :gallery, "Gallery", tabindex: -1) %></li>
-      <li><%= nav_link(@conn, :artists, "Artists", tabindex: -1) %></li>
       <li><%= nav_link(@conn, :contact, "Contact", tabindex: -1) %></li>
     </ul>
 

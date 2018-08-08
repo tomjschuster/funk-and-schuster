@@ -9,9 +9,9 @@
     <button class="open-nav"><i></i></button>
 
     <ul role="menubar" class="navigation">
-      <li role="none"><%= nav_link(@conn, :about, "About") %></li>
+      <li role="none"><%= nav_link(@conn, :about, "About Us") %></li>
+      <li role="none"><%= nav_link(@conn, :process, "The Process") %></li>
       <li role="none"><%= nav_link(@conn, :gallery, "Gallery") %></li>
-      <li role="none"><%= nav_link(@conn, :artists, "Artists") %></li>
       <li role="none"><%= nav_link(@conn, :contact, "Contact") %></li>
     </ul>
 

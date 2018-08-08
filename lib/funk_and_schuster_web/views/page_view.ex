@@ -7,7 +7,7 @@ defmodule FunkAndSchusterWeb.PageView do
       [] -> "home"
       ["about" | _rest] -> "about"
       ["gallery" | _rest] -> "gallery"
-      ["artists" | _rest] -> "artists"
+      ["process" | _rest] -> "process"
       ["contact" | _rest] -> "contact"
       _ -> ""
     end

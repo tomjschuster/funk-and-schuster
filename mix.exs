@@ -4,8 +4,8 @@ defmodule FunkAndSchuster.Mixfile do
   def project do
     [
       app: :funk_and_schuster,
-      version: "0.0.3",
-      elixir: "~> 1.4",
+      version: "0.0.4",
+      elixir: "~> 1.7",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),
       start_permanent: Mix.env() == :prod,
@@ -20,7 +20,7 @@ defmodule FunkAndSchuster.Mixfile do
   def application do
     [
       mod: {FunkAndSchuster.Application, []},
-      extra_applications: [:logger, :runtime_tools],
+      extra_applications: [:logger, :runtime_tools]
       # included_applications: [:thesis]
     ]
   end
@@ -34,7 +34,7 @@ defmodule FunkAndSchuster.Mixfile do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.3.3"},
+      {:phoenix, "~> 1.3.4"},
       {:phoenix_pubsub, "~> 1.0"},
       {:phoenix_ecto, "~> 3.2"},
       {:postgrex, ">= 0.0.0"},
@@ -42,10 +42,12 @@ defmodule FunkAndSchuster.Mixfile do
       {:phoenix_live_reload, "~> 1.0", only: :dev},
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
+      {:plug_cowboy, "~> 1.0"},
       # {:thesis, "~> 0.3.0"},
-      {:thesis, git: "https://github.com/tomjschuster/thesis-phoenix", branch: "app_env_instead_of_mix_env"},
-      {:edeliver, "~> 1.4.3"},
-      {:distillery, "~> 1.4"}
+      {:thesis,
+       git: "https://github.com/tomjschuster/thesis-phoenix", branch: "app_env_instead_of_mix_env"},
+      {:edeliver, ">= 1.6.0"},
+      {:distillery, "~> 2.0", warn_missing: false}
     ]
   end
 

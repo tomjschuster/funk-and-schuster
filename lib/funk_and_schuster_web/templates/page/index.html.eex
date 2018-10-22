@@ -35,4 +35,3 @@
 
 
 <%= render LayoutView, "footer.html", assigns %>
-<%= render LayoutView, "aside-nav.html", assigns %>

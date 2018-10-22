@@ -27,6 +27,5 @@
   <body>
     <%= thesis_editor(@conn) %>
     <%= render @view_module, @view_template, assigns %>
-    <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
   </body>
 </html>

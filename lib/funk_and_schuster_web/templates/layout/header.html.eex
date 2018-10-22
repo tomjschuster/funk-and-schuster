@@ -1,20 +1,20 @@
-<header class="main-header sticky">
+<header class="header">
 
-  <a href="<%= page_path(@conn, :index) %>" class="logo">
+  <input type="checkbox" id="nav-toggle" checked />
+  <label for="nav-toggle" class="open-nav"><i></i></label>
+
+  <a class="logo" href="<%= page_path(@conn, :index) %>">
     <img src="<%= static_path(@conn, "/images/logo.svg") %>" alt="logo">
   </a>
 
-  <nav>
-
-    <button class="open-nav"><i></i></button>
-
-    <ul role="menubar" class="navigation">
-      <li role="none"><%= nav_link(@conn, :about, "About") %></li>
-      <li role="none"><%= nav_link(@conn, :gallery, "Gallery") %></li>
-      <li role="none"><%= nav_link(@conn, :artists, "Artists") %></li>
-      <li role="none"><%= nav_link(@conn, :contact, "Contact") %></li>
+  <nav class="nav">
+    
+    <ul class="menu role="menubar"">
+      <li class="nav-link" role="none"><%= nav_link(@conn, :about, "About") %></li>
+      <li class="nav-link" role="none"><%= nav_link(@conn, :gallery, "Gallery") %></li>
+      <li class="nav-link" role="none"><%= nav_link(@conn, :artists, "Artists") %></li>
+      <li class="nav-link" role="none"><%= nav_link(@conn, :contact, "Contact") %></li>
     </ul>
-
   </nav>
 
 </header>

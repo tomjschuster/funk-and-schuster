@@ -20,7 +20,7 @@ defmodule FunkAndSchusterWeb.Router do
     get "/", PageController, :index
     get "/about", PageController, :about
     get "/gallery", PageController, :gallery
-    get "/artists", PageController, :artists
+    get "/process", PageController, :process
     get "/contact", PageController, :contact
   end
 

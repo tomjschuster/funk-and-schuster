@@ -8,12 +8,11 @@
   </a>
 
   <nav class="nav">
-    
-    <ul class="menu role="menubar"">
-      <li class="nav-link" role="none"><%= nav_link(@conn, :about, "About") %></li>
-      <li class="nav-link" role="none"><%= nav_link(@conn, :gallery, "Gallery") %></li>
-      <li class="nav-link" role="none"><%= nav_link(@conn, :artists, "Artists") %></li>
-      <li class="nav-link" role="none"><%= nav_link(@conn, :contact, "Contact") %></li>
+    <ul class="menu" role="menubar">
+      <li class="nav-link"role="none"><%= nav_link(@conn, :about, "About Us") %></li>
+      <li class="nav-link"role="none"><%= nav_link(@conn, :process, "The Process") %></li>
+      <li class="nav-link"role="none"><%= nav_link(@conn, :gallery, "Gallery") %></li>
+      <li class="nav-link"role="none"><%= nav_link(@conn, :contact, "Contact") %></li>
     </ul>
   </nav>
 

@@ -1,37 +1,37 @@
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  -webkit-font-smoothing: antialiased;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
 }
 
 html {
-  overflow-x: hidden;
-  overflow-y: scroll;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 
 body {
-  font-family: Helvetica, sans-serif;
-  font-size: 100%;
-  line-height: 1.5;
-  height: 100%;
+    font-family: Helvetica, sans-serif;
+    font-size: 100%;
+    line-height: 1.5;
+    height: 100%;
 }
 
 .noscroll {
-  overflow-y: hidden;
+    overflow-y: hidden;
 }
 
 a {
-  text-decoration: none;
-  transition: all .2s ease-in-out;
+    text-decoration: none;
+    transition: all .2s ease-in-out;
 }
 
 .clearfix {
-  clear: both;
+    clear: both;
 }
 
 a {
-  color: $text-color;
+    color: $text-color;
 }
 
 .page-title {
@@ -43,16 +43,16 @@ a {
 
 .paragraph,
 form label {
-  color: $text-color-medium;
+    color: $text-color-medium;
 }
 
 .reversed {
-  background: $background-color-reversed;
-  color: $text-color-reversed;
+    background: $background-color-reversed;
+    color: $text-color-reversed;
 }
 
 .reversed,
 .reversed .paragraph,
 .reversed li a {
-  color: $text-color-reversed;
+    color: $text-color-reversed;
 }

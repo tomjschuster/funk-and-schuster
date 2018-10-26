@@ -2,7 +2,11 @@
   max-width: 1170px;
   margin: auto;
   position: relative;
-}
+
+  @include tablet {
+    margin-left: 45px;
+    margin-right: 45px;
+  }
 
 @media (max-width: 1720px) {
   .container-large {

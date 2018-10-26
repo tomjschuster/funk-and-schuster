@@ -1,79 +1,81 @@
 .home {
-  div.hero {
-    // background: url(..//img/image-placeholder_01.png);
-    // -webkit-background-size: cover;
-    // background-size: cover;
-    // background-position: center;
-    position: relative;
-    text-align: center;
-    height: 800px;
-    width: 100%;
+    div.hero {
+        // background: url(..//img/image-placeholder_01.png);
+        // -webkit-background-size: cover;
+        // background-size: cover;
+        // background-position: center;
+        position: relative;
+        text-align: center;
+        height: 800px;
+        width: 100%;
 
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-  }
-
-  .overview {
-    margin: 145px 0 140px 0;
-
-    @media (max-width: 1060px) {
-      margin: 100px 0 95px 0;
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
     }
 
-    @media (max-width: 800px) {
-      margin: 70px 0 75px 0;
+    .overview {
+        margin: 145px 0 140px 0;
+
+        @include tablet {
+            margin: 100px 0 95px 0;
+        }
+
+
+        @include mobile {
+            margin: 70px 0 75px 0;
+        }
+
+
+        header {
+            float: left;
+            width: 50%;
+
+            @include mobile {
+                float: none;
+                width: 95%;
+                margin-bottom: 30px;
+            }
+        }
+
+        .content {
+            float: right;
+            width: 50%;
+
+            @include mobile {
+                float: none;
+                width: 95%;
+            }
+        }
+
+        .project-title {
+            font-size: 2.5rem;
+            text-transform: capitalize;
+            letter-spacing: -.7px;
+            margin: -11px 0 5px 0;
+        }
+
+        .services {
+            font-size: .75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: $text-color;
+        }
+
+        .content h2 {
+            font-size: .75rem;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .paragraph {
+            font-size: 1rem;
+            font-weight: 300;
+            line-height: 2.25rem;
+            letter-spacing: .2px;
+        }
     }
-
-    header {
-      float: left;
-      width: 50%;
-
-      @media (max-width: 800px) {
-        float: none;
-        width: 95%;
-        margin-bottom: 30px;
-      }
-    }
-
-    .content {
-      float: right;
-      width: 50%;
-
-      @media (max-width: 800px) {
-        float: none;
-        width: 95%;
-      }
-    }
-
-    .project-title {
-      font-size: 2.5rem;
-      text-transform: capitalize;
-      letter-spacing: -.7px;
-      margin: -11px 0 5px 0;
-    }
-
-    .services {
-      font-size: .75rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: $text-color;
-    }
-
-    .content h2 {
-      font-size: .75rem;
-      letter-spacing: 3px;
-      margin-bottom: 20px;
-      text-transform: uppercase;
-    }
-
-    .paragraph {
-      font-size: 1rem;
-      font-weight: 300;
-      line-height: 2.25rem;
-      letter-spacing: .2px;
-    }
-  }
 }

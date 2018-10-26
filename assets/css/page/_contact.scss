@@ -1,118 +1,119 @@
 .contact {
-  main {
-    margin-top: 40px;
-  }
-
-  h2 {
-    margin-bottom: 25px;
-  }
-
-  .info {
-    float: right;
-    margin-top: 30px;
-    width: 30%;
-
-    @media (max-width: 800px) {
-      float: none;
-      width: 100%;
-      margin-bottom: 100px;
+    main {
+        margin-top: 40px;
     }
-  }
 
-  .info div {
-    margin-bottom: 25px;
-  }
+    h2 {
+        margin-bottom: 25px;
+    }
 
-  .info h3 {
-    font-size: .8rem;
-    font-weight: 900;
-    letter-spacing: 2.5px;
-    text-transform: uppercase;
-    margin-bottom: 5px;
-  }
+    .info {
+        float: right;
+        margin-top: 30px;
+        width: 30%;
 
-  .info p {
-    letter-spacing: .3px;
-    color: inherit;
-  }
+        @include mobile {
+            float: none;
+            width: 100%;
+            margin-bottom: 100px;
+        }
+    }
+
+    .info div {
+        margin-bottom: 25px;
+    }
+
+    .info h3 {
+        font-size: .8rem;
+        font-weight: 900;
+        letter-spacing: 2.5px;
+        text-transform: uppercase;
+        margin-bottom: 5px;
+    }
+
+    .info p {
+        letter-spacing: .3px;
+        color: inherit;
+    }
 }
 
 .form-wrapper {
-  float: left;
-  margin-right: 6%;
-  margin-bottom: 150px;
-  width: 64%;
+    float: left;
+    margin-right: 6%;
+    margin-bottom: 150px;
+    width: 64%;
 
-  @media (max-width: 800px) {
-    float: none;
-    width: 100%;
-  }
-
-  input[type="submit"] {
-    @media (max-width: 800px) {
-      width: 100%;
+    @include mobile {
+        float: none;
+        width: 100%;
     }
-  }
+
+
+    input[type="submit"] {
+        @include mobile {
+            width: 100%;
+        }
+    }
 }
 
 .contact-form {
-  div.name,
-  div.email {
-    float: left;
-    width: 48%;
+    div.name,
+    div.email {
+        float: left;
+        width: 48%;
 
-    @media (max-width: 800px) {
-      float: none;
-      width: 100%;
+        @include mobile {
+            float: none;
+            width: 100%;
+        }
     }
-  }
 
-  div.name {
-    margin-right: 4%;
-  }
+    div.name {
+        margin-right: 4%;
+    }
 
-  label {
-    display: block;
-    font-size: 1rem;
-    letter-spacing: .5px;
-    text-transform: capitalize;
-    padding-bottom: 10px;
-  }
+    label {
+        display: block;
+        font-size: 1rem;
+        letter-spacing: .5px;
+        text-transform: capitalize;
+        padding-bottom: 10px;
+    }
 
-  input[type="submit"] {
-    border: none;
-    cursor: pointer;
-    float: right;
-    font-family: Helvetica;
-    transition: all .2s ease-in-out;
-    margin-top: 25px;
-  }
+    input[type="submit"] {
+        border: none;
+        cursor: pointer;
+        float: right;
+        font-family: Helvetica;
+        transition: all .2s ease-in-out;
+        margin-top: 25px;
+    }
 }
 
 .name input,
 .email input {
-  border: 1px solid #ccc;
-  margin-bottom: 20px;
-  padding-left: 15px;
-  outline: none;
-  height: 45px;
-  width: 100%;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    padding-left: 15px;
+    outline: none;
+    height: 45px;
+    width: 100%;
 }
 
 .message textarea {
-  border: 1px solid #ccc;
-  padding: 15px;
-  outline: none;
-  height: 170px;
-  width: 100%;
+    border: 1px solid #ccc;
+    padding: 15px;
+    outline: none;
+    height: 170px;
+    width: 100%;
 }
 
 .name input,
 .email input,
 .message textarea {
-  background: $background-color;
+    background: $background-color;
 
-  &:focus {
-    border: 1px solid #999;
-  }
+    &:focus {
+        border: 1px solid #999;
+    }
 }

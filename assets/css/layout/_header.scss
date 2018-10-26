@@ -1,197 +1,189 @@
 .header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 75px;
-  position: relative;
-  padding-right: 45px;
-  padding-left: 45px;
-  z-index: 1;
-  background-color: $background-color;
-
-  @media (max-width: 1720px) {
-    padding-left: 45px;
-    padding-right: 45px;
-  }
-
-  @media (max-width: 1200px) {
-    padding-left: 45px;
-    padding-right: 45px;
-  }
-
-  @media (max-width: 800px) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 75px;
     position: relative;
-    padding-left: 25px;
-    padding-right: 25px;
-  }
+    padding-right: 45px;
+    padding-left: 45px;
+    z-index: 1;
+    background-color: $background-color;
+
+    @include mobile {
+        position: relative;
+        padding-left: 25px;
+        padding-right: 25px;
+    }
 }
 
 .logo {
-  margin-top: 0;
-  position: absolute;
-  left: 45px;
-  line-height: 0;
-  z-index: 2;
+    margin-top: 0;
+    position: absolute;
+    left: 45px;
+    line-height: 0;
+    z-index: 2;
 
-  @media (max-width: 800px) {
-    left: 25px;
-  }
+    @include mobile {
+        left: 25px;
+    }
 
-  img {
-    height: 60px;
-  }
+
+    img {
+        height: 60px;
+    }
 }
 
 #nav-toggle {
-  display: none;
+    display: none;
 }
 
 #nav-toggle + .open-nav {
-  z-index: 1;
+    z-index: 1;
 }
 
 .open-nav {
-  display: none;
-  position: absolute;
-  right: 25px;
-  top: 27px;
-  height: 22px;
-  width: 28px;
-  z-index: 1;
-  background-color: transparent;
-  border: none;
-  float: right;
-
-  &:focus {
-    border: none;
-  }
-
-  @media (max-width: 800px) {
-    display: block;
-  }
-
-  i {
+    display: none;
     position: absolute;
-    top: 50%;
-    right: 0;
-    height: 2px;
-    width: 100%;
+    right: 25px;
+    top: 27px;
+    height: 22px;
+    width: 28px;
+    z-index: 1;
+    background-color: transparent;
+    border: none;
+    float: right;
 
-    &:before, &:after {
-      position: absolute;
-      left: 0;
-      content: " ";
-      height: 2px;
-      width: 100%;
+    &:focus {
+        border: none;
     }
 
-    &:before {
-      top: -9px;
+    @include mobile {
+        display: block;
     }
 
-    &:after {
-      top: 9px;
-    }
-  }
 
-  i,
-  i:after,
-  i:before {
-    background: $color-black;
-  }
+    i {
+        position: absolute;
+        top: 50%;
+        right: 0;
+        height: 2px;
+        width: 100%;
+
+        &:before, &:after {
+            position: absolute;
+            left: 0;
+            content: " ";
+            height: 2px;
+            width: 100%;
+        }
+
+        &:before {
+            top: -9px;
+        }
+
+        &:after {
+            top: 9px;
+        }
+    }
+
+    i,
+    i:after,
+    i:before {
+        background: $color-black;
+    }
 }
 
-
 #nav-toggle:not(:checked) + .open-nav {
-  @media (max-width: 800px) {
-    position: fixed;
-    right: 15px;
-    top: 27px;
-  }
-
-  i {
-    @media (max-width: 800px) {
-      background-color: transparent;
-      right: 10px;
-
-      &:before {
-        background-color: transparent;
-        content: none;
-      }
-
-      &:after {
-        background-color: transparent;
-        content: "✕";
-        font-size: 36px;
-        font-style: normal;
-        font-weight: 100;
-
-        position: absolute;
-        top: -24px;
-        left: 0;
-        right: 0;
-        text-align: center;
-      }
+    @include mobile {
+        position: fixed;
+        right: 15px;
+        top: 27px;
     }
-  }
+
+
+    i {
+        @include mobile {
+            background-color: transparent;
+            right: 10px;
+
+            &:before {
+                background-color: transparent;
+                content: none;
+            }
+
+            &:after {
+                background-color: transparent;
+                content: "✕";
+                font-size: 36px;
+                font-style: normal;
+                font-weight: 100;
+                position: absolute;
+                top: -24px;
+                left: 0;
+                right: 0;
+                text-align: center;
+            }
+        }
+    }
 }
 
 #nav-toggle:not(:checked) ~ .logo {
-  position: fixed;
+    position: fixed;
 }
 
 .nav {
-  position: absolute;
-  right: 45px;
+    position: absolute;
+    right: 45px;
 
-  @media (max-width: 800px) {
-    width: 100%;
-    text-align: center;
-  }
-
-  .menu {
-    @media (max-width: 800px) {
-      background: #fff;
-      right: 0px;
-      position: fixed;
-      width: 100%;
-      top: 0px;
-      padding: 100px 0 50px;
-      transition: top 0.5s ease-in-out; 
-      box-shadow: 0 8px 6px -6px $color-black;
-      z-index: 0;
-    }
-
-    .nav-link {
-      list-style: none;
-      float: left;
-      margin-left: 22px;
-
-      @media (max-width: 800px) {
+    @include mobile {
+        width: 100%;
         text-align: center;
-        padding: 5px 0;
-        margin: 0;
-        float: none;
-      }
     }
 
-    .nav-link > a {
-      color: $text-color;
-      font-size: 1rem;
-      text-transform: uppercase;
-      letter-spacing: 1.75px;
-      line-height: 50px;
 
-      &.active {
-        font-weight: 900;
-      }
+    .menu {
+        @include mobile {
+            background: #fff;
+            right: 0px;
+            position: fixed;
+            width: 100%;
+            top: 0px;
+            padding: 100px 0 50px;
+            transition: top 0.5s ease-in-out;
+            box-shadow: 0 8px 6px -6px $color-black;
+            z-index: 0;
+        }
+
+
+        .nav-link {
+            list-style: none;
+            float: left;
+            margin-left: 20px;
+
+            @include mobile {
+                text-align: center;
+                padding: 5px 0;
+                margin: 0;
+                float: none;
+            }
+        }
+
+        .nav-link > a {
+            color: $text-color;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            line-height: 50px;
+
+            &.active {
+                font-weight: 900;
+            }
+        }
     }
-  }
 }
 
-
 #nav-toggle:checked ~ .nav > .menu {
-  @media (max-width: 800px) {
-    top: -400px;
-  }
+    @include mobile {
+        top: -400px;
+    }
 }

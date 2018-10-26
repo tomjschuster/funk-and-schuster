@@ -1,26 +1,26 @@
 .btn-square {
-  border: none;
-  display: block;
-  font-size: .75rem;
-  height: 55px;
-  letter-spacing: 3px;
-  line-height: 55px;
-  text-transform: uppercase;
-  text-align: center;
-  width: 220px;
+    border: none;
+    display: block;
+    font-size: .75rem;
+    height: 55px;
+    letter-spacing: 3px;
+    line-height: 55px;
+    text-transform: uppercase;
+    text-align: center;
+    width: 220px;
 }
 
 .btn-rounded,
 .btn-square {
-  background: $color-black;
+    background: $color-black;
 
-  &:hover {
-    background: $primary-color;
-  }
+    &:hover {
+        background: $primary-color;
+    }
 }
 
 a.btn-square,
 a.btn-rounded,
 input.btn-square {
-  color: $color-white;
+    color: $color-white;
 }

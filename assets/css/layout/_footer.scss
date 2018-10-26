@@ -1,58 +1,61 @@
 .footer {
-  display: block;
-  border-top: 1px solid #ddd;
-  line-height: 99px;
+    display: block;
+    border-top: 1px solid #ddd;
+    line-height: 99px;
 
-  @media (max-width: 870px) {
-    height: 0;
-    line-height: normal;
-    padding: 50px 0 120px 0;
-    text-align: center;
-  }
-
-  .copyright-info {
-    float: left;
-    font-size: .95rem;
-    letter-spacing: .5px;
-    text-transform: capitalize;
-
-    @media (max-width: 870px) {
-      float: none;
-    }
-  }
-
-  .social-icons {
-    float: right;
-
-    @media (max-width: 870px) {
-      float: none;
+    @include mobile {
+        height: 0;
+        line-height: normal;
+        padding: 50px 0 120px 0;
+        text-align: center;
     }
 
-    li {
-      font-size: 1.25rem;
-      float: left;
-      list-style: none;
-      margin-left: 35px;
 
-      @media (max-width: 870px) {
-        float: none;
-        display: inline-block;
-        margin: 30px 0 0 0;
-        padding: 0 15px;
-      }
+    .copyright-info {
+        float: left;
+        font-size: .95rem;
+        letter-spacing: .5px;
+        text-transform: capitalize;
 
-      a {
-        font-size: 0;
-        i {
-          font-size: 20px;
+        @include mobile {
+            float: none;
+        }
+    }
+
+    .social-icons {
+        float: right;
+
+        @include mobile {
+            float: none;
         }
 
-      }
-    }
-  }
 
-  &.reversed {
-    border-top: 1px solid #222;
-    border-bottom: 1px solid #111;
-  }
+        li {
+            font-size: 1.25rem;
+            float: left;
+            list-style: none;
+            margin-left: 35px;
+
+            @include mobile {
+                float: none;
+                display: inline-block;
+                margin: 30px 0 0 0;
+                padding: 0 15px;
+            }
+
+
+            a {
+                font-size: 0;
+
+                i {
+                    font-size: 20px;
+                }
+            }
+        }
+    }
+
+    &.reversed {
+        border-top: 1px solid #222;
+        border-bottom: 1px solid #111;
+    }
 }

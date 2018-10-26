@@ -1,7 +1,5 @@
 .container {
     max-width: 1170px;
-    margin: auto;
-    position: relative;
 
     @include mobile {
         margin-left: 25px;
@@ -12,5 +10,11 @@
     @include tablet {
         margin-left: 45px;
         margin-right: 45px;
+    }
+
+
+    @include large-desktop {
+        margin: auto;
+        position: relative;
     }
 }

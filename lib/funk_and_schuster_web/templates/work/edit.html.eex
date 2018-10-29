@@ -1,0 +1,5 @@
+<h2>Edit Work</h2>
+
+<%= render "form.html", Map.put(assigns, :action, artist_work_path(@conn, :update, @artist, @work)) %>
+
+<span><%= link "Back", to: artist_work_path(@conn, :index, @artist) %></span>

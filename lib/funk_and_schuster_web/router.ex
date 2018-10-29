@@ -22,6 +22,10 @@ defmodule FunkAndSchusterWeb.Router do
     get "/gallery", PageController, :gallery
     get "/process", PageController, :process
     get "/contact", PageController, :contact
+
+    resources "/artists", ArtistController do
+      resources "/works", WorkController
+    end
   end
 
   # Other scopes may use custom stacks.

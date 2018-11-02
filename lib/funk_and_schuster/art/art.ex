@@ -9,6 +9,8 @@ defmodule FunkAndSchuster.Art do
   alias FunkAndSchuster.Art
   alias FunkAndSchuster.Art.{Artist, Work, Media}
 
+  # Artists
+
   def list_artists do
     Repo.all(Artist)
   end
@@ -35,44 +37,35 @@ defmodule FunkAndSchuster.Art do
     Artist.changeset(artist, %{})
   end
 
+  # Works
+
   def list_works(%Artist{id: artist_id}) do
     Repo.all(from Work, where: [artist_id: ^artist_id])
   end
 
   def get_work!(id), do: Repo.get!(Work, id)
 
-  def create_work(%Artist{} = artist, attrs \\ %{}) do
+  def create_work(%Artist{} = artist, attrs \\ %{}, media \\ []) do
     Ecto.Multi.new()
     |> Ecto.Multi.insert(:work, Work.changeset(%Work{}, artist, attrs))
-    |> Ecto.Multi.run(:media, fn %{work: %Work{id: work_id}} ->
-      media =
-        attrs
-        |> Map.get("media", [])
-        |> Enum.map(fn %Plug.Upload{} = upload ->
-          file = create_file!(upload)
-          create_media!(file.filename, work_id, file.id)
-        end)
-
-      {:ok, media}
-    end)
+    |> Ecto.Multi.run(:media, Art, :upload_media, [media])
     |> Repo.transaction()
   end
 
-  def update_work(%Work{} = work, attrs) do
+  def update_work(%Work{} = work, attrs \\ %{}, media \\ []) do
     Ecto.Multi.new()
     |> Ecto.Multi.update(:work, Work.changeset(work, attrs))
-    |> Ecto.Multi.run(:media, fn %{work: %Work{id: work_id}} ->
-      media =
-        attrs
-        |> Map.get("media", [])
-        |> Enum.map(fn %Plug.Upload{} = upload ->
-          file = create_file!(upload)
-          create_media!(file.filename, work_id, file.id)
-        end)
-
-      {:ok, media}
-    end)
+    |> Ecto.Multi.run(:media, Art, :upload_media, [media])
     |> Repo.transaction()
+  end
+
+  def upload_media(%{work: %Work{id: work_id}}, uploads) do
+    media =
+      uploads
+      |> Stream.each(&upload_file!/1)
+      |> Enum.map(&create_media!(&1, work_id))
+
+    {:ok, media}
   end
 
   def delete_work(%Work{} = work) do
@@ -83,32 +76,25 @@ defmodule FunkAndSchuster.Art do
     Work.changeset(work, %{})
   end
 
-  def create_media!(filename, work_id, file_id) do
-    filename
-    |> Media.changeset(work_id, file_id)
+  # Media
+
+  def create_media!(%Plug.Upload{} = upload, work_id) do
+    upload
+    |> Media.changeset(work_id)
     |> Repo.insert!()
   end
 
   def list_media(work_id) do
-    Repo.all(
-      from media in Media,
-        join: file in Art.File,
-        on: file.id == media.file_id,
-        where: [work_id: ^work_id],
-        select: merge(media, %{filename: file.filename})
-    )
+    Repo.all(from Media, where: [work_id: ^work_id])
   end
 
-  def get_media_file(filename) when is_binary(filename) do
-    Repo.one(
-      from file in Art.File,
-        join: media in Media,
-        on: media.file_id == file.id,
-        where: file.filename == ^filename
-    )
+  def get_media(filename) when is_binary(filename) do
+    Repo.get_by(Art.File, filename: filename)
   end
 
-  def create_file!(%Plug.Upload{} = upload) do
+  # File
+
+  def upload_file!(%Plug.Upload{} = upload) do
     upload
     |> Art.File.changeset()
     |> Repo.insert!()

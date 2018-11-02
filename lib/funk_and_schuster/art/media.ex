@@ -6,23 +6,23 @@ defmodule FunkAndSchuster.Art.Media do
   schema "media" do
     field :title, :string
     field :work_id, :integer
-    field :file_id, :integer
-    field :filename, :string, virtual: true
+    field :filename, :string
+    field :content_type, :string
     timestamps()
   end
 
   @doc false
-  def changeset(filename, work_id, file_id)
-      when is_binary(filename) and is_integer(work_id) and is_integer(file_id) do
+  def changeset(%Plug.Upload{} = upload, work_id) when is_integer(work_id) do
     attrs = %{
-      title: title_from_filename(filename),
+      title: title_from_filename(upload.filename),
       work_id: work_id,
-      file_id: file_id
+      filename: upload.filename,
+      content_type: upload.content_type
     }
 
     %Media{}
-    |> cast(attrs, [:title, :work_id, :file_id])
-    |> validate_required([:title, :work_id, :file_id])
+    |> cast(attrs, [:title, :work_id, :filename, :content_type])
+    |> validate_required([:title, :work_id, :filename, :content_type])
   end
 
   defp title_from_filename(filename) do

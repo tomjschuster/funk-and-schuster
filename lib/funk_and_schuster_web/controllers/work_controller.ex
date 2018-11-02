@@ -21,7 +21,7 @@ defmodule FunkAndSchusterWeb.WorkController do
   end
 
   def create(conn, %{"work" => work_params}, artist) do
-    case Art.create_work(artist, work_params) do
+    case Art.create_work(artist, work_params, work_params["media"] || []) do
       {:ok, %{work: work}} ->
         IO.inspect(work)
 
@@ -29,7 +29,7 @@ defmodule FunkAndSchusterWeb.WorkController do
         |> put_flash(:info, "Work created successfully.")
         |> redirect(to: artist_work_path(conn, :show, artist, work))
 
-      {:error, %Ecto.Changeset{} = changeset} ->
+      {:error, :work, %Ecto.Changeset{} = changeset, _errors} ->
         render(conn, "new.html", artist: artist, changeset: changeset)
     end
   end
@@ -42,8 +42,6 @@ defmodule FunkAndSchusterWeb.WorkController do
 
   def edit(conn, %{"id" => id}, artist) do
     work = Art.get_work!(id)
-    media = Art.list_media(id)
-    work = Map.put(work, :media, media)
     changeset = Art.change_work(work)
     render(conn, "edit.html", artist: artist, work: work, changeset: changeset)
   end
@@ -51,7 +49,7 @@ defmodule FunkAndSchusterWeb.WorkController do
   def update(conn, %{"id" => id, "work" => work_params}, artist) do
     work = Art.get_work!(id)
 
-    case Art.update_work(work, work_params) do
+    case Art.update_work(work, work_params, work_params["media"] || []) do
       {:ok, %{work: work}} ->
         IO.inspect(work)
 
@@ -59,7 +57,7 @@ defmodule FunkAndSchusterWeb.WorkController do
         |> put_flash(:info, "Work updated successfully.")
         |> redirect(to: artist_work_path(conn, :show, artist, work))
 
-      {:error, %Ecto.Changeset{} = changeset} ->
+      {:error, :work, %Ecto.Changeset{} = changeset, _errors} ->
         render(conn, "edit.html", artist: artist, work: work, changeset: changeset)
     end
   end

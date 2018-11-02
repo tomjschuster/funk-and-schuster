@@ -4,7 +4,7 @@ defmodule FunkAndSchusterWeb.MediaController do
   alias FunkAndSchuster.Art.File
 
   def show(conn, %{"filename" => filename}) do
-    case Art.get_media_file(filename) do
+    case Art.get_media(filename) do
       %File{content_type: content_type, data: data} ->
         conn
         |> put_resp_content_type(content_type)

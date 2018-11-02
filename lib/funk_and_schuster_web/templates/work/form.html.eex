@@ -29,10 +29,14 @@
     <%= error_tag f, :date %>
   </div>
 
+  <%= inputs_for f, :media, fn fm -> %>
+    <%= checkbox fm, :deleted? %>
+  <% end %>
+
   <div class="form-group">
-    <%= label f, :media, class: "control-label" %>
-    <%= file_input f, :media, class: "form-control", multiple: true %>
-    <%= error_tag f, :media %>
+    <%= label f, :new_media, class: "control-label" %>
+    <%= file_input f, :new_media, class: "form-control", multiple: true %>
+    <%= error_tag f, :new_media %>
   </div>
 
   <div class="form-group">

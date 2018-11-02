@@ -13,9 +13,13 @@ defmodule FunkAndSchuster.Art.File do
 
   def changeset(%Plug.Upload{} = upload) do
     %Art.File{}
-    |> cast(%{filename: upload.filename}, [:filename])
+    |> cast(%{filename: random_string() <> "-" <> upload.filename}, [:filename])
     |> cast(%{data: File.read!(upload.path)}, [:data])
     |> cast(%{content_type: upload.content_type}, [:content_type])
     |> validate_required([:content_type, :filename, :data])
+  end
+
+  def random_string do
+    :crypto.strong_rand_bytes(8) |> Base.url_encode64() |> binary_part(0, 8)
   end
 end

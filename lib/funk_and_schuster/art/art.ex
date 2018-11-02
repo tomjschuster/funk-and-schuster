@@ -43,26 +43,49 @@ defmodule FunkAndSchuster.Art do
     Repo.all(from Work, where: [artist_id: ^artist_id])
   end
 
-  def get_work!(id), do: Repo.get!(Work, id)
+  def get_work!(id) do
+    Repo.one!(
+      from work in Work,
+        join: media in assoc(work, :media),
+        preload: [media: media]
+    )
+  end
 
-  def create_work(%Artist{} = artist, attrs \\ %{}, media \\ []) do
+  def create_work(%Artist{} = artist, attrs, new_media) do
     Ecto.Multi.new()
     |> Ecto.Multi.insert(:work, Work.changeset(%Work{}, artist, attrs))
-    |> Ecto.Multi.run(:media, Art, :upload_media, [media])
+    |> Ecto.Multi.run(:new_media, &upload_media(&1, new_media))
     |> Repo.transaction()
   end
 
-  def update_work(%Work{} = work, attrs \\ %{}, media \\ []) do
+  def update_work(%Work{} = work, attrs, deleted_media, new_media) do
+    deleted_files = get_files_by_media_ids(deleted_media)
+
     Ecto.Multi.new()
     |> Ecto.Multi.update(:work, Work.changeset(work, attrs))
-    |> Ecto.Multi.run(:media, Art, :upload_media, [media])
+    |> Ecto.Multi.run(:delete_files, fn _ -> delete_files(deleted_files) end)
+    |> Ecto.Multi.run(:new_media, &upload_media(&1, new_media))
     |> Repo.transaction()
   end
 
-  def upload_media(%{work: %Work{id: work_id}}, uploads) do
+  defp get_files_by_media_ids(media_ids) do
+    Repo.all(
+      from file in Art.File,
+        join: media in Media,
+        on: media.filename == file.filename,
+        where: media.id in ^media_ids
+    )
+  end
+
+  defp delete_files(deleted_files) do
+    results = Enum.map(deleted_files, &delete_file!/1)
+    {:ok, results}
+  end
+
+  defp upload_media(%{work: %Work{id: work_id}}, uploads) do
     media =
       uploads
-      |> Stream.each(&upload_file!/1)
+      |> Enum.map(&upload_file!/1)
       |> Enum.map(&create_media!(&1, work_id))
 
     {:ok, media}
@@ -78,8 +101,8 @@ defmodule FunkAndSchuster.Art do
 
   # Media
 
-  def create_media!(%Plug.Upload{} = upload, work_id) do
-    upload
+  def create_media!(%Art.File{} = file, work_id) do
+    file
     |> Media.changeset(work_id)
     |> Repo.insert!()
   end
@@ -99,4 +122,6 @@ defmodule FunkAndSchuster.Art do
     |> Art.File.changeset()
     |> Repo.insert!()
   end
+
+  def delete_file!(%Art.File{} = file), do: Repo.delete!(file)
 end

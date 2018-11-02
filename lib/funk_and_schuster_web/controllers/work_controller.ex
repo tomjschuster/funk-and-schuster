@@ -21,7 +21,9 @@ defmodule FunkAndSchusterWeb.WorkController do
   end
 
   def create(conn, %{"work" => work_params}, artist) do
-    case Art.create_work(artist, work_params, work_params["media"] || []) do
+    new_media = Map.get(work_params, "new_media", [])
+
+    case Art.create_work(artist, work_params, new_media) do
       {:ok, %{work: work}} ->
         IO.inspect(work)
 
@@ -49,10 +51,16 @@ defmodule FunkAndSchusterWeb.WorkController do
   def update(conn, %{"id" => id, "work" => work_params}, artist) do
     work = Art.get_work!(id)
 
-    case Art.update_work(work, work_params, work_params["media"] || []) do
-      {:ok, %{work: work}} ->
-        IO.inspect(work)
+    deleted_media =
+      work_params
+      |> Map.get("media")
+      |> Stream.filter(fn {_k, v} -> v["deleted?"] == "true" end)
+      |> Enum.map(fn {_k, v} -> parse_int(v["id"]) end)
 
+    new_media = Map.get(work_params, "new_media", [])
+
+    case Art.update_work(work, work_params, deleted_media, new_media) do
+      {:ok, %{work: work}} ->
         conn
         |> put_flash(:info, "Work updated successfully.")
         |> redirect(to: artist_work_path(conn, :show, artist, work))
@@ -60,6 +68,11 @@ defmodule FunkAndSchusterWeb.WorkController do
       {:error, :work, %Ecto.Changeset{} = changeset, _errors} ->
         render(conn, "edit.html", artist: artist, work: work, changeset: changeset)
     end
+  end
+
+  defp parse_int(string) do
+    {int, ""} = Integer.parse(string)
+    int
   end
 
   def delete(conn, %{"id" => id}, artist) do

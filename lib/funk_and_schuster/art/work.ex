@@ -18,8 +18,11 @@ defmodule FunkAndSchuster.Art.Work do
 
   @doc false
   def changeset(%Work{} = work, %{} = attrs) do
+    IO.inspect(attrs, label: "changing work")
+
     work
     |> cast(attrs, [:title, :date, :medium, :dimensions])
+    |> cast_assoc(:media)
     |> validate_required([:title, :date, :medium, :dimensions])
   end
 
@@ -27,6 +30,7 @@ defmodule FunkAndSchuster.Art.Work do
     work
     |> cast(attrs, [:title, :date, :medium, :dimensions])
     |> put_assoc(:artist, artist)
+    |> cast_assoc(:media)
     |> validate_required([:title, :date, :medium, :dimensions, :artist])
   end
 end

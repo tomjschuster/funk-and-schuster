@@ -16,11 +16,8 @@ defmodule FunkAndSchuster.Art.Media do
 
   @doc false
   def changeset(%Media{} = media, attrs) when is_map(attrs) do
-    IO.inspect({media, attrs}, label: "CHANGING!!!!!!!!!!!!!!!!!!!!!")
-
     media
     |> cast(attrs, [:title, :deleted?])
-    |> IO.inspect()
     |> maybe_mark_for_deletion()
   end
 
@@ -38,8 +35,6 @@ defmodule FunkAndSchuster.Art.Media do
   end
 
   defp maybe_mark_for_deletion(changeset) do
-    IO.inspect(get_change(changeset, :delete?), label: "MAYBE MARK FOR DELETION")
-
     if get_change(changeset, :deleted?) do
       %{changeset | action: :delete}
     else

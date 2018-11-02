@@ -18,8 +18,6 @@ defmodule FunkAndSchuster.Art.Work do
 
   @doc false
   def changeset(%Work{} = work, %{} = attrs) do
-    IO.inspect(attrs, label: "changing work")
-
     work
     |> cast(attrs, [:title, :date, :medium, :dimensions])
     |> cast_assoc(:media)

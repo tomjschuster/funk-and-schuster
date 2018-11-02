@@ -25,8 +25,6 @@ defmodule FunkAndSchusterWeb.WorkController do
 
     case Art.create_work(artist, work_params, new_media) do
       {:ok, %{work: work}} ->
-        IO.inspect(work)
-
         conn
         |> put_flash(:info, "Work created successfully.")
         |> redirect(to: artist_work_path(conn, :show, artist, work))

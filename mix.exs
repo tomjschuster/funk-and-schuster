@@ -47,7 +47,8 @@ defmodule FunkAndSchuster.Mixfile do
       {:thesis,
        git: "https://github.com/tomjschuster/thesis-phoenix", branch: "app_env_instead_of_mix_env"},
       {:edeliver, ">= 1.6.0"},
-      {:distillery, "~> 2.0", warn_missing: false}
+      {:distillery, "~> 2.0", warn_missing: false},
+      {:recase, "~> 0.2"}
     ]
   end
 

@@ -8,6 +8,8 @@
     add: 1,
     add: 2,
     add: 3,
-    pipe_through: 1
+    pipe_through: 1,
+    resources: 2,
+    resources: 3
   ]
 ]

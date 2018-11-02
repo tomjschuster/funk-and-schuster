@@ -1,0 +1,35 @@
+<h2>Show Work</h2>
+
+<ul>
+
+  <li>
+    <strong>Title:</strong>
+    <%= @work.title %>
+  </li>
+
+  <li>
+    <strong>Medium:</strong>
+    <%= @work.medium %>
+  </li>
+
+  <li>
+    <strong>Dimensions:</strong>
+    <%= @work.dimensions %>
+  </li>
+
+  <li>
+    <strong>Date:</strong>
+    <%= @work.date %>
+  </li>
+
+  <%= for media <- @media do %>
+    <figure>
+      <img style="width: 100px; height: 100px" src="/media/<%= media.filename %>" />
+      <figcaption><%= media.title %></figcaption>
+    </figure>
+  <% end %>
+
+</ul>
+
+<span><%= link "Edit", to: artist_work_path(@conn, :edit, @artist, @work) %></span>
+<span><%= link "Back", to: artist_work_path(@conn, :index, @artist) %></span>

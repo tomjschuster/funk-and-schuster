@@ -29,9 +29,20 @@
     <%= error_tag f, :date %>
   </div>
 
-  <%= inputs_for f, :media, fn fm -> %>
-    <%= checkbox fm, :deleted? %>
-  <% end %>
+  <div>
+    <p>Images</p>
+    <%= inputs_for f, :media, fn fm -> %>
+      <div class="form-group">
+        <%= label fm, :title, class: "control-label" %>
+        <%= text_input fm, :title, class: "form-control" %>
+        <img style="width: 100px; height: 100px" src="/media/<%= fm.data.filename %>" />
+        <%= label fm, :deleted?, class: "control-label" do %>
+          Delete
+        <% end %>
+        <%= checkbox fm, :deleted? %>
+      </div>
+    <% end %>
+  </div>
 
   <div class="form-group">
     <%= label f, :new_media, class: "control-label" %>

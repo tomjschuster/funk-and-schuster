@@ -23,7 +23,10 @@
   </li>
 
   <%= for media <- @media do %>
-    <img style="width: 100px; height: 100px" src="/media/<%= media.filename %>" />
+    <figure>
+      <img style="width: 100px; height: 100px" src="/media/<%= media.filename %>" />
+      <figcaption><%= media.title %></figcaption>
+    </figure>
   <% end %>
 
 </ul>

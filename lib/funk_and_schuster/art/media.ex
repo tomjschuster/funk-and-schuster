@@ -42,7 +42,9 @@ defmodule FunkAndSchuster.Art.Media do
     end
   end
 
-  defp title_from_filename(<<_hash::size(64), filename::binary>>) do
+  # 8 chars + dash
+  @hash_size 72
+  defp title_from_filename(<<_hash::size(@hash_size), filename::binary>>) do
     filename
     |> remove_extension()
     |> title_case()
@@ -68,7 +70,8 @@ defmodule FunkAndSchuster.Art.Media do
 
   defp title_case(string) do
     string
-    |> String.split(~r{\s}, trim: true)
+    |> Recase.to_snake()
+    |> String.split("_")
     |> Enum.map(&String.capitalize/1)
     |> Enum.join(" ")
   end

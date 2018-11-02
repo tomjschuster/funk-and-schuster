@@ -47,7 +47,8 @@ defmodule FunkAndSchuster.Art do
     Repo.one!(
       from work in Work,
         join: media in assoc(work, :media),
-        preload: [media: media]
+        preload: [media: media],
+        where: work.id == ^id
     )
   end
 

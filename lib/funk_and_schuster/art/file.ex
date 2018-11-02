@@ -19,7 +19,11 @@ defmodule FunkAndSchuster.Art.File do
     |> validate_required([:content_type, :filename, :data])
   end
 
+  @hash_size 8
   def random_string do
-    :crypto.strong_rand_bytes(8) |> Base.url_encode64() |> binary_part(0, 8)
+    @hash_size
+    |> :crypto.strong_rand_bytes()
+    |> Base.url_encode64()
+    |> binary_part(0, @hash_size)
   end
 end

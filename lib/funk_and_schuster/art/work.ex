@@ -28,7 +28,6 @@ defmodule FunkAndSchuster.Art.Work do
     work
     |> cast(attrs, [:title, :date, :medium, :dimensions])
     |> put_assoc(:artist, artist)
-    |> cast_assoc(:media)
     |> validate_required([:title, :date, :medium, :dimensions, :artist])
   end
 end

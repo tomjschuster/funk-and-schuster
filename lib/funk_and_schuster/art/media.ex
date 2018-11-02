@@ -63,7 +63,7 @@ defmodule FunkAndSchuster.Art.Media do
       parts -> parts
     end
     |> Enum.reverse()
-    |> Enum.join("_")
+    |> Enum.join(".")
   end
 
   defp title_case(string) do

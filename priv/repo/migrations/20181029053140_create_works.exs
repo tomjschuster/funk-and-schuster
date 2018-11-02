@@ -4,14 +4,14 @@ defmodule FunkAndSchuster.Repo.Migrations.CreateWorks do
   def change do
     create table(:works) do
       add :title, :string
+      add :date, :date
       add :medium, :string
       add :dimensions, :string
-      add :date, :date
       add :artist_id, references(:artists, on_delete: :nothing)
 
       timestamps()
     end
 
-    create index(:works, [:artist_id])
+    create(index(:works, [:artist_id]))
   end
 end

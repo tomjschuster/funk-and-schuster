@@ -26,6 +26,8 @@ defmodule FunkAndSchusterWeb.Router do
     resources "/artists", ArtistController do
       resources "/works", WorkController
     end
+
+    get "/media/:filename", MediaController, :show
   end
 
   # Other scopes may use custom stacks.

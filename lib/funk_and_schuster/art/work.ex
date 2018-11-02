@@ -2,23 +2,31 @@ defmodule FunkAndSchuster.Art.Work do
   use Ecto.Schema
   import Ecto.Changeset
 
-  alias FunkAndSchuster.Art.Artist
+  alias FunkAndSchuster.Art.{Work, Artist, Media}
 
   schema "works" do
-    field :date, :date
-    field :dimensions, :string
-    field :medium, :string
     field :title, :string
+    field :date, :date
+    field :medium, :string
+    field :dimensions, :string
+
+    has_many :media, Media
     belongs_to :artist, Artist
 
     timestamps()
   end
 
   @doc false
-  def changeset(work, artist, attrs) do
+  def changeset(%Work{} = work, %{} = attrs) do
     work
-    |> cast(attrs, [:title, :medium, :dimensions, :date])
-    |> validate_required([:title, :medium, :dimensions, :date])
+    |> cast(attrs, [:title, :date, :medium, :dimensions])
+    |> validate_required([:title, :date, :medium, :dimensions])
+  end
+
+  def changeset(%Work{} = work, %Artist{} = artist, %{} = attrs) do
+    work
+    |> cast(attrs, [:title, :date, :medium, :dimensions])
     |> put_assoc(:artist, artist)
+    |> validate_required([:title, :date, :medium, :dimensions, :artist])
   end
 end

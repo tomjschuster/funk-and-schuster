@@ -22,6 +22,10 @@
     <%= @work.date %>
   </li>
 
+  <%= for media <- @media do %>
+    <img style="width: 100px; height: 100px" src="/media/<%= media.filename %>" />
+  <% end %>
+
 </ul>
 
 <span><%= link "Edit", to: artist_work_path(@conn, :edit, @artist, @work) %></span>

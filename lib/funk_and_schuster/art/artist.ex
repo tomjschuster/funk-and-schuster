@@ -2,11 +2,10 @@ defmodule FunkAndSchuster.Art.Artist do
   use Ecto.Schema
   import Ecto.Changeset
 
-
   schema "artists" do
-    field :dob, :date
     field :first_name, :string
     field :last_name, :string
+    field :dob, :date
 
     timestamps()
   end

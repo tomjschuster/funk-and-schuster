@@ -68,8 +68,7 @@ defmodule FunkAndSchuster.Art.Media do
 
   defp title_case(string) do
     string
-    |> Recase.to_snake()
-    |> String.split("_")
+    |> String.split(~r{\s}, trim: true)
     |> Enum.map(&String.capitalize/1)
     |> Enum.join(" ")
   end

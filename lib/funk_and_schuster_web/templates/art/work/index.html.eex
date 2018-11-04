@@ -13,11 +13,18 @@
   </thead>
   <tbody>
 <%= for work <- @works do %>
+
     <tr>
       <td><%= work.title %></td>
       <td><%= work.medium %></td>
       <td><%= work.dimensions %></td>
       <td><%= work.date %></td>
+      <td>
+        <% media = List.first(work.media) %>
+        <%= if media do %>
+              <%= img_tag("/media/#{media.filename}", style: "width: 100px; height: 100px") %>
+        <% end %>
+      </td>
 
       <td class="text-right">
         <span><%= link "Show", to: artist_work_path(@conn, :show, @artist, work), class: "btn btn-default btn-xs" %></span>

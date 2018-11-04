@@ -1,0 +1,35 @@
+<ul>
+
+  <li>
+    <strong>Title:</strong>
+    <%= @work.title %>
+  </li>
+
+  <li>
+    <strong>Medium:</strong>
+    <%= @work.medium %>
+  </li>
+
+  <li>
+    <strong>Dimensions:</strong>
+    <%= @work.dimensions %>
+  </li>
+
+  <li>
+    <strong>Date:</strong>
+    <%= @work.date %>
+  </li>
+
+
+  <% media = List.first(@work.media) %>
+
+  <%= if media do %>
+    <li>
+      <%= link  to: artist_work_path(@conn, :show, @artist, @work) do %>
+        <%= img_tag("/media/#{media.filename}", style: "width: 100px; height: 100px") %>
+      <% end %>
+    </li>
+  <% end %>
+
+</ul>
+

@@ -15,7 +15,15 @@ defmodule FunkAndSchuster.Art do
     Repo.all(Artist)
   end
 
-  def get_artist!(id), do: Repo.get!(Artist, id)
+  def get_artist!(id) do
+    Repo.one(
+      from artist in Artist,
+        join: work in assoc(artist, :works),
+        join: media in assoc(work, :media),
+        where: artist.id == ^id,
+        preload: [works: {work, [media: media]}]
+    )
+  end
 
   def create_artist(attrs \\ %{}) do
     %Artist{}
@@ -40,7 +48,12 @@ defmodule FunkAndSchuster.Art do
   # Works
 
   def list_works(%Artist{id: artist_id}) do
-    Repo.all(from Work, where: [artist_id: ^artist_id])
+    Repo.all(
+      from work in Work,
+        join: media in assoc(work, :media),
+        where: [artist_id: ^artist_id],
+        preload: [media: media]
+    )
   end
 
   def get_work!(id) do

@@ -2,7 +2,6 @@
 
 ## TODO:
 - Admin Experience
-    - View works on artist page
     - View all works (link to artist)
     - View all media (link to work, artist)
     - Artist media

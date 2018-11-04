@@ -1,4 +1,4 @@
-defmodule FunkAndSchusterWeb.ArtistController do
+defmodule FunkAndSchusterWeb.Art.ArtistController do
   use FunkAndSchusterWeb, :controller
 
   alias FunkAndSchuster.Art
@@ -20,6 +20,7 @@ defmodule FunkAndSchusterWeb.ArtistController do
         conn
         |> put_flash(:info, "Artist created successfully.")
         |> redirect(to: artist_path(conn, :show, artist))
+
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset)
     end
@@ -44,6 +45,7 @@ defmodule FunkAndSchusterWeb.ArtistController do
         conn
         |> put_flash(:info, "Artist updated successfully.")
         |> redirect(to: artist_path(conn, :show, artist))
+
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", artist: artist, changeset: changeset)
     end

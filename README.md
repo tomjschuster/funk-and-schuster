@@ -2,13 +2,13 @@
 
 ## TODO:
 - Admin Experience
-    - Access when in admin sub domain
     - View works on artist page
     - View all works (link to artist)
     - View all media (link to work, artist)
     - Artist media
     - General media
     - Edit media
+    - Delete
     - Styling
 - Gallery
 - Contact Form

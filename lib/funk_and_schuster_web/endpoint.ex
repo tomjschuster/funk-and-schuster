@@ -39,6 +39,8 @@ defmodule FunkAndSchusterWeb.Endpoint do
     key: "_funk_and_schuster_key",
     signing_salt: "a7UhMZ/j"
 
+  plug FunkAndSchusterWeb.Plugs.VerifyAdmin
+
   plug FunkAndSchusterWeb.Router
 
   @doc """

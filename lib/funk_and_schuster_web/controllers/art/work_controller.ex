@@ -1,4 +1,4 @@
-defmodule FunkAndSchusterWeb.WorkController do
+defmodule FunkAndSchusterWeb.Art.WorkController do
   use FunkAndSchusterWeb, :controller
 
   alias FunkAndSchuster.Art

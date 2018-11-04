@@ -1,4 +1,4 @@
-defmodule FunkAndSchusterWeb.MediaController do
+defmodule FunkAndSchusterWeb.Art.MediaController do
   use FunkAndSchusterWeb, :controller
   alias FunkAndSchuster.Art
   alias FunkAndSchuster.Art.File

@@ -36,7 +36,7 @@ defmodule FunkAndSchusterWeb.Art.WorkController do
 
   def show(conn, %{"id" => id}, artist) do
     work = Art.get_work!(id)
-    media = Art.list_media(id)
+    media = Art.list_work_media(id)
     render(conn, "show.html", artist: artist, work: work, media: media)
   end
 
@@ -51,7 +51,7 @@ defmodule FunkAndSchusterWeb.Art.WorkController do
 
     deleted_media =
       work_params
-      |> Map.get("media")
+      |> Map.get("media", [])
       |> Stream.filter(fn {_k, v} -> v["deleted?"] == "true" end)
       |> Enum.map(fn {_k, v} -> parse_int(v["id"]) end)
 

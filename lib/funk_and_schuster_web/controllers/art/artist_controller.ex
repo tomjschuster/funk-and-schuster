@@ -27,7 +27,7 @@ defmodule FunkAndSchusterWeb.Art.ArtistController do
   end
 
   def show(conn, %{"id" => id}) do
-    artist = Art.get_artist!(id)
+    artist = Art.get_artist_with_works!(id) |> IO.inspect()
     render(conn, "show.html", artist: artist)
   end
 

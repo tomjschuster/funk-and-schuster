@@ -15,11 +15,13 @@ defmodule FunkAndSchuster.Art do
     Repo.all(Artist)
   end
 
-  def get_artist!(id) do
-    Repo.one(
+  def get_artist!(id), do: Repo.get!(Artist, id)
+
+  def get_artist_with_works!(id) do
+    Repo.one!(
       from artist in Artist,
-        join: work in assoc(artist, :works),
-        join: media in assoc(work, :media),
+        left_join: work in assoc(artist, :works),
+        left_join: media in assoc(work, :media),
         where: artist.id == ^id,
         preload: [works: {work, [media: media]}]
     )
@@ -50,7 +52,7 @@ defmodule FunkAndSchuster.Art do
   def list_works(%Artist{id: artist_id}) do
     Repo.all(
       from work in Work,
-        join: media in assoc(work, :media),
+        left_join: media in assoc(work, :media),
         where: [artist_id: ^artist_id],
         preload: [media: media]
     )
@@ -59,7 +61,7 @@ defmodule FunkAndSchuster.Art do
   def get_work!(id) do
     Repo.one!(
       from work in Work,
-        join: media in assoc(work, :media),
+        left_join: media in assoc(work, :media),
         preload: [media: media],
         where: work.id == ^id
     )
@@ -99,8 +101,9 @@ defmodule FunkAndSchuster.Art do
   defp upload_media(%{work: %Work{id: work_id}}, uploads) do
     media =
       uploads
-      |> Enum.map(&upload_file!/1)
-      |> Enum.map(&create_media!(&1, work_id))
+      |> Stream.map(&upload_file!/1)
+      |> Stream.map(&create_media!(&1, work_id))
+      |> Enum.to_list()
 
     {:ok, media}
   end
@@ -115,19 +118,42 @@ defmodule FunkAndSchuster.Art do
 
   # Media
 
+  def list_work_media(work_id),
+    do: media_query() |> where(work_id: ^work_id) |> Repo.all()
+
+  def list_media, do: Repo.all(media_query())
+
+  def get_media!(id), do: media_query() |> where(id: ^id) |> Repo.one!()
+
+  defp media_query do
+    from media in Media,
+      join: work in assoc(media, :work),
+      join: artist in assoc(work, :artist),
+      preload: [work: {work, [artist: artist]}]
+  end
+
   def create_media!(%Art.File{} = file, work_id) do
     file
     |> Media.changeset(work_id)
     |> Repo.insert!()
   end
 
-  def list_media(work_id) do
-    Repo.all(from Media, where: [work_id: ^work_id])
+  def create_media(%{"file" => %Plug.Upload{} = upload, "work_id" => work_id}) do
+    upload
+    |> upload_file!()
+    |> Media.changeset(work_id)
+    |> Repo.insert!()
   end
 
-  def get_media(filename) when is_binary(filename) do
-    Repo.get_by(Art.File, filename: filename)
+  def update_media(%Media{} = media, attrs) do
+    media
+    |> Media.changeset(attrs)
+    |> Repo.update()
   end
+
+  def delete_media(%Media{} = media), do: Repo.delete(media)
+
+  def change_media(%Media{} = media), do: Media.changeset(media, %{})
 
   # File
 

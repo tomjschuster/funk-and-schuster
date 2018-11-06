@@ -27,7 +27,7 @@ defmodule FunkAndSchusterWeb.Router do
     get "/process", PageController, :process
     get "/contact", PageController, :contact
 
-    get "/media/:filename", Art.MediaController, :show
+    get "/media/:filename", FileController, :show
   end
 
   scope "/art", FunkAndSchusterWeb.Art do
@@ -36,6 +36,9 @@ defmodule FunkAndSchusterWeb.Router do
 
     resources "/artists", ArtistController do
       resources "/works", WorkController
+    end
+
+    resources "/media", MediaController do
     end
   end
 

@@ -1,15 +1,17 @@
 defmodule FunkAndSchuster.Art.Media do
   use Ecto.Schema
   import Ecto.Changeset
-  alias __MODULE__
   alias FunkAndSchuster.Art
+  alias FunkAndSchuster.Art.{Media, Work, Artist}
 
   schema "media" do
     field :title, :string
-    field :work_id, :integer
     field :filename, :string
     field :content_type, :string
     field :deleted?, :boolean, virtual: true, default: false
+
+    belongs_to :work, Work
+    belongs_to :artist, Artist
 
     timestamps()
   end

@@ -1,0 +1,30 @@
+<h2>Listing Media</h2>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Title</th>
+      <th>Artist</th>
+      <th>Work</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for media <- @media do %>
+    <tr>
+      <td><img style="width: 100px; height: 100px" src="/media/<%= media.filename %>" /></td>
+      <td><%= media.title %></td>
+      <td><%= media.work.artist.first_name <> " " <> media.work.artist.last_name %></td>
+      <td><%= media.work.title %></td>
+      <td class="text-right">
+        <span><%= link "Show", to: media_path(@conn, :show, media), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Edit", to: media_path(@conn, :edit, media), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Delete", to: media_path(@conn, :delete, media), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Media", to: media_path(@conn, :new) %></span>

@@ -132,4 +132,62 @@ defmodule FunkAndSchuster.ArtTest do
       assert %Ecto.Changeset{} = Art.change_work(work)
     end
   end
+
+  describe "media" do
+    alias FunkAndSchuster.Art.Media
+
+    @valid_attrs %{}
+    @update_attrs %{}
+    @invalid_attrs %{}
+
+    def media_fixture(attrs \\ %{}) do
+      {:ok, media} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Art.create_media()
+
+      media
+    end
+
+    test "list_media/0 returns all media" do
+      media = media_fixture()
+      assert Art.list_media() == [media]
+    end
+
+    test "get_media!/1 returns the media with given id" do
+      media = media_fixture()
+      assert Art.get_media!(media.id) == media
+    end
+
+    test "create_media/1 with valid data creates a media" do
+      assert {:ok, %Media{} = media} = Art.create_media(@valid_attrs)
+    end
+
+    test "create_media/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Art.create_media(@invalid_attrs)
+    end
+
+    test "update_media/2 with valid data updates the media" do
+      media = media_fixture()
+      assert {:ok, media} = Art.update_media(media, @update_attrs)
+      assert %Media{} = media
+    end
+
+    test "update_media/2 with invalid data returns error changeset" do
+      media = media_fixture()
+      assert {:error, %Ecto.Changeset{}} = Art.update_media(media, @invalid_attrs)
+      assert media == Art.get_media!(media.id)
+    end
+
+    test "delete_media/1 deletes the media" do
+      media = media_fixture()
+      assert {:ok, %Media{}} = Art.delete_media(media)
+      assert_raise Ecto.NoResultsError, fn -> Art.get_media!(media.id) end
+    end
+
+    test "change_media/1 returns a media changeset" do
+      media = media_fixture()
+      assert %Ecto.Changeset{} = Art.change_media(media)
+    end
+  end
 end

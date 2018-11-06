@@ -1,0 +1,9 @@
+<h2>Show Media</h2>
+
+<span><%= link "Edit", to: media_path(@conn, :edit, @media) %></span>
+<span><%= link "Back", to: media_path(@conn, :index) %></span>
+
+<ul>
+
+</ul>
+

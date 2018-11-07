@@ -2,8 +2,35 @@
 
 <span><%= link "Edit", to: media_path(@conn, :edit, @media) %></span>
 <span><%= link "Back", to: media_path(@conn, :index) %></span>
-
+<%= img_tag "/media/#{@media.filename}", style: "width: 100px; height: 100px" %>
 <ul>
+    <li>
+        <strong>Title:</strong>
+        <%= @media.title %>
+    </li>
 
+    <%= case @media do %>
+
+      <%=   %Media{artist: %Artist{}} -> %>
+
+        <li>
+            <strong>Artist:</strong>
+            <%= @media.artist.first_name <> " " <> @media.artist.last_name %>
+        </li>
+
+      <%=   %Media{work: %Work{}} -> %>
+
+        <li>
+            <strong>Artist:</strong>
+            <%= @media.work.artist.first_name <> " " <> @media.work.artist.last_name %>
+        </li>
+        <li>
+            <strong>Work:</strong>
+            <%= @media.work.title %>
+        </li>
+
+      <%=   %Media{} -> %>
+      
+      <% end %>
 </ul>
 

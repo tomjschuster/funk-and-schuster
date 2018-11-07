@@ -110,7 +110,7 @@ defmodule FunkAndSchuster.Art do
     media =
       uploads
       |> Stream.map(&upload_file!/1)
-      |> Stream.map(&create_media!(&1, work_id))
+      |> Stream.map(&create_media_from_file!(&1, %{work_id: work_id}))
       |> Enum.to_list()
 
     {:ok, media}
@@ -141,17 +141,32 @@ defmodule FunkAndSchuster.Art do
       preload: [work: {work, [artist: work_artist]}, artist: artist]
   end
 
-  def create_media!(%Art.File{} = file, work_id) do
+  def create_media_from_file!(%Art.File{} = file, attrs) do
     file
-    |> Media.changeset(work_id)
+    |> Media.changeset(attrs)
     |> Repo.insert!()
   end
 
-  def create_media(%{"file" => %Plug.Upload{} = upload, "work_id" => work_id}) do
-    upload
-    |> upload_file!()
-    |> Media.changeset(work_id)
-    |> Repo.insert!()
+  def create_media(attrs, %Plug.Upload{} = upload) do
+    file = upload_file!(upload)
+
+    file
+    |> Media.changeset(attrs)
+    |> Repo.insert()
+    |> case do
+      {:ok, media} ->
+        {:ok, media}
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+        delete_file!(file)
+        {:error, changeset}
+    end
+  end
+
+  def create_media(attrs, nil) do
+    nil
+    |> Media.changeset(attrs)
+    |> Repo.insert()
   end
 
   def update_media(%Media{} = media, attrs) do

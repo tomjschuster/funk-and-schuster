@@ -13,18 +13,32 @@ defmodule FunkAndSchusterWeb.Art.MediaController do
     changeset = Art.change_media(%Media{})
     works = Art.list_works_with_artist()
     artists = Art.list_artists()
-    render(conn, "new.html", works: works, artsits: artists, changeset: IO.inspect(changeset))
+
+    render(conn, "new.html",
+      works: works,
+      artists: artists,
+      changeset: changeset,
+      allow_upload?: true
+    )
   end
 
   def create(conn, %{"media" => media_params}) do
-    case Art.create_media(media_params) do
+    case Art.create_media(media_params, media_params["file"]) do
       {:ok, media} ->
         conn
         |> put_flash(:info, "Media created successfully.")
         |> redirect(to: media_path(conn, :show, media))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        works = Art.list_works_with_artist()
+        artists = Art.list_artists()
+
+        render(conn, "new.html",
+          works: works,
+          artists: artists,
+          changeset: changeset,
+          allow_upload?: true
+        )
     end
   end
 
@@ -43,7 +57,8 @@ defmodule FunkAndSchusterWeb.Art.MediaController do
       media: media,
       works: works,
       artists: artists,
-      changeset: IO.inspect(changeset)
+      changeset: changeset,
+      allow_upload?: false
     )
   end
 
@@ -57,7 +72,16 @@ defmodule FunkAndSchusterWeb.Art.MediaController do
         |> redirect(to: media_path(conn, :show, media))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "edit.html", media: media, changeset: changeset)
+        works = Art.list_works_with_artist()
+        artists = Art.list_artists()
+
+        render(conn, "edit.html",
+          works: works,
+          artists: artists,
+          media: media,
+          changeset: changeset,
+          allow_upload?: false
+        )
     end
   end
 

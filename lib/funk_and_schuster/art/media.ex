@@ -22,20 +22,28 @@ defmodule FunkAndSchuster.Art.Media do
     media
     |> cast(attrs, [:title, :assoc_type, :work_id, :artist_id, :deleted?])
     |> cast_assoc_type()
+    |> validate_required([:title])
     |> maybe_mark_for_deletion()
   end
 
-  def changeset(%Art.File{} = file, work_id) when is_integer(work_id) do
-    attrs = %{
-      title: title_from_filename(file.filename),
-      work_id: work_id,
+  def changeset(%Art.File{} = file, attrs) do
+    file_attrs = %{
+      title: Map.get(attrs, :title, title_from_filename(file.filename)),
       filename: file.filename,
       content_type: file.content_type
     }
 
     %Media{}
-    |> cast(attrs, [:title, :work_id, :filename, :content_type])
-    |> validate_required([:title, :work_id, :filename, :content_type])
+    |> cast(attrs, [:title, :work_id, :artist_id])
+    |> cast(file_attrs, [:title, :filename, :content_type])
+    |> validate_required([:title, :filename, :content_type])
+  end
+
+  def changeset(nil, attrs) do
+    %Media{}
+    |> cast(attrs, [:title, :work_id, :artist_id])
+    |> add_error(:file, "can't be blank")
+    |> validate_required([:title])
   end
 
   defp cast_assoc_type(changeset) do

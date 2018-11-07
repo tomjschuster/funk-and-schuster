@@ -58,6 +58,14 @@ defmodule FunkAndSchuster.Art do
     )
   end
 
+  def list_works_with_artist do
+    Repo.all(
+      from work in Work,
+        join: artist in assoc(work, :artist),
+        preload: [artist: artist]
+    )
+  end
+
   def get_work!(id) do
     Repo.one!(
       from work in Work,
@@ -123,13 +131,28 @@ defmodule FunkAndSchuster.Art do
 
   def list_media, do: Repo.all(media_query())
 
-  def get_media!(id), do: media_query() |> where(id: ^id) |> Repo.one!()
+  def get_media!(id) do
+    media_query()
+    |> where(id: ^id)
+    |> Repo.one!()
+    |> case do
+      %Media{artist_id: nil, work_id: nil} = media ->
+        %Media{media | assoc_type: "none"}
+
+      %Media{artist_id: nil} = media ->
+        %Media{media | assoc_type: "work"}
+
+      %Media{work_id: nil} = media ->
+        %Media{media | assoc_type: "artist"}
+    end
+  end
 
   defp media_query do
     from media in Media,
-      join: work in assoc(media, :work),
-      join: artist in assoc(work, :artist),
-      preload: [work: {work, [artist: artist]}]
+      left_join: work in assoc(media, :work),
+      left_join: work_artist in assoc(work, :artist),
+      left_join: artist in assoc(media, :artist),
+      preload: [work: {work, [artist: work_artist]}, artist: artist]
   end
 
   def create_media!(%Art.File{} = file, work_id) do

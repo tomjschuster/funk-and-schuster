@@ -9,6 +9,7 @@ defmodule FunkAndSchuster.Art.Media do
     field :filename, :string
     field :content_type, :string
     field :deleted?, :boolean, virtual: true, default: false
+    field :assoc_type, :string, virtual: true
 
     belongs_to :work, Work
     belongs_to :artist, Artist
@@ -19,7 +20,8 @@ defmodule FunkAndSchuster.Art.Media do
   @doc false
   def changeset(%Media{} = media, attrs) when is_map(attrs) do
     media
-    |> cast(attrs, [:title, :deleted?])
+    |> cast(attrs, [:title, :assoc_type, :work_id, :artist_id, :deleted?])
+    |> cast_assoc_type()
     |> maybe_mark_for_deletion()
   end
 
@@ -34,6 +36,14 @@ defmodule FunkAndSchuster.Art.Media do
     %Media{}
     |> cast(attrs, [:title, :work_id, :filename, :content_type])
     |> validate_required([:title, :work_id, :filename, :content_type])
+  end
+
+  defp cast_assoc_type(changeset) do
+    case get_change(changeset, :assoc_type, "none") do
+      "work" -> put_change(changeset, :artist_id, nil)
+      "artist" -> put_change(changeset, :work_id, nil)
+      "none" -> cast(changeset, %{work_id: nil, artist_id: nil}, [:work_id, :artist_id])
+    end
   end
 
   defp maybe_mark_for_deletion(changeset) do

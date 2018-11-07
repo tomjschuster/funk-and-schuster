@@ -1,9 +1,37 @@
-<%= form_for @changeset, @action, fn _f -> %>
+<%= form_for @changeset, @action, fn f -> %>
   <%= if @changeset.action do %>
     <div class="alert alert-danger">
       <p>Oops, something went wrong! Please check the errors below.</p>
     </div>
   <% end %>
+
+  <div class="form-group">
+    <%= label f, :title, class: "control-label" %>
+    <%= text_input f, :title, class: "form-control" %>
+    <%= error_tag f, :title %>
+  </div>
+
+  <div class="form-group">
+    <p>Media Type</p>
+    <%= label class: "control-label" do %>
+        None
+        <%= radio_button f, :assoc_type, "none", id: "none-media" %>
+    <% end %>
+    <%= label class: "control-label" do %>
+        Work
+        <%= radio_button f, :assoc_type, "work", id: "work-media" %>
+    <% end %>
+    <%= label class: "control-label" do %>
+        Artist
+        <%= radio_button f, :assoc_type, "artist", id: "artist-media" %>
+    <% end %>
+    <%= label f, :work_id, class: "control-label" %>
+    <%= select f, :work_id, [{"-", nil} | Enum.map(@works, &{&1.title <> " - " <> &1.artist.first_name <> " " <> &1.artist.last_name, &1.id})], class: "form-control" %>
+    <%= error_tag f, :work_id %>
+    <%= label f, :artist_id, class: "control-label" %>
+    <%= select f, :artist_id, [{"-", nil} | Enum.map(@artists, &{&1.first_name <> " " <> &1.last_name, &1.id})], class: "form-control" %>
+    <%= error_tag f, :artist_id %>
+  </div>
 
   <div class="form-group">
     <%= submit "Submit", class: "btn btn-primary" %>

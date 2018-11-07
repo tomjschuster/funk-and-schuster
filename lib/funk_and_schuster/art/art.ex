@@ -131,21 +131,7 @@ defmodule FunkAndSchuster.Art do
 
   def list_media, do: Repo.all(media_query())
 
-  def get_media!(id) do
-    media_query()
-    |> where(id: ^id)
-    |> Repo.one!()
-    |> case do
-      %Media{artist_id: nil, work_id: nil} = media ->
-        %Media{media | assoc_type: "none"}
-
-      %Media{artist_id: nil} = media ->
-        %Media{media | assoc_type: "work"}
-
-      %Media{work_id: nil} = media ->
-        %Media{media | assoc_type: "artist"}
-    end
-  end
+  def get_media!(id), do: media_query() |> where(id: ^id) |> Repo.one!()
 
   defp media_query do
     from media in Media,

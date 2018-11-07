@@ -39,10 +39,29 @@ defmodule FunkAndSchuster.Art.Media do
   end
 
   defp cast_assoc_type(changeset) do
-    case get_change(changeset, :assoc_type, "none") do
-      "work" -> put_change(changeset, :artist_id, nil)
-      "artist" -> put_change(changeset, :work_id, nil)
-      "none" -> cast(changeset, %{work_id: nil, artist_id: nil}, [:work_id, :artist_id])
+    case get_field(changeset, :assoc_type) do
+      nil ->
+        infer_assoc_type(changeset)
+
+      "work" ->
+        put_change(changeset, :artist_id, nil)
+
+      "artist" ->
+        put_change(changeset, :work_id, nil)
+
+      "none" ->
+        cast(changeset, %{work_id: nil, artist_id: nil}, [:work_id, :artist_id])
+    end
+  end
+
+  defp infer_assoc_type(changeset) do
+    work_id = get_field(changeset, :work_id)
+    artist_id = get_field(changeset, :artist_id)
+
+    case {work_id, artist_id} do
+      {nil, nil} -> put_change(changeset, :assoc_type, "none")
+      {_, nil} -> put_change(changeset, :assoc_type, "work")
+      {nil, _} -> put_change(changeset, :assoc_type, "artist")
     end
   end
 

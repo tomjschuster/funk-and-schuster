@@ -10,7 +10,7 @@ defmodule FunkAndSchusterWeb.Art.MediaController do
   end
 
   def new(conn, _params) do
-    changeset = Ecto.Changeset.change(%Media{})
+    changeset = Art.change_media(%Media{})
     works = Art.list_works_with_artist()
     artists = Art.list_artists()
     render(conn, "new.html", works: works, artsits: artists, changeset: IO.inspect(changeset))
@@ -37,7 +37,7 @@ defmodule FunkAndSchusterWeb.Art.MediaController do
     media = Art.get_media!(id)
     works = Art.list_works_with_artist()
     artists = Art.list_artists()
-    changeset = Ecto.Changeset.change(media)
+    changeset = Art.change_media(media)
 
     render(conn, "edit.html",
       media: media,

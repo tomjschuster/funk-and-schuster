@@ -5,6 +5,12 @@
     </div>
   <% end %>
 
+  <div class="form-group">
+    <%= label f, :title, class: "control-label" %>
+    <%= text_input f, :title, class: "form-control" %>
+    <%= error_tag f, :title %>
+  </div>
+
   <%= if @allow_upload? do %>
   <div class="form-group">
     <%= label f, :file, class: "control-label" %>
@@ -14,9 +20,9 @@
   <% end %>
 
   <div class="form-group">
-    <%= label f, :title, class: "control-label" %>
-    <%= text_input f, :title, class: "form-control" %>
-    <%= error_tag f, :title %>
+    <%= label f, :caption, class: "control-label" %>
+    <%= text_input f, :caption, class: "form-control" %>
+    <%= error_tag f, :caption %>
   </div>
 
   <div class="form-group">

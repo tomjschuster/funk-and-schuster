@@ -24,11 +24,11 @@
 
   <h3><%= link "Works", to: artist_work_path(@conn, :index, @artist) %></h3>
   <%= case @artist.works do %>
-    <%= [] -> %>
+    <% [] -> %>
       <p>No works</p>
-    <%= works -> %>
+    <% works -> %>
     <ol>
-      <%= for work <- @artist.works do %>
+      <%= for work <- works do %>
 
         <li><%= render "work.html", conn: @conn, artist: @artist, work: work %></li>
       <% end %>

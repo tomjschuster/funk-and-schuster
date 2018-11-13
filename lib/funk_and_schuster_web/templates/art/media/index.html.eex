@@ -5,6 +5,7 @@
     <tr>
       <th></th>
       <th>Title</th>
+      <th>Caption</th>
       <th>Artist</th>
       <th>Work</th>
       <th></th>
@@ -15,20 +16,21 @@
     <tr>
       <td><img style="width: 100px; height: 100px" src="/media/<%= media.filename %>" /></td>
       <td><%= media.title %></td>
+      <td><%= media.caption %></td>
 
       <%= case media do %>
 
-      <%=   %Media{artist: %Artist{}} -> %>
+      <% %Media{artist: %Artist{}} -> %>
 
         <td><%= media.artist.first_name <> " " <> media.artist.last_name %></td>
         <td></td>
 
-      <%=   %Media{work: %Work{}} -> %>
+      <% %Media{work: %Work{}} -> %>
 
         <td><%= media.work.artist.first_name <> " " <> media.work.artist.last_name %></td>
         <td><%= media.work.title %></td>
 
-      <%=   %Media{} -> %>
+      <% %Media{} -> %>
       
         <td></td>
         <td></td>

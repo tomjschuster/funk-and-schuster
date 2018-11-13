@@ -1,7 +1,7 @@
 defmodule FunkAndSchusterWeb.Art.WorkController do
   use FunkAndSchusterWeb, :controller
 
-  alias FunkAndSchuster.Art
+  alias FunkAndSchuster.{Art, FileService}
   alias FunkAndSchuster.Art.Work
 
   def action(conn, _) do
@@ -21,15 +21,19 @@ defmodule FunkAndSchusterWeb.Art.WorkController do
   end
 
   def create(conn, %{"work" => work_params}, artist) do
-    new_media = Map.get(work_params, "new_media", [])
+    files =
+      work_params
+      |> Map.get("new_media", [])
+      |> FileService.batch_upload_files!()
 
-    case Art.create_work(artist, work_params, new_media) do
+    case Art.create_work(artist, work_params, files) do
       {:ok, %{work: work}} ->
         conn
         |> put_flash(:info, "Work created successfully.")
         |> redirect(to: artist_work_path(conn, :show, artist, work))
 
       {:error, :work, %Ecto.Changeset{} = changeset, _errors} ->
+        FileService.batch_delete_files!(files)
         render(conn, "new.html", artist: artist, changeset: changeset)
     end
   end
@@ -49,36 +53,31 @@ defmodule FunkAndSchusterWeb.Art.WorkController do
   def update(conn, %{"id" => id, "work" => work_params}, artist) do
     work = Art.get_work!(id)
 
-    deleted_media =
+    files =
       work_params
-      |> Map.get("media", [])
-      |> Stream.filter(fn {_k, v} -> v["deleted?"] == "true" end)
-      |> Enum.map(fn {_k, v} -> parse_int(v["id"]) end)
+      |> Map.get("new_media", [])
+      |> FileService.batch_upload_files!()
 
-    new_media = Map.get(work_params, "new_media", [])
-
-    case Art.update_work(work, work_params, deleted_media, new_media) do
+    case Art.update_work(work, work_params, files) do
       {:ok, %{work: work}} ->
+        work_params
+        |> get_deleted_filenames()
+        |> FileService.batch_delete_files!()
+
         conn
         |> put_flash(:info, "Work updated successfully.")
         |> redirect(to: artist_work_path(conn, :show, artist, work))
 
       {:error, :work, %Ecto.Changeset{} = changeset, _errors} ->
+        FileService.batch_delete_files!(files)
         render(conn, "edit.html", artist: artist, work: work, changeset: changeset)
     end
   end
 
-  defp parse_int(string) do
-    {int, ""} = Integer.parse(string)
-    int
-  end
-
-  def delete(conn, %{"id" => id}, artist) do
-    work = Art.get_work!(id)
-    {:ok, _work} = Art.delete_work(work)
-
-    conn
-    |> put_flash(:info, "Work deleted successfully.")
-    |> redirect(to: artist_work_path(conn, :index, artist))
+  defp get_deleted_filenames(params) do
+    params
+    |> Map.get("media", [])
+    |> Stream.filter(fn {_k, v} -> v["deleted?"] == "true" end)
+    |> Enum.map(fn {_k, v} -> v["filename"] end)
   end
 end

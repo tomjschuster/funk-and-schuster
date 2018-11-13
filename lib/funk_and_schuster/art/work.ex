@@ -4,7 +4,7 @@ defmodule FunkAndSchuster.Art.Work do
 
   alias FunkAndSchuster.Art.{Work, Artist, Media}
 
-  schema "works" do
+  schema "work" do
     field :title, :string
     field :date, :date
     field :medium, :string
@@ -28,6 +28,7 @@ defmodule FunkAndSchuster.Art.Work do
     work
     |> cast(attrs, [:title, :date, :medium, :dimensions])
     |> put_assoc(:artist, artist)
+    |> cast_assoc(:media)
     |> validate_required([:title, :date, :medium, :dimensions, :artist])
   end
 end

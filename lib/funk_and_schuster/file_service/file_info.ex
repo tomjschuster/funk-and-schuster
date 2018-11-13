@@ -1,9 +1,9 @@
-defmodule FunkAndSchuster.Art.File do
+defmodule FunkAndSchuster.FileService.FileInfo do
   use Ecto.Schema
   import Ecto.Changeset
-  alias FunkAndSchuster.Art
+  alias __MODULE__
 
-  schema "files" do
+  schema "file_info" do
     field :filename, :string
     field :content_type, :string
     field :data, :binary
@@ -12,10 +12,11 @@ defmodule FunkAndSchuster.Art.File do
   end
 
   def changeset(%Plug.Upload{} = upload) do
-    %Art.File{}
-    |> cast(%{filename: random_string() <> "-" <> upload.filename}, [:filename])
-    |> cast(%{data: File.read!(upload.path)}, [:data])
-    |> cast(%{content_type: upload.content_type}, [:content_type])
+    %FileInfo{}
+    |> change()
+    |> put_change(:filename, random_string() <> "-" <> upload.filename)
+    |> put_change(:data, File.read!(upload.path))
+    |> put_change(:content_type, upload.content_type)
     |> validate_required([:content_type, :filename, :data])
   end
 

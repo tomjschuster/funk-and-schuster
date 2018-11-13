@@ -8,17 +8,23 @@
         <strong>Title:</strong>
         <%= @media.title %>
     </li>
+    <%= if @media.caption do %>
+        <li>
+            <strong>Caption:</strong>
+            <%= @media.caption %>
+        </li>
+    <% end %>
 
     <%= case @media do %>
 
-      <%=   %Media{artist: %Artist{}} -> %>
+      <% %Media{artist: %Artist{}} -> %>
 
         <li>
             <strong>Artist:</strong>
             <%= @media.artist.first_name <> " " <> @media.artist.last_name %>
         </li>
 
-      <%=   %Media{work: %Work{}} -> %>
+      <% %Media{work: %Work{}} -> %>
 
         <li>
             <strong>Artist:</strong>
@@ -29,7 +35,7 @@
             <%= @media.work.title %>
         </li>
 
-      <%=   %Media{} -> %>
+      <% %Media{} -> %>
       
       <% end %>
 </ul>

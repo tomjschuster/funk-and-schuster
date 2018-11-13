@@ -1,10 +1,10 @@
 defmodule FunkAndSchusterWeb.FileController do
   use FunkAndSchusterWeb, :controller
-  alias FunkAndSchuster.{Repo, Art}
+  alias FunkAndSchuster.FileService
 
   def show(conn, %{"filename" => filename}) do
-    case Repo.get_by(Art.File, filename: filename) do
-      %Art.File{content_type: content_type, data: data} ->
+    case FileService.get_file_by_filename(filename) do
+      %FileService.FileInfo{content_type: content_type, data: data} ->
         conn
         |> put_resp_content_type(content_type)
         |> send_resp(200, data)

@@ -22,7 +22,7 @@ defmodule FunkAndSchusterWeb.Art.ArtistController do
         |> redirect(to: artist_path(conn, :show, artist))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        render(conn, "new.html", changeset: IO.inspect(changeset))
     end
   end
 

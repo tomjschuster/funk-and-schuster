@@ -3,7 +3,7 @@ defmodule FunkAndSchuster.Art.Artist do
   import Ecto.Changeset
   alias FunkAndSchuster.Art.Work
 
-  schema "artists" do
+  schema "artist" do
     field :first_name, :string
     field :last_name, :string
     field :dob, :date

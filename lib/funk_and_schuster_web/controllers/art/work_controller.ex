@@ -78,6 +78,6 @@ defmodule FunkAndSchusterWeb.Art.WorkController do
     params
     |> Map.get("media", [])
     |> Stream.filter(fn {_k, v} -> v["deleted?"] == "true" end)
-    |> Enum.map(fn {_k, v} -> v["filename"] end)
+    |> Enum.map(fn {_k, v} -> IO.inspect(v) && v["filename"] end)
   end
 end

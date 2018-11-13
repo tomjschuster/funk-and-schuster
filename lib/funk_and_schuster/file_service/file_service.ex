@@ -42,8 +42,8 @@ defmodule FunkAndSchuster.FileService do
   def delete_file!(%FileInfo{} = file), do: Repo.delete!(file)
 
   def delete_file!(filename) when is_binary(filename) do
-    filename
-    |> Repo.get_by!(FileInfo, filename: filename)
+    FileInfo
+    |> Repo.get_by!(filename: filename)
     |> Repo.delete!()
   end
 

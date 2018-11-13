@@ -33,6 +33,7 @@
     <p>Images</p>
     <%= inputs_for f, :media, fn fm -> %>
       <div class="form-group">
+        <%= hidden_input fm, :filename %>
         <%= label fm, :title, class: "control-label" %>
         <%= text_input fm, :title, class: "form-control" %>
         <img style="width: 100px; height: 100px" src="/media/<%= fm.data.filename %>" />

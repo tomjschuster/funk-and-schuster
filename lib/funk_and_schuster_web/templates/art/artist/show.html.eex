@@ -22,16 +22,26 @@
 
 </ul>
 
-  <h3><%= link "Works", to: artist_work_path(@conn, :index, @artist) %></h3>
-  <%= case @artist.works do %>
-    <% [] -> %>
-      <p>No works</p>
-    <% works -> %>
-    <ol>
-      <%= for work <- works do %>
-
-        <li><%= render "work.html", conn: @conn, artist: @artist, work: work %></li>
-      <% end %>
-    </ol>
+<%= if not Enum.empty?(@artist.media) do %>
+    <%= for media <- @artist.media do %>
+      <figure>
+        <img style="width: 100px; height: 100px" src="/media/<%= media.filename %>" />
+        <figcaption><%= media.title %></figcaption>
+      </figure>
+    <% end %>
   <% end %>
+
+
+<h3><%= link "Works", to: artist_work_path(@conn, :index, @artist) %></h3>
+<%= case @artist.works do %>
+  <% [] -> %>
+    <p>No works</p>
+  <% works -> %>
+  <ol>
+    <%= for work <- works do %>
+
+      <li><%= render "work.html", conn: @conn, artist: @artist, work: work %></li>
+    <% end %>
+  </ol>
+<% end %>
 

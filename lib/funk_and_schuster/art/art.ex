@@ -17,26 +17,29 @@ defmodule FunkAndSchuster.Art do
 
   def get_artist!(id), do: Repo.get!(Artist, id)
 
-  def get_artist_with_works!(id) do
+  def get_artist_with_assocs!(id) do
     Repo.one!(
       from artist in Artist,
+        left_join: media in assoc(artist, :media),
         left_join: work in assoc(artist, :works),
-        left_join: media in assoc(work, :media),
+        left_join: work_media in assoc(work, :media),
         where: artist.id == ^id,
-        preload: [works: {work, [media: media]}]
+        preload: [media: media, works: {work, [media: work_media]}]
     )
   end
 
-  def create_artist(attrs \\ %{}) do
-    %Artist{}
-    |> Artist.changeset(attrs)
-    |> Repo.insert()
+  def create_artist(attrs \\ %{}, files) do
+    Ecto.Multi.new()
+    |> Ecto.Multi.update(:artist, Artist.changeset(%Artist{}, attrs))
+    |> Ecto.Multi.run(:media, &create_media_from_files(files, &1.artist))
+    |> Repo.transaction()
   end
 
-  def update_artist(%Artist{} = artist, attrs) do
-    artist
-    |> Artist.changeset(attrs)
-    |> Repo.update()
+  def update_artist(%Artist{} = artist, attrs, files) do
+    Ecto.Multi.new()
+    |> Ecto.Multi.update(:artist, Artist.changeset(artist, attrs))
+    |> Ecto.Multi.run(:media, &create_media_from_files(files, &1.artist))
+    |> Repo.transaction()
   end
 
   def delete_artist(%Artist{} = artist) do

@@ -1,4 +1,4 @@
-<%= form_for @changeset, @action, fn f -> %>
+<%= form_for @changeset, @action, [multipart: true], fn f -> %>
   <%= if @changeset.action do %>
     <div class="alert alert-danger">
       <p>Oops, something went wrong! Please check the errors below.</p>
@@ -21,6 +21,28 @@
     <%= label f, :dob, class: "control-label" %>
     <%= date_select f, :dob, year: [options: 1900..2018], class: "form-control" %>
     <%= error_tag f, :dob %>
+  </div>
+
+  <div>
+    <p>Images</p>
+    <%= inputs_for f, :media, fn fm -> %>
+      <div class="form-group">
+        <%= hidden_input fm, :filename %>
+        <%= label fm, :title, class: "control-label" %>
+        <%= text_input fm, :title, class: "form-control" %>
+        <img style="width: 100px; height: 100px" src="/media/<%= fm.data.filename %>" />
+        <%= label fm, :deleted?, class: "control-label" do %>
+          Delete
+        <% end %>
+        <%= checkbox fm, :deleted? %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :new_media, class: "control-label" %>
+    <%= file_input f, :new_media, class: "form-control", multiple: true %>
+    <%= error_tag f, :new_media %>
   </div>
 
   <div class="form-group">

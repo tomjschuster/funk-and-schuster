@@ -6,7 +6,7 @@
       <th>First name</th>
       <th>Last name</th>
       <th>Dob</th>
-
+      <th></th>
       <th></th>
     </tr>
   </thead>
@@ -16,7 +16,12 @@
       <td><%= artist.first_name %></td>
       <td><%= artist.last_name %></td>
       <td><%= artist.dob %></td>
-
+      <td>
+        <% media = List.first(artist.media) %>
+        <%= if media do %>
+              <%= img_tag("/media/#{media.filename}", style: "width: 100px; height: 100px") %>
+        <% end %>
+      </td>
       <td class="text-right">
         <span><%= link "Show", to: artist_path(@conn, :show, artist), class: "btn btn-default btn-xs" %></span>
         <span><%= link "Edit", to: artist_path(@conn, :edit, artist), class: "btn btn-default btn-xs" %></span>

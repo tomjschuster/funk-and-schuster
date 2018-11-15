@@ -4,23 +4,21 @@ defmodule FunkAndSchusterWeb.Art.WorkController do
   alias FunkAndSchuster.{Art, FileService}
   alias FunkAndSchuster.Art.Work
 
-  def action(conn, _) do
-    artist = Art.get_artist!(conn.params["artist_id"])
-    args = [conn, conn.params, artist]
-    apply(__MODULE__, action_name(conn), args)
-  end
-
-  def index(conn, _params, artist) do
-    works = Art.list_works(artist)
+  def index(conn, %{"artist_id" => artist_id}) do
+    artist = Art.get_artist!(artist_id)
+    works = Art.list_artist_works_with_media(artist_id)
     render(conn, "index.html", artist: artist, works: works)
   end
 
-  def new(conn, _params, artist) do
+  def new(conn, %{"artist_id" => artist_id}) do
+    artist = Art.get_artist!(artist_id)
     changeset = Art.change_work(%Work{})
     render(conn, "new.html", artist: artist, changeset: changeset)
   end
 
-  def create(conn, %{"work" => work_params}, artist) do
+  def create(conn, %{"artist_id" => artist_id, "work" => work_params}) do
+    artist = Art.get_artist!(artist_id)
+
     files =
       work_params
       |> Map.get("new_media", [])
@@ -38,20 +36,19 @@ defmodule FunkAndSchusterWeb.Art.WorkController do
     end
   end
 
-  def show(conn, %{"id" => id}, artist) do
-    work = Art.get_work!(id)
-    media = Art.list_work_media(id)
-    render(conn, "show.html", artist: artist, work: work, media: media)
+  def show(conn, %{"id" => id}) do
+    work = Art.get_work_with_media_and_artist!(id)
+    render(conn, "show.html", work: work)
   end
 
-  def edit(conn, %{"id" => id}, artist) do
-    work = Art.get_work!(id)
+  def edit(conn, %{"id" => id}) do
+    work = Art.get_work_with_media_and_artist!(id)
     changeset = Art.change_work(work)
-    render(conn, "edit.html", artist: artist, work: work, changeset: changeset)
+    render(conn, "edit.html", work: work, changeset: changeset)
   end
 
-  def update(conn, %{"id" => id, "work" => work_params}, artist) do
-    work = Art.get_work!(id)
+  def update(conn, %{"id" => id, "work" => work_params}) do
+    work = Art.get_work_with_media_and_artist!(id)
 
     files =
       work_params
@@ -66,11 +63,11 @@ defmodule FunkAndSchusterWeb.Art.WorkController do
 
         conn
         |> put_flash(:info, "Work updated successfully.")
-        |> redirect(to: artist_work_path(conn, :show, artist, work))
+        |> redirect(to: artist_work_path(conn, :show, work.artist, work))
 
       {:error, :work, %Ecto.Changeset{} = changeset, _errors} ->
         FileService.batch_delete_files!(files)
-        render(conn, "edit.html", artist: artist, work: work, changeset: changeset)
+        render(conn, "edit.html", work: work, changeset: changeset)
     end
   end
 

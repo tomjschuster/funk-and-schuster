@@ -1,7 +1,7 @@
 defmodule FunkAndSchuster.Art.Artist do
   use Ecto.Schema
   import Ecto.Changeset
-  alias FunkAndSchuster.Art.{Work, Media}
+  alias FunkAndSchuster.Art.{Artist, Work, Media}
 
   schema "artist" do
     field :first_name, :string
@@ -15,7 +15,9 @@ defmodule FunkAndSchuster.Art.Artist do
   end
 
   @doc false
-  def changeset(artist, attrs) do
+  def changeset(attrs) when is_map(attrs), do: changeset(%Artist{}, attrs)
+
+  def changeset(%Artist{} = artist, attrs) when is_map(attrs) do
     artist
     |> cast(attrs, [:first_name, :last_name, :dob])
     |> cast_assoc(:media)

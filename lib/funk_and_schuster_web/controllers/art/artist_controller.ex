@@ -5,7 +5,7 @@ defmodule FunkAndSchusterWeb.Art.ArtistController do
   alias FunkAndSchuster.Art.Artist
 
   def index(conn, _params) do
-    artists = Art.list_artists()
+    artists = Art.list_artists_with_media()
     render(conn, "index.html", artists: artists)
   end
 
@@ -33,18 +33,19 @@ defmodule FunkAndSchusterWeb.Art.ArtistController do
   end
 
   def show(conn, %{"id" => id}) do
-    artist = Art.get_artist_with_assocs!(id)
+    artist = Art.get_artist_with_works_and_media!(id)
     render(conn, "show.html", artist: artist)
   end
 
   def edit(conn, %{"id" => id}) do
-    artist = Art.get_artist_with_assocs!(id)
+    artist = Art.get_artist_with_media!(id)
     changeset = Art.change_artist(artist)
     render(conn, "edit.html", artist: artist, changeset: changeset)
   end
 
   def update(conn, %{"id" => id, "artist" => artist_params}) do
-    artist = Art.get_artist_with_assocs!(id)
+    artist = Art.get_artist_with_media!(id)
+    IO.inspect({artist, artist_params})
 
     files =
       artist_params
@@ -61,14 +62,5 @@ defmodule FunkAndSchusterWeb.Art.ArtistController do
         FileService.batch_delete_files!(files)
         render(conn, "edit.html", artist: artist, changeset: changeset)
     end
-  end
-
-  def delete(conn, %{"id" => id}) do
-    artist = Art.get_artist!(id)
-    {:ok, _artist} = Art.delete_artist(artist)
-
-    conn
-    |> put_flash(:info, "Artist deleted successfully.")
-    |> redirect(to: artist_path(conn, :index))
   end
 end

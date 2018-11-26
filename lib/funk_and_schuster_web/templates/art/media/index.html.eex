@@ -1,6 +1,7 @@
 <h2>Listing Media</h2>
 
 <span><%= link "New Media", to: media_path(@conn, :new) %></span>
+<span><%= link "Back", to: art_path(@conn, :index) %></span>
 
 <table class="table">
   <thead>

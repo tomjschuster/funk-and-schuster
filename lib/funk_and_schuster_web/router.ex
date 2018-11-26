@@ -34,6 +34,8 @@ defmodule FunkAndSchusterWeb.Router do
     pipe_through :browser
     pipe_through :art
 
+    get "/", ArtController, :index
+
     resources "/artists", ArtistController do
       resources "/works", WorkController do
         resources "/media", MediaController

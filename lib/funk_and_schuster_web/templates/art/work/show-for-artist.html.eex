@@ -1,0 +1,7 @@
+<h2>Show Work</h2>
+
+<span><%= link "Edit", to: artist_work_path(@conn, :edit, @work.artist, @work) %></span>
+<span><%= link "Back", to: artist_work_path(@conn, :index, @work.artist) %></span>
+
+<%= render "_details.html", conn: @conn, work: @work %>
+

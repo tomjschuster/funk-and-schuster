@@ -19,9 +19,9 @@ defmodule FunkAndSchuster.Art.Work do
   @doc false
   def changeset(%Work{} = work, %{} = attrs) do
     work
-    |> cast(attrs, [:title, :date, :medium, :dimensions])
+    |> cast(attrs, [:artist_id, :title, :date, :medium, :dimensions])
     |> cast_assoc(:media)
-    |> validate_required([:title, :date, :medium, :dimensions])
+    |> validate_required([:artist_id, :title, :date, :medium, :dimensions])
   end
 
   def changeset(%Work{} = work, %Artist{} = artist, %{} = attrs) do

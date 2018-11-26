@@ -38,6 +38,8 @@ defmodule FunkAndSchusterWeb.Router do
       resources "/works", WorkController
     end
 
+    resources "/works", WorkController
+
     resources "/media", MediaController do
     end
   end

@@ -1,6 +1,6 @@
 <h2>Edit Work</h2>
 
-<% action = artist_work_path(@conn, :update, @work.artist, @work) %>
+<% action = work_path(@conn, :update, @work) %>
 <%= render "form.html", Map.merge(assigns, %{action: action}) %>
 
-<span><%= link "Back", to: artist_work_path(@conn, :index, @work.artist) %></span>
+<span><%= link "Back", to: work_path(@conn, :show, @work) %></span>

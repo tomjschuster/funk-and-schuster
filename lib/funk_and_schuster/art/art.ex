@@ -68,12 +68,22 @@ defmodule FunkAndSchuster.Art do
     )
   end
 
+  def list_works_with_artist_and_media do
+    Repo.all(
+      from work in Work,
+        join: artist in assoc(work, :artist),
+        left_join: media in assoc(work, :media),
+        preload: [artist: artist, media: media]
+    )
+  end
+
   def list_artist_works_with_media(artist_id) do
     Repo.all(
       from work in Work,
+        join: artist in assoc(work, :artist),
         left_join: media in assoc(work, :media),
         where: [artist_id: ^artist_id],
-        preload: [media: media]
+        preload: [artist: artist, media: media]
     )
   end
 
@@ -87,7 +97,14 @@ defmodule FunkAndSchuster.Art do
     )
   end
 
-  def create_work(%Artist{} = artist, attrs, files) do
+  def create_work(attrs, files) do
+    Ecto.Multi.new()
+    |> Ecto.Multi.insert(:work, Work.changeset(%Work{}, attrs))
+    |> Ecto.Multi.run(:media, &create_associated_media(files, &1.work))
+    |> Repo.transaction()
+  end
+
+  def create_work_for_artist(%Artist{} = artist, attrs, files) do
     Ecto.Multi.new()
     |> Ecto.Multi.insert(:work, Work.changeset(%Work{}, artist, attrs))
     |> Ecto.Multi.run(:media, &create_associated_media(files, &1.work))

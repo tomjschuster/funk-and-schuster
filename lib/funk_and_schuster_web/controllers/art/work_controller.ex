@@ -7,16 +7,30 @@ defmodule FunkAndSchusterWeb.Art.WorkController do
   def index(conn, %{"artist_id" => artist_id}) do
     artist = Art.get_artist!(artist_id)
     works = Art.list_artist_works_with_media(artist_id)
-    render(conn, "index.html", artist: artist, works: works)
+    render(conn, "index-for-artist.html", artist: artist, works: works)
+  end
+
+  def index(conn, _params) do
+    works = Art.list_works_with_artist_and_media()
+    render(conn, "index.html", works: works)
   end
 
   def new(conn, %{"artist_id" => artist_id}) do
-    artist = Art.get_artist!(artist_id)
-    changeset = Art.change_work(%Work{})
-    render(conn, "new.html", artist: artist, changeset: changeset)
+    render(conn, "new-for-artist.html",
+      artist: Art.get_artist!(artist_id),
+      changeset: Art.change_work(%Work{artist_id: artist_id}),
+      artists: Art.list_artists()
+    )
   end
 
-  def create(conn, %{"artist_id" => artist_id, "work" => work_params}) do
+  def new(conn, _params) do
+    render(conn, "new.html",
+      changeset: Art.change_work(%Work{}),
+      artists: Art.list_artists()
+    )
+  end
+
+  def create(%{path_params: %{"artist_id" => artist_id}} = conn, %{"work" => work_params}) do
     artist = Art.get_artist!(artist_id)
 
     files =
@@ -24,7 +38,7 @@ defmodule FunkAndSchusterWeb.Art.WorkController do
       |> Map.get("new_media", [])
       |> FileService.batch_upload_files!()
 
-    case Art.create_work(artist, work_params, files) do
+    case Art.create_work_for_artist(artist, work_params, files) do
       {:ok, %{work: work}} ->
         conn
         |> put_flash(:info, "Work created successfully.")
@@ -32,22 +46,60 @@ defmodule FunkAndSchusterWeb.Art.WorkController do
 
       {:error, :work, %Ecto.Changeset{} = changeset, _errors} ->
         FileService.batch_delete_files!(files)
-        render(conn, "new.html", artist: artist, changeset: changeset)
+        render(conn, "new-for-artist.html", artist: artist, changeset: changeset)
     end
   end
 
+  def create(conn, %{"work" => work_params}) do
+    files =
+      work_params
+      |> Map.get("new_media", [])
+      |> FileService.batch_upload_files!()
+
+    case Art.create_work(work_params, files) do
+      {:ok, %{work: work}} ->
+        conn
+        |> put_flash(:info, "Work created successfully.")
+        |> redirect(to: work_path(conn, :show, work))
+
+      {:error, :work, %Ecto.Changeset{} = changeset, _errors} ->
+        FileService.batch_delete_files!(files)
+        render(conn, "new.html", changeset: IO.inspect(changeset), aritsts: Art.list_artists())
+    end
+  end
+
+  def show(conn, %{"artist_id" => artist_id, "id" => id}) do
+    render(conn, "show-for-artist.html", work: Art.get_work_with_media_and_artist!(id))
+  end
+
   def show(conn, %{"id" => id}) do
+    render(conn, "show.html", work: Art.get_work_with_media_and_artist!(id))
+  end
+
+  def edit(conn, %{"artist_id" => _artist_id, "id" => id}) do
     work = Art.get_work_with_media_and_artist!(id)
-    render(conn, "show.html", work: work)
+
+    render(conn, "edit-for-artist.html",
+      work: work,
+      changeset: Art.change_work(work),
+      artists: Art.list_artists()
+    )
   end
 
   def edit(conn, %{"id" => id}) do
     work = Art.get_work_with_media_and_artist!(id)
-    changeset = Art.change_work(work)
-    render(conn, "edit.html", work: work, changeset: changeset)
+
+    render(conn, "edit.html",
+      work: work,
+      changeset: Art.change_work(work),
+      artists: Art.list_artists()
+    )
   end
 
-  def update(conn, %{"id" => id, "work" => work_params}) do
+  def update(
+        %{path_params: %{"artist_id" => artist_id}} = conn,
+        %{"id" => id, "work" => work_params}
+      ) do
     work = Art.get_work_with_media_and_artist!(id)
 
     files =
@@ -67,7 +119,36 @@ defmodule FunkAndSchusterWeb.Art.WorkController do
 
       {:error, :work, %Ecto.Changeset{} = changeset, _errors} ->
         FileService.batch_delete_files!(files)
-        render(conn, "edit.html", work: work, changeset: changeset)
+        render(conn, "edit-for-artist.html", work: work, changeset: changeset)
+    end
+  end
+
+  def update(conn, %{"id" => id, "work" => work_params}) do
+    work = Art.get_work_with_media_and_artist!(id)
+
+    files =
+      work_params
+      |> Map.get("new_media", [])
+      |> FileService.batch_upload_files!()
+
+    case Art.update_work(work, work_params, files) do
+      {:ok, %{work: work}} ->
+        work_params
+        |> get_deleted_filenames()
+        |> FileService.batch_delete_files!()
+
+        conn
+        |> put_flash(:info, "Work updated successfully.")
+        |> redirect(to: work_path(conn, :show, work))
+
+      {:error, :work, %Ecto.Changeset{} = changeset, _errors} ->
+        FileService.batch_delete_files!(files)
+
+        render(conn, "edit.html",
+          work: work,
+          changeset: IO.inspect(changeset),
+          artists: Art.list_artists()
+        )
     end
   end
 

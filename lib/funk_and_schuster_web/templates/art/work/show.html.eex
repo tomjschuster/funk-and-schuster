@@ -1,39 +1,7 @@
 <h2>Show Work</h2>
 
-<span><%= link "Edit", to: artist_work_path(@conn, :edit, @work.artist, @work) %></span>
-<span><%= link "Back", to: artist_work_path(@conn, :index, @work.artist) %></span>
+<span><%= link "Edit", to: work_path(@conn, :edit, @work) %></span>
+<span><%= link "Back", to: work_path(@conn, :index) %></span>
 
-<ul>
-
-  <li>
-    <strong>Title:</strong>
-    <%= @work.title %>
-  </li>
-
-  <li>
-    <strong>Medium:</strong>
-    <%= @work.medium %>
-  </li>
-
-  <li>
-    <strong>Dimensions:</strong>
-    <%= @work.dimensions %>
-  </li>
-
-  <li>
-    <strong>Date:</strong>
-    <%= @work.date %>
-  </li>
-</ul>
-
-  <%= if not Enum.empty?(@work.media) do %>
-    <%= for media <- @work.media do %>
-      <figure>
-        <%= link to: media_path(@conn, :show, media) do %>
-          <%= img_tag  "/media/#{media.filename}", style: "width: 100px; height: 100px" %>
-        <% end %>
-        <figcaption><%= media.title %></figcaption>
-      </figure>
-    <% end %>
-  <% end %>
+<%= render "_details.html", conn: @conn, work: @work %>
 

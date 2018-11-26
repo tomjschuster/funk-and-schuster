@@ -14,7 +14,11 @@
   <tbody>
 <%= for media <- @media do %>
     <tr>
-      <td><img style="width: 100px; height: 100px" src="/media/<%= media.filename %>" /></td>
+      <td>
+        <%= link to: media_path(@conn, :show, media) do %>
+          <img style="width: 100px; height: 100px" src="/media/<%= media.filename %>" />
+        <% end %>
+      </td>
       <td><%= media.title %></td>
       <td><%= media.caption %></td>
 
@@ -22,13 +26,19 @@
 
       <% %Media{artist: %Artist{}} -> %>
 
-        <td><%= media.artist.first_name <> " " <> media.artist.last_name %></td>
+        <td>
+          <%= link media.artist.first_name <> " " <> media.artist.last_name, to: artist_path(@conn, :show, media.artist) %>
+        </td>
         <td></td>
 
       <% %Media{work: %Work{}} -> %>
 
-        <td><%= media.work.artist.first_name <> " " <> media.work.artist.last_name %></td>
-        <td><%= media.work.title %></td>
+        <td>
+          <%= link media.work.artist.first_name <> " " <> media.work.artist.last_name, to: artist_path(@conn, :show, media.work.artist) %>
+        </td>
+        <td>
+          <%= link media.work.title, to: artist_work_path(@conn, :show, media.work.artist, media.work) %>
+        </td>
 
       <% %Media{} -> %>
       

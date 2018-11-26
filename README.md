@@ -4,7 +4,6 @@
 - Admin Experience
     - Media links to artists and works
     - View all works (link to artist)
-    - Artist media
     - Gallery CRUD
     - Delete
     - Styling

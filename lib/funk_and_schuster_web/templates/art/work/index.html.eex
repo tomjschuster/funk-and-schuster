@@ -22,7 +22,9 @@
       <td>
         <% media = List.first(work.media) %>
         <%= if media do %>
+            <%= link to: artist_work_path(@conn, :show, @artist, work) do %>
               <%= img_tag("/media/#{media.filename}", style: "width: 100px; height: 100px") %>
+            <% end %>
         <% end %>
       </td>
 

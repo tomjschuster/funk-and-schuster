@@ -2,7 +2,7 @@
 
   <li>
     <strong>Title:</strong>
-    <%= @work.title %>
+    <%= link @work.title,  to: artist_work_path(@conn, :show, @artist, @work)  %>
   </li>
 
   <li>
@@ -25,7 +25,7 @@
 
   <%= if media do %>
     <li>
-      <%= link  to: artist_work_path(@conn, :show, @artist, @work) do %>
+      <%= link to: media_path(@conn, :show, media) do %>
         <%= img_tag("/media/#{media.filename}", style: "width: 100px; height: 100px") %>
       <% end %>
     </li>

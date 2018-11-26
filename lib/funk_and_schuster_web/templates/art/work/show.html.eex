@@ -29,7 +29,9 @@
   <%= if not Enum.empty?(@work.media) do %>
     <%= for media <- @work.media do %>
       <figure>
-        <img style="width: 100px; height: 100px" src="/media/<%= media.filename %>" />
+        <%= link to: media_path(@conn, :show, media) do %>
+          <%= img_tag  "/media/#{media.filename}", style: "width: 100px; height: 100px" %>
+        <% end %>
         <figcaption><%= media.title %></figcaption>
       </figure>
     <% end %>

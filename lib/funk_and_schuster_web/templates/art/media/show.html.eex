@@ -17,22 +17,22 @@
 
     <%= case @media do %>
 
-      <% %Media{artist: %Artist{}} -> %>
+      <%= %Media{artist: %Artist{} = artist } -> %>
 
         <li>
             <strong>Artist:</strong>
-            <%= @media.artist.first_name <> " " <> @media.artist.last_name %>
+            <%= link artist.first_name <> " " <> artist.last_name, to: artist_path(@conn, :show, artist)  %>
         </li>
 
-      <% %Media{work: %Work{}} -> %>
+      <% %Media{work: %Work{} = work} -> %>
 
         <li>
             <strong>Artist:</strong>
-            <%= @media.work.artist.first_name <> " " <> @media.work.artist.last_name %>
+            <%= link work.artist.first_name <> " " <> work.artist.last_name, to: artist_path(@conn, :show, work.artist)  %>
         </li>
         <li>
             <strong>Work:</strong>
-            <%= @media.work.title %>
+            <%= link work.title, to: artist_work_path(@conn, :show, work.artist, work)  %>
         </li>
 
       <% %Media{} -> %>

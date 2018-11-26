@@ -1,4 +1,5 @@
 <%= render LayoutView, "header.html", assigns %>
+<%= thesis_editor(@conn) %>
 
 <main class="about content container">
   <h1 class="page-title">About Us</h1>

@@ -203,10 +203,16 @@ defmodule FunkAndSchuster.Art do
   # Galleries
 
   def list_galleries do
-    Repo.all(Gallery)
+    Repo.all(gallery_query)
   end
 
-  def get_gallery!(id), do: Repo.get!(Gallery, id)
+  def get_gallery!(id), do: gallery_query() |> where(id: ^id) |> Repo.one!()
+
+  defp gallery_query do
+    from gallery in Gallery,
+      left_join: gallery_media in assoc(gallery, :gallery_media),
+      preload: [gallery_media: gallery_media]
+  end
 
   def create_gallery(attrs \\ %{}) do
     %Gallery{}

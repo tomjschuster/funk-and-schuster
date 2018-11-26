@@ -10,19 +10,30 @@ defmodule FunkAndSchusterWeb.Art.GalleryController do
   end
 
   def new(conn, _params) do
-    changeset = Art.change_gallery(%Gallery{})
-    render(conn, "new.html", changeset: changeset)
+    render(conn, "new.html",
+      media: Art.list_media(),
+      changeset: Art.change_gallery(%Gallery{gallery_media: []})
+    )
   end
 
-  def create(conn, %{"gallery" => gallery_params}) do
-    case Art.create_gallery(gallery_params) do
+  def create(conn, %{"gallery" => gallery_params} = params) do
+    IO.inspect(params)
+
+    gallery_media =
+      params
+      |> Map.get("gallery_media", [])
+      |> Enum.map(&Poison.decode!/1)
+
+    IO.inspect(params)
+
+    case Art.create_gallery(Map.put(gallery_params, "gallery_media", gallery_media)) do
       {:ok, gallery} ->
         conn
         |> put_flash(:info, "Gallery created successfully.")
         |> redirect(to: gallery_path(conn, :show, gallery))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        render(conn, "new.html", changeset: changeset, media: Art.list_media())
     end
   end
 
@@ -33,21 +44,36 @@ defmodule FunkAndSchusterWeb.Art.GalleryController do
 
   def edit(conn, %{"id" => id}) do
     gallery = Art.get_gallery!(id)
-    changeset = Art.change_gallery(gallery)
-    render(conn, "edit.html", gallery: gallery, changeset: changeset)
+    IO.inspect(gallery)
+    IO.inspect(Art.change_gallery(gallery))
+
+    render(conn, "edit.html",
+      gallery: gallery,
+      changeset: Art.change_gallery(gallery),
+      media: Art.list_media()
+    )
   end
 
-  def update(conn, %{"id" => id, "gallery" => gallery_params}) do
+  def update(conn, %{"id" => id, "gallery" => gallery_params} = params) do
+    IO.inspect(params)
     gallery = Art.get_gallery!(id)
 
-    case Art.update_gallery(gallery, gallery_params) do
+    gallery_media =
+      params
+      |> Map.get("gallery_media", [])
+      |> Enum.map(&Poison.decode!/1)
+
+    IO.inspect(params)
+
+    case Art.update_gallery(gallery, Map.put(gallery_params, "gallery_media", gallery_media)) do
       {:ok, gallery} ->
         conn
         |> put_flash(:info, "Gallery updated successfully.")
         |> redirect(to: gallery_path(conn, :show, gallery))
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "edit.html", gallery: gallery, changeset: changeset)
+        IO.inspect(changeset)
+        render(conn, "edit.html", gallery: gallery, changeset: changeset, media: Art.list_media())
     end
   end
 

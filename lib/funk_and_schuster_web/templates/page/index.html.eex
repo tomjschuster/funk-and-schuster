@@ -1,4 +1,5 @@
 <%= render LayoutView, "header.html", assigns %>
+<%= thesis_editor(@conn) %>
 
 <main class="home content container">
   <%= content(@conn, "Home hero", :image, classes: "hero", alt: "paint-blobs", do: "/images/paint-blobs.jpg") %>

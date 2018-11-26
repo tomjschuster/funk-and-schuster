@@ -25,7 +25,6 @@
   </head>
 
   <body>
-    <%= thesis_editor(@conn) %>
     <%= render @view_module, @view_template, assigns %>
   </body>
 </html>

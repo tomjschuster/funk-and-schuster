@@ -2,7 +2,6 @@
 
 ## TODO:
 - Admin Experience
-    - Media pages for artist/work
     - Galleries
     - Delete
     - Styling

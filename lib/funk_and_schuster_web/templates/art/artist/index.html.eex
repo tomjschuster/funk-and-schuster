@@ -1,5 +1,7 @@
 <h2>Listing Artists</h2>
 
+<span><%= link "New Artist", to: artist_path(@conn, :new) %></span>
+
 <table class="table">
   <thead>
     <tr>
@@ -32,4 +34,3 @@
   </tbody>
 </table>
 
-<span><%= link "New Artist", to: artist_path(@conn, :new) %></span>

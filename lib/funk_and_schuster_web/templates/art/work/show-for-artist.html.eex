@@ -1,7 +1,34 @@
-<h2>Show Work</h2>
+<h2>Show Work for <%= @work.artist.first_name <> " " <> @work.artist.last_name %></h2>
 
 <span><%= link "Edit", to: artist_work_path(@conn, :edit, @work.artist, @work) %></span>
 <span><%= link "Back", to: artist_work_path(@conn, :index, @work.artist) %></span>
 
-<%= render "_details.html", conn: @conn, work: @work %>
+<ul>
 
+  <li>
+    <strong>Artist:</strong>
+    <%= link @work.artist.first_name <> " " <> @work.artist.last_name, to: artist_path(@conn, :show, @work.artist) %>
+  </li>
+
+  <li>
+    <strong>Title:</strong>
+    <%= @work.title %>
+  </li>
+
+  <li>
+    <strong>Medium:</strong>
+    <%= @work.medium %>
+  </li>
+
+  <li>
+    <strong>Dimensions:</strong>
+    <%= @work.dimensions %>
+  </li>
+
+  <li>
+    <strong>Date:</strong>
+    <%= @work.date %>
+  </li>
+</ul>
+
+<span><%= link "Media", to: artist_work_media_path(@conn, :index, @work.artist, @work) %></span>

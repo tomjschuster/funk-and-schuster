@@ -1,3 +1,5 @@
 <h2>Listing Works</h2>
-<%= render "_list.html", conn: @conn, works: @works %>
+
 <span><%= link "New Work", to: work_path(@conn, :new) %></span>
+
+<%= render "_list.html", conn: @conn, works: @works %>

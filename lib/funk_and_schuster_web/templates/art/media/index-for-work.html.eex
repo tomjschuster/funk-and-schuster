@@ -1,0 +1,35 @@
+<h2>Listing Media for <%= @work.title %></h2>
+
+<span><%= link "New Media", to: work_media_path(@conn, :new, @work) %></span>
+<span><%= link "Back", to: work_path(@conn, :show, @work) %></span>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Title</th>
+      <th>Caption</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for media <- @media do %>
+    <tr>
+      <td>
+        <%= link to: work_media_path(@conn, :show, @work, media) do %>
+          <%= img_tag "/media/#{media.filename}", style: "width: 100px; height: 100px" %>
+        <% end %>
+      </td>
+      <td><%= media.title %></td>
+      <td><%= media.caption %></td>
+
+      <td class="text-right">
+        <span><%= link "Show", to: work_media_path(@conn, :show, @work, media), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Edit", to: work_media_path(@conn, :edit, @work, media), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Delete", to: work_media_path(@conn, :delete, @work, media), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+

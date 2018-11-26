@@ -1,5 +1,7 @@
 <h2>Listing Media</h2>
 
+<span><%= link "New Media", to: media_path(@conn, :new) %></span>
+
 <table class="table">
   <thead>
     <tr>
@@ -16,7 +18,7 @@
     <tr>
       <td>
         <%= link to: media_path(@conn, :show, media) do %>
-          <img style="width: 100px; height: 100px" src="/media/<%= media.filename %>" />
+          <%= img_tag "/media/#{media.filename}", style: "width: 100px; height: 100px" %>
         <% end %>
       </td>
       <td><%= media.title %></td>
@@ -56,4 +58,3 @@
   </tbody>
 </table>
 
-<span><%= link "New Media", to: media_path(@conn, :new) %></span>

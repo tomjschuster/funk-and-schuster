@@ -35,10 +35,16 @@ defmodule FunkAndSchusterWeb.Router do
     pipe_through :art
 
     resources "/artists", ArtistController do
-      resources "/works", WorkController
+      resources "/works", WorkController do
+        resources "/media", MediaController
+      end
+
+      resources "/media", MediaController
     end
 
-    resources "/works", WorkController
+    resources "/works", WorkController do
+      resources "/media", MediaController
+    end
 
     resources "/media", MediaController do
     end

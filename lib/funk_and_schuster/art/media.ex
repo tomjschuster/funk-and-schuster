@@ -34,21 +34,24 @@ defmodule FunkAndSchuster.Art.Media do
     |> validate_required([:title])
   end
 
-  def changeset(%FileService.FileInfo{} = file_info, %Work{} = work) do
+  def changeset(%FileService.FileInfo{} = file_info, %Work{} = work, attrs) when is_map(attrs) do
     %Media{}
     |> change()
     |> put_change(:title, work.title)
-    |> put_change(:work_id, work.id)
+    |> cast(attrs, [:title, :caption, :deleted?])
+    |> put_assoc(:work, work)
     |> put_change(:filename, file_info.filename)
     |> put_change(:content_type, file_info.content_type)
     |> validate_required([:title, :filename, :content_type])
   end
 
-  def changeset(%FileService.FileInfo{} = file_info, %Artist{} = artist) do
+  def changeset(%FileService.FileInfo{} = file_info, %Artist{} = artist, attrs)
+      when is_map(attrs) do
     %Media{}
     |> change()
     |> put_change(:title, artist.first_name <> " " <> artist.last_name)
-    |> put_change(:artist_id, artist.id)
+    |> cast(attrs, [:title, :caption, :deleted?])
+    |> put_assoc(:artist, artist)
     |> put_change(:filename, file_info.filename)
     |> put_change(:content_type, file_info.content_type)
     |> validate_required([:title, :filename, :content_type])

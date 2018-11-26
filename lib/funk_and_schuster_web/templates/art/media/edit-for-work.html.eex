@@ -1,0 +1,6 @@
+<h2>Edit Media</h2>
+<%= img_tag "/media/#{@media.filename}", style: "width: 100px; height: 100px" %>
+
+<%= render "form-for-work.html", Map.put(assigns, :action, work_media_path(@conn, :update, @media.work, @media)) %>
+
+<span><%= link "Back", to: work_media_path(@conn, :index, @media.work) %></span>

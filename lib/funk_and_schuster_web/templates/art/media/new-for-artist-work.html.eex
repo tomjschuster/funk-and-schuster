@@ -1,0 +1,5 @@
+<h2>New Media</h2>
+
+<%= render "form-for-work.html", Map.put(assigns, :action, artist_work_media_path(@conn, :create, @work.artist, @work)) %>
+
+<span><%= link "Back", to: artist_work_media_path(@conn, :index, @work.artist, @work) %></span>

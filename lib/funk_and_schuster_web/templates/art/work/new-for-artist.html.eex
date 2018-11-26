@@ -1,4 +1,4 @@
-<h2>New Work</h2>
+<h2>New Work for <%= @artist.first_name <> " " <> @artist.last_name %></h2>
 
 <% action = artist_work_path(@conn, :create, @artist) %>
 <%= render "form-for-artist.html", Map.merge(assigns, %{action: action}) %>

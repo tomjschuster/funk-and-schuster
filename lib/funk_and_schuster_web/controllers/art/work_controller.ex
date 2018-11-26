@@ -30,7 +30,7 @@ defmodule FunkAndSchusterWeb.Art.WorkController do
     )
   end
 
-  def create(%{path_params: %{"artist_id" => artist_id}} = conn, %{"work" => work_params}) do
+  def create(conn, %{"artist_id" => artist_id, "work" => work_params}) do
     artist = Art.get_artist!(artist_id)
 
     files =
@@ -96,10 +96,7 @@ defmodule FunkAndSchusterWeb.Art.WorkController do
     )
   end
 
-  def update(
-        %{path_params: %{"artist_id" => artist_id}} = conn,
-        %{"id" => id, "work" => work_params}
-      ) do
+  def update(conn, %{"artist_id" => _artist_id, "id" => id, "work" => work_params}) do
     work = Art.get_work_with_media_and_artist!(id)
 
     files =

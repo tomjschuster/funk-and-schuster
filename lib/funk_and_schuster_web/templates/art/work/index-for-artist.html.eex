@@ -1,6 +1,6 @@
 <h2>Listing Works for <%= @artist.first_name <> " " <> @artist.last_name %></h2>
-<%= render "_list-for-artist.html", conn: @conn, works: @works %>
 
 <span><%= link "New Work", to: artist_work_path(@conn, :new, @artist) %></span>
 <span><%= link "Back", to: artist_path(@conn, :show, @artist) %></span>
 
+<%= render "_list-for-artist.html", conn: @conn, artist: @artist, works: @works %>

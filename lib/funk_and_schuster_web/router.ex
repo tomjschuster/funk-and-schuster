@@ -48,8 +48,9 @@ defmodule FunkAndSchusterWeb.Router do
       resources "/media", MediaController
     end
 
-    resources "/media", MediaController do
-    end
+    resources "/media", MediaController
+
+    resources "/galleries", GalleryController
   end
 
   # Other scopes may use custom stacks.

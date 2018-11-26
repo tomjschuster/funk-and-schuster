@@ -7,7 +7,7 @@ defmodule FunkAndSchuster.Art do
   alias FunkAndSchuster.Repo
 
   alias FunkAndSchuster.FileService
-  alias FunkAndSchuster.Art.{Artist, Work, Media}
+  alias FunkAndSchuster.Art.{Artist, Work, Media, Gallery}
 
   # Artists
 
@@ -199,4 +199,32 @@ defmodule FunkAndSchuster.Art do
   end
 
   def change_media(%Media{} = media), do: Media.changeset(media, %{})
+
+  # Galleries
+
+  def list_galleries do
+    Repo.all(Gallery)
+  end
+
+  def get_gallery!(id), do: Repo.get!(Gallery, id)
+
+  def create_gallery(attrs \\ %{}) do
+    %Gallery{}
+    |> Gallery.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  def update_gallery(%Gallery{} = gallery, attrs) do
+    gallery
+    |> Gallery.changeset(attrs)
+    |> Repo.update()
+  end
+
+  def delete_gallery(%Gallery{} = gallery) do
+    Repo.delete(gallery)
+  end
+
+  def change_gallery(%Gallery{} = gallery) do
+    Gallery.changeset(gallery, %{})
+  end
 end

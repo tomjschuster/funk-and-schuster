@@ -3,3 +3,4 @@
 <%= link "Artists", to: artist_path(@conn, :index) %>
 <%= link "Works", to: work_path(@conn, :index) %>
 <%= link "Media", to: media_path(@conn, :index) %>
+<%= link "Galleries", to: gallery_path(@conn, :index) %>

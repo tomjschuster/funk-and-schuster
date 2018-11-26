@@ -190,4 +190,64 @@ defmodule FunkAndSchuster.ArtTest do
       assert %Ecto.Changeset{} = Art.change_media(media)
     end
   end
+
+  describe "galleries" do
+    alias FunkAndSchuster.Art.Gallery
+
+    @valid_attrs %{title: "some title"}
+    @update_attrs %{title: "some updated title"}
+    @invalid_attrs %{title: nil}
+
+    def gallery_fixture(attrs \\ %{}) do
+      {:ok, gallery} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Art.create_gallery()
+
+      gallery
+    end
+
+    test "list_galleries/0 returns all galleries" do
+      gallery = gallery_fixture()
+      assert Art.list_galleries() == [gallery]
+    end
+
+    test "get_gallery!/1 returns the gallery with given id" do
+      gallery = gallery_fixture()
+      assert Art.get_gallery!(gallery.id) == gallery
+    end
+
+    test "create_gallery/1 with valid data creates a gallery" do
+      assert {:ok, %Gallery{} = gallery} = Art.create_gallery(@valid_attrs)
+      assert gallery.title == "some title"
+    end
+
+    test "create_gallery/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Art.create_gallery(@invalid_attrs)
+    end
+
+    test "update_gallery/2 with valid data updates the gallery" do
+      gallery = gallery_fixture()
+      assert {:ok, gallery} = Art.update_gallery(gallery, @update_attrs)
+      assert %Gallery{} = gallery
+      assert gallery.title == "some updated title"
+    end
+
+    test "update_gallery/2 with invalid data returns error changeset" do
+      gallery = gallery_fixture()
+      assert {:error, %Ecto.Changeset{}} = Art.update_gallery(gallery, @invalid_attrs)
+      assert gallery == Art.get_gallery!(gallery.id)
+    end
+
+    test "delete_gallery/1 deletes the gallery" do
+      gallery = gallery_fixture()
+      assert {:ok, %Gallery{}} = Art.delete_gallery(gallery)
+      assert_raise Ecto.NoResultsError, fn -> Art.get_gallery!(gallery.id) end
+    end
+
+    test "change_gallery/1 returns a gallery changeset" do
+      gallery = gallery_fixture()
+      assert %Ecto.Changeset{} = Art.change_gallery(gallery)
+    end
+  end
 end

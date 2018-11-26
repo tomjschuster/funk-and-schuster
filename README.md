@@ -2,13 +2,13 @@
 
 ## TODO:
 - Admin Experience
-    - Media links to artists and works
     - View all works (link to artist)
-    - Gallery CRUD
+    - Galleries
     - Delete
     - Styling
 - Gallery view
 - Contact Form
+- Admin SPA
 
 ## Optimization
 - Accesibility (alt, buttons, links, roles)

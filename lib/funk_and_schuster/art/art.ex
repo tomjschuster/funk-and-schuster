@@ -203,7 +203,7 @@ defmodule FunkAndSchuster.Art do
   # Galleries
 
   def list_galleries do
-    Repo.all(gallery_query)
+    Repo.all(gallery_query())
   end
 
   def get_gallery!(id), do: gallery_query() |> where(id: ^id) |> Repo.one!()

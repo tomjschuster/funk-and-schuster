@@ -68,7 +68,7 @@ defmodule FunkAndSchusterWeb.Art.WorkController do
     end
   end
 
-  def show(conn, %{"artist_id" => artist_id, "id" => id}) do
+  def show(conn, %{"artist_id" => _artist_id, "id" => id}) do
     render(conn, "show-for-artist.html", work: Art.get_work_with_media_and_artist!(id))
   end
 

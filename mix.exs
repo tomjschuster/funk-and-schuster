@@ -4,7 +4,7 @@ defmodule FunkAndSchuster.Mixfile do
   def project do
     [
       app: :funk_and_schuster,
-      version: "0.0.4",
+      version: "0.0.5",
       elixir: "~> 1.7",
       elixirc_paths: elixirc_paths(Mix.env()),
       compilers: [:phoenix, :gettext] ++ Mix.compilers(),

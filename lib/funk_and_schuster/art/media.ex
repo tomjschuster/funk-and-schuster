@@ -34,6 +34,15 @@ defmodule FunkAndSchuster.Art.Media do
     |> validate_required([:title])
   end
 
+  def changeset(%FileService.FileInfo{} = file_info, attrs) when is_map(attrs) do
+    %Media{}
+    |> cast(attrs, [:title, :caption, :assoc_type, :work_id, :artist_id])
+    |> cast_assoc_type()
+    |> put_change(:filename, file_info.filename)
+    |> put_change(:content_type, file_info.content_type)
+    |> validate_required([:title, :filename, :content_type])
+  end
+
   def changeset(%FileService.FileInfo{} = file_info, %Work{} = work, attrs) when is_map(attrs) do
     %Media{}
     |> change()
@@ -52,15 +61,6 @@ defmodule FunkAndSchuster.Art.Media do
     |> put_change(:title, artist.first_name <> " " <> artist.last_name)
     |> cast(attrs, [:title, :caption, :deleted?])
     |> put_assoc(:artist, artist)
-    |> put_change(:filename, file_info.filename)
-    |> put_change(:content_type, file_info.content_type)
-    |> validate_required([:title, :filename, :content_type])
-  end
-
-  def changeset(%FileService.FileInfo{} = file_info, attrs) when is_map(attrs) do
-    %Media{}
-    |> cast(attrs, [:title, :caption, :assoc_type, :work_id, :artist_id])
-    |> cast_assoc_type()
     |> put_change(:filename, file_info.filename)
     |> put_change(:content_type, file_info.content_type)
     |> validate_required([:title, :filename, :content_type])

@@ -9,21 +9,19 @@
 
       <header>
         <h1 class="project-title">
-          <%= content(@conn, "Title", :text, do: "A slogan") %>
+          <%= content(@conn, "Title", :text, do: "Fine Art Lithography") %>
         </h1>
         <span class="services">
-          <%= content(@conn, "Subtitle", :text, do: "with a subtitle") %>
+          <%= content(@conn, "Subtitle", :text, do: "") %>
         </span>
       </header>
 
       <div class="content">
         <h2>
-          <%= content(@conn, "Description header", :text, do: "Title for statement") %>
+          <%= content(@conn, "Description header", :text, do: "the artist and the printer") %>
         </h2>
         <span class="paragraph">
           <%= content(@conn, "Description content", :text) do %>
-           Some sort of mission statement, or vision, or whatever. It can be a
-           whole paragraph.
           <% end %>
         </span>
       </div>

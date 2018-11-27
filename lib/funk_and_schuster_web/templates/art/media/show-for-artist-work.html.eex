@@ -1,0 +1,30 @@
+<h2>Show Media for <%= @media.work.title %></h2>
+
+<span><%= link "Edit", to: artist_work_media_path(@conn, :edit, @media.work.artist, @media.work, @media) %></span>
+<span><%= link "Back", to: artist_work_media_path(@conn, :index, @media.work.artist, @media.work) %></span>
+
+<%= img_tag "/media/#{@media.filename}", style: "width: 100px; height: 100px" %>
+
+<ul>
+  <li>
+    <strong>Title:</strong>
+    <%= @media.title %>
+  </li>
+  <%= if @media.caption do %>
+    <li>
+      <strong>Caption:</strong>
+      <%= @media.caption %>
+    </li>
+  <% end %>
+
+  <li>
+    <strong>Artist:</strong>
+    <%= link @media.work.artist.first_name <> " " <> @media.work.artist.last_name, to: artist_path(@conn, :show, @media.work.artist)  %>
+  </li>
+
+  <li>
+    <strong>Work:</strong>
+    <%= link @media.work.title, to: artist_work_path(@conn, :show, @media.work.artist, @media.work)  %>
+  </li>
+</ul>
+

@@ -1,0 +1,35 @@
+<h2>Show Work</h2>
+
+<span><%= link "Edit", to: work_path(@conn, :edit, @work) %></span>
+<span><%= link "Back", to: work_path(@conn, :index) %></span>
+
+<ul>
+
+  <li>
+    <strong>Artist:</strong>
+    <%= link @work.artist.first_name <> " " <> @work.artist.last_name, to: artist_path(@conn, :show, @work.artist) %>
+  </li>
+
+  <li>
+    <strong>Title:</strong>
+    <%= @work.title %>
+  </li>
+
+  <li>
+    <strong>Medium:</strong>
+    <%= @work.medium %>
+  </li>
+
+  <li>
+    <strong>Dimensions:</strong>
+    <%= @work.dimensions %>
+  </li>
+
+  <li>
+    <strong>Date:</strong>
+    <%= @work.date %>
+  </li>
+</ul>
+
+<span><%= link "Media", to: work_media_path(@conn, :index, @work) %></span>
+

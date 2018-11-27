@@ -1,4 +1,5 @@
 <%= render LayoutView, "header.html", assigns %>
+<%= thesis_editor(@conn) %>
 
 <main class="about content container">
   <h1 class="page-title">About Us</h1>
@@ -9,9 +10,9 @@
       <%= content(@conn, "About summary image", :image, classes: "img-container", do: "/images/image-placeholder_03.png") %>
 
       <div class="content">
-        <h2><%= content(@conn, "About summary title", :text, do: "a summary") %></h2>
+        <h2><%= content(@conn, "About summary title", :text, do: "for the artist") %></h2>
         <span class="paragraph">
-          <%= content(@conn, "About summary content", :text, do: "Use this paragraph to describe what we do as if it were the only thing they read.") %>
+          <%= content(@conn, "About summary content", :text, do: "The Funk and Schuster studio produces high quality lithographs using aluminum offset plates on a 40\" SORS Heidelberg, and a 55\" Dufa for specialty work and large prints. Working one on one with the printer, artists have access to a unique variety of choices in format, size, and materials to create stunning art.") %>
         </span>
       </div>
 
@@ -23,7 +24,7 @@
       <div class="content">
         <h2><%= content(@conn, "About us title", :text, do: "who we are") %></h2>
         <span class="paragraph">
-          <%= content(@conn, "About us content", :text, do: "Paragraph about company, people.") %>
+          <%= content(@conn, "About us content", :text, do: "Vladimir Schuster's printing career spans over 40 years from Minsk, Belarus to Varick Street, NYC. He now brings his expertise and appreciation for fine art to the vibrant community of Provincetown in Cape Cod, Massachusetts. With experience in all aspects of the printing process from pre-press to finishing, Vladimir can assist artists in using a wide range of creative choices to create high quality plates for lithographic printing.") %>
         </span>
       </div>
 

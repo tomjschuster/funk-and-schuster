@@ -1,4 +1,6 @@
 <%= render LayoutView, "header.html", assigns %>
+<%= thesis_editor(@conn) %>
+
 
 <main class="contact content container">
 

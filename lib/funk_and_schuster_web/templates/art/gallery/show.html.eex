@@ -1,0 +1,13 @@
+<h2>Show Gallery</h2>
+
+<ul>
+
+  <li>
+    <strong>Title:</strong>
+    <%= @gallery.title %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: gallery_path(@conn, :edit, @gallery) %></span>
+<span><%= link "Back", to: gallery_path(@conn, :index) %></span>

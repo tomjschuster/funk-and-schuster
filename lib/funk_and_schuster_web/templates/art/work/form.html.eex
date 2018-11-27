@@ -1,0 +1,63 @@
+<%= form_for @changeset, @action, [multipart: true], fn f -> %>
+  <%= if @changeset.action do %>
+    <div class="alert alert-danger">
+      <p>Oops, something went wrong! Please check the errors below.</p>
+    </div>
+  <% end %>
+
+  <div class="form-group">
+    <%= label f, :artist_id, class: "control-label" %>
+    <%= select f, :artist_id, [{"-", nil} | Enum.map(@artists, &{&1.first_name <> " " <> &1.last_name, &1.id})], class: "form-control" %>
+    <%= error_tag f, :artist_id %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :title, class: "control-label" %>
+    <%= text_input f, :title, class: "form-control" %>
+    <%= error_tag f, :title %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :medium, class: "control-label" %>
+    <%= text_input f, :medium, class: "form-control" %>
+    <%= error_tag f, :medium %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :dimensions, class: "control-label" %>
+    <%= text_input f, :dimensions, class: "form-control" %>
+    <%= error_tag f, :dimensions %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :date, class: "control-label" %>
+    <%= date_select f, :date, year: [options: 1900..2018], class: "form-control" %>
+    <%= error_tag f, :date %>
+  </div>
+
+  <div>
+    <p>Images</p>
+    <%= inputs_for f, :media, fn fm -> %>
+      <div class="form-group">
+        <%= hidden_input fm, :filename %>
+        <%= label fm, :title, class: "control-label" %>
+        <%= text_input fm, :title, class: "form-control" %>
+        <img style="width: 100px; height: 100px" src="/media/<%= fm.data.filename %>" />
+        <%= label fm, :deleted?, class: "control-label" do %>
+          Delete
+        <% end %>
+        <%= checkbox fm, :deleted? %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :new_media, class: "control-label" %>
+    <%= file_input f, :new_media, class: "form-control", multiple: true %>
+    <%= error_tag f, :new_media %>
+  </div>
+
+  <div class="form-group">
+    <%= submit "Submit", class: "btn btn-primary" %>
+  </div>
+<% end %>

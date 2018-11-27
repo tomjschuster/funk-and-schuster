@@ -1,5 +1,6 @@
 defmodule FunkAndSchusterWeb.Router do
   use FunkAndSchusterWeb, :router
+  alias FunkAndSchusterWeb.Plugs
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -13,8 +14,11 @@ defmodule FunkAndSchusterWeb.Router do
     plug :accepts, ["json"]
   end
 
+  pipeline :art do
+    plug Plugs.RequireAdmin
+  end
+
   scope "/", FunkAndSchusterWeb do
-    # Use the default browser stack
     pipe_through :browser
 
     get "/", PageController, :index
@@ -23,11 +27,30 @@ defmodule FunkAndSchusterWeb.Router do
     get "/process", PageController, :process
     get "/contact", PageController, :contact
 
+    get "/media/:filename", FileController, :show
+  end
+
+  scope "/art", FunkAndSchusterWeb.Art do
+    pipe_through :browser
+    pipe_through :art
+
+    get "/", ArtController, :index
+
     resources "/artists", ArtistController do
-      resources "/works", WorkController
+      resources "/works", WorkController do
+        resources "/media", MediaController
+      end
+
+      resources "/media", MediaController
     end
 
-    get "/media/:filename", MediaController, :show
+    resources "/works", WorkController do
+      resources "/media", MediaController
+    end
+
+    resources "/media", MediaController
+
+    resources "/galleries", GalleryController
   end
 
   # Other scopes may use custom stacks.

@@ -1,18 +1,11 @@
 defmodule FunkAndSchusterWeb.PageController do
   use FunkAndSchusterWeb, :controller
 
-  def admin_host?(conn) do
-    case conn.host do
-      "admin.funkandschuster.art" -> true
-      "admin.localhost" -> true
-      _ -> false
-    end
-  end
+  plug FunkAndSchusterWeb.Plugs.VerifyThesis
 
-
-  def index(conn, _params), do: render(conn, :index, thesis_editable: admin_host?(conn))
-  def about(conn, _params), do: render(conn, :about, thesis_editable: admin_host?(conn))
-  def gallery(conn, _params), do: render(conn, :gallery, thesis_editable: admin_host?(conn))
-  def process(conn, _params), do: render(conn, :process, thesis_editable: admin_host?(conn))
-  def contact(conn, _params), do: render(conn, :contact, thesis_editable: admin_host?(conn))
+  def index(conn, _params), do: render(conn, :index)
+  def about(conn, _params), do: render(conn, :about)
+  def gallery(conn, _params), do: render(conn, :gallery)
+  def process(conn, _params), do: render(conn, :process)
+  def contact(conn, _params), do: render(conn, :contact)
 end

@@ -1,4 +1,6 @@
 <%= render LayoutView, "header.html", assigns %>
+<%= thesis_editor(@conn) %>
+
 <main class="gallery content container">
     <h1 class="page-title">Gallery</h1>
 </main>

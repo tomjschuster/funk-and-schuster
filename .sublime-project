@@ -1,0 +1,13 @@
+{
+    "settings": {
+        "SublimeLinter": {
+            "linters": {
+                "elixirc": {
+                    "mix_project": true,
+                    "chdir": "${project}",
+                    "lint_mode": "save"
+                }
+            }
+        }
+    }
+}

@@ -7,7 +7,7 @@ defmodule FunkAndSchuster.ThesisAuth do
 
   def page_is_editable?(_conn) do
     # Editable by the world
-    true
+    false
 
     # Or use your own auth strategy. Learn more:
     # https://github.com/infinitered/thesis-phoenix#authorization

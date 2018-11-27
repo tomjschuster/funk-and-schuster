@@ -1,0 +1,41 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>Artist</th>
+      <th>Title</th>
+      <th>Medium</th>
+      <th>Dimensions</th>
+      <th>Date</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for work <- @works do %>
+
+        <tr>
+          <td>
+            <%= link work.artist.first_name <> " " <> work.artist.last_name, to: artist_path(@conn, :show, work.artist) %>
+          </td>
+          <td><%= work.title %></td>
+          <td><%= work.medium %></td>
+          <td><%= work.dimensions %></td>
+          <td><%= work.date %></td>
+          <td>
+            <% media = List.first(work.media) %>
+            <%= if media do %>
+                <%= link to: work_path(@conn, :show, work) do %>
+                  <%= img_tag("/media/#{media.filename}", style: "width: 100px; height: 100px") %>
+                <% end %>
+            <% end %>
+          </td>
+
+          <td class="text-right">
+            <span><%= link "Show", to: work_path(@conn, :show, work), class: "btn btn-default btn-xs" %></span>
+            <span><%= link "Edit", to: work_path(@conn, :edit, work), class: "btn btn-default btn-xs" %></span>
+            <span><%= link "Delete", to: work_path(@conn, :delete, work), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+          </td>
+        </tr>
+    <% end %>
+  </tbody>
+</table>

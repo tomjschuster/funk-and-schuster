@@ -1,0 +1,26 @@
+<h2>Show Artist</h2>
+
+<span><%= link "Edit", to: artist_path(@conn, :edit, @artist) %></span>
+<span><%= link "Back", to: artist_path(@conn, :index) %></span>
+
+<ul>
+
+  <li>
+    <strong>First name:</strong>
+    <%= @artist.first_name %>
+  </li>
+
+  <li>
+    <strong>Last name:</strong>
+    <%= @artist.last_name %>
+  </li>
+
+  <li>
+    <strong>Dob:</strong>
+    <%= @artist.dob %>
+  </li>
+
+</ul>
+
+<span><%= link "Media", to: artist_media_path(@conn, :index, @artist) %></span>
+<span><%= link "Works", to: artist_work_path(@conn, :index, @artist) %></span>

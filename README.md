@@ -2,16 +2,12 @@
 
 ## TODO:
 - Admin Experience
-    - Access when in admin sub domain
-    - View works on artist page
-    - View all works (link to artist)
-    - View all media (link to work, artist)
-    - Artist media
-    - General media
-    - Edit media
+    - Galleries
+    - Delete
     - Styling
-- Gallery
+- Gallery view
 - Contact Form
+- Admin SPA
 
 ## Optimization
 - Accesibility (alt, buttons, links, roles)

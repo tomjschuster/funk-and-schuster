@@ -1,5 +1,5 @@
 .container {
-    max-width: 1170px;
+    max-width: 1100px;
 
     @include mobile {
         margin-left: 25px;
@@ -13,7 +13,7 @@
     }
 
 
-    @include large-desktop {
+    @include desktop {
         margin: auto;
         position: relative;
     }

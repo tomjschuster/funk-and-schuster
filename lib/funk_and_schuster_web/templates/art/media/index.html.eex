@@ -1,0 +1,61 @@
+<h2>Listing Media</h2>
+
+<span><%= link "New Media", to: media_path(@conn, :new) %></span>
+<span><%= link "Back", to: art_path(@conn, :index) %></span>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Title</th>
+      <th>Caption</th>
+      <th>Artist</th>
+      <th>Work</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for media <- @media do %>
+    <tr>
+      <td>
+        <%= link to: media_path(@conn, :show, media) do %>
+          <%= img_tag "/media/#{media.filename}", style: "width: 100px; height: 100px" %>
+        <% end %>
+      </td>
+      <td><%= media.title %></td>
+      <td><%= media.caption %></td>
+
+      <%= case media do %>
+
+      <% %Media{artist: %Artist{}} -> %>
+
+        <td>
+          <%= link media.artist.first_name <> " " <> media.artist.last_name, to: artist_path(@conn, :show, media.artist) %>
+        </td>
+        <td></td>
+
+      <% %Media{work: %Work{}} -> %>
+
+        <td>
+          <%= link media.work.artist.first_name <> " " <> media.work.artist.last_name, to: artist_path(@conn, :show, media.work.artist) %>
+        </td>
+        <td>
+          <%= link media.work.title, to: artist_work_path(@conn, :show, media.work.artist, media.work) %>
+        </td>
+
+      <% %Media{} -> %>
+      
+        <td></td>
+        <td></td>
+      <% end %>
+      
+      <td class="text-right">
+        <span><%= link "Show", to: media_path(@conn, :show, media), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Edit", to: media_path(@conn, :edit, media), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Delete", to: media_path(@conn, :delete, media), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+

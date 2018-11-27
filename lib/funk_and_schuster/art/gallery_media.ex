@@ -15,23 +15,17 @@ defmodule FunkAndSchuster.Art.GalleryMedia do
     gallery_media
     |> cast(attrs, [:gallery_id, :media_id, :checked?])
     |> mark_action()
-    |> IO.inspect()
   end
 
   defp mark_action(changeset) do
     id = get_field(changeset, :id)
     checked? = get_change(changeset, :checked?)
 
-    c =
-      case {id, checked?} do
-        {nil, true} -> %{changeset | action: :insert}
-        {nil, false} -> %{changeset | action: :ignore}
-        {^id, true} -> %{changeset | action: :update}
-        {^id, false} -> %{changeset | action: :delete}
-      end
-
-    IO.inspect({id, checked?, c})
-
-    c
+    case {id, checked?} do
+      {nil, true} -> %{changeset | action: :insert}
+      {nil, false} -> %{changeset | action: :ignore}
+      {^id, true} -> %{changeset | action: :update}
+      {^id, false} -> %{changeset | action: :delete}
+    end
   end
 end

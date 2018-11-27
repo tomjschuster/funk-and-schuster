@@ -64,7 +64,7 @@ defmodule FunkAndSchusterWeb.Art.WorkController do
 
       {:error, :work, %Ecto.Changeset{} = changeset, _errors} ->
         FileService.batch_delete_files!(files)
-        render(conn, "new.html", changeset: IO.inspect(changeset), aritsts: Art.list_artists())
+        render(conn, "new.html", changeset: changeset, aritsts: Art.list_artists())
     end
   end
 
@@ -143,7 +143,7 @@ defmodule FunkAndSchusterWeb.Art.WorkController do
 
         render(conn, "edit.html",
           work: work,
-          changeset: IO.inspect(changeset),
+          changeset: changeset,
           artists: Art.list_artists()
         )
     end
@@ -153,6 +153,6 @@ defmodule FunkAndSchusterWeb.Art.WorkController do
     params
     |> Map.get("media", [])
     |> Stream.filter(fn {_k, v} -> v["deleted?"] == "true" end)
-    |> Enum.map(fn {_k, v} -> IO.inspect(v) && v["filename"] end)
+    |> Enum.map(fn {_k, v} -> v && v["filename"] end)
   end
 end

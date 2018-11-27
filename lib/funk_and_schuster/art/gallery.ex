@@ -13,12 +13,9 @@ defmodule FunkAndSchuster.Art.Gallery do
 
   @doc false
   def changeset(gallery, attrs) do
-    IO.inspect(attrs)
-
     gallery
     |> cast(attrs, [:title])
     |> cast_assoc(:gallery_media)
-    |> IO.inspect()
     |> validate_required([:title])
   end
 end

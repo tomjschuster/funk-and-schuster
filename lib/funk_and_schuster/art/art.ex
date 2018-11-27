@@ -216,6 +216,7 @@ defmodule FunkAndSchuster.Art do
 
   def create_gallery(attrs \\ %{}) do
     %Gallery{}
+    |> Repo.preload(:gallery_media)
     |> Gallery.changeset(attrs)
     |> Repo.insert()
   end

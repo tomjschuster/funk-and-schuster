@@ -45,7 +45,6 @@ defmodule FunkAndSchusterWeb.Art.ArtistController do
 
   def update(conn, %{"id" => id, "artist" => artist_params}) do
     artist = Art.get_artist_with_media!(id)
-    IO.inspect({artist, artist_params})
 
     files =
       artist_params

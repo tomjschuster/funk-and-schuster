@@ -13,25 +13,36 @@ defmodule FunkAndSchusterWeb.Art.GalleryView do
 
     Enum.map(media, fn m ->
       gallery_media_id = Map.get(gallery_media_by_media_id, m.id)
-      checked? = not is_nil(gallery_media_id)
 
-      value = Poison.encode!(%{id: gallery_media_id, media_id: m.id, checked?: checked?})
-      checked_value = Poison.encode!(%{id: gallery_media_id, media_id: m.id, checked?: true})
-      unchecked_value = Poison.encode!(%{id: gallery_media_id, media_id: m.id, checked?: false})
+      gallery_media_input =
+        hidden_input(form, :gallery_media,
+          name: "gallery[gallery_media][#{m.id}][id]",
+          value: gallery_media_id
+        )
 
-      [
+      media_input =
+        hidden_input(form, :gallery_media,
+          name: "gallery[gallery_media][#{m.id}][media_id]",
+          value: m.id
+        )
+
+      media_checkbox = [
         label class: "control-label", for: "media-#{m.id}" do
           img_tag("/media/#{m.filename}", style: "width: 50px; height: 50px")
         end,
         checkbox(form, :gallery_media,
           class: "form-control",
           id: "media-#{m.id}",
-          name: "gallery_media[]",
-          checked_value: checked_value,
-          unchecked_value: unchecked_value,
-          value: value
+          name: "gallery[gallery_media][#{m.id}][checked?]",
+          value: not is_nil(gallery_media_id)
         )
       ]
+
+      if gallery_media_id do
+        [gallery_media_input, media_input] ++ media_checkbox
+      else
+        [media_input | media_checkbox]
+      end
 
       # end
     end)

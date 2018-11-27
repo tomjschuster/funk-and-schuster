@@ -1,5 +1,8 @@
 <h2>Listing Galleries</h2>
 
+<span><%= link "New Gallery", to: gallery_path(@conn, :new) %></span>
+<span><%= link "Back", to: art_path(@conn, :index) %></span>
+
 <table class="table">
   <thead>
     <tr>
@@ -23,4 +26,3 @@
   </tbody>
 </table>
 
-<span><%= link "New Gallery", to: gallery_path(@conn, :new) %></span>

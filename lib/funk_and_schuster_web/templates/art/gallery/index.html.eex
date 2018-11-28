@@ -1,5 +1,8 @@
 <h2>Listing Galleries</h2>
 
+<span><%= link "New Gallery", to: gallery_path(@conn, :new) %></span>
+<span><%= link "Back", to: art_path(@conn, :index) %></span>
+
 <table class="table">
   <thead>
     <tr>
@@ -17,10 +20,16 @@
         <span><%= link "Show", to: gallery_path(@conn, :show, gallery), class: "btn btn-default btn-xs" %></span>
         <span><%= link "Edit", to: gallery_path(@conn, :edit, gallery), class: "btn btn-default btn-xs" %></span>
         <span><%= link "Delete", to: gallery_path(@conn, :delete, gallery), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+        <%= if gallery.featured do %>
+          <span>Featured</span>
+        <% else %>
+          <%= form_for @conn, gallery_path(@conn, :feature, gallery), fn _ -> %>
+            <%= submit "Feature" %>
+          <% end %>
+        <% end %>
       </td>
     </tr>
 <% end %>
   </tbody>
 </table>
 
-<span><%= link "New Gallery", to: gallery_path(@conn, :new) %></span>

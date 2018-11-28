@@ -51,6 +51,7 @@ defmodule FunkAndSchusterWeb.Router do
     resources "/media", MediaController
 
     resources "/galleries", GalleryController
+    post "/galleries/:id/feature", GalleryController, :feature
   end
 
   # Other scopes may use custom stacks.

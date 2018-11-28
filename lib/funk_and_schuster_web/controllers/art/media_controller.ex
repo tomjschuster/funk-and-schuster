@@ -83,8 +83,6 @@ defmodule FunkAndSchusterWeb.Art.MediaController do
         end
 
       {:error, :no_file} ->
-        IO.inspect("no file")
-
         render(conn, "new-for-artist-work.html",
           work: work,
           changeset: Media.no_file_changeset(media_params),
@@ -115,8 +113,6 @@ defmodule FunkAndSchusterWeb.Art.MediaController do
         end
 
       {:error, :no_file} ->
-        IO.inspect("no file")
-
         render(conn, "new-for-artist.html",
           artist: artist,
           changeset: Media.no_file_changeset(media_params),
@@ -147,8 +143,6 @@ defmodule FunkAndSchusterWeb.Art.MediaController do
         end
 
       {:error, :no_file} ->
-        IO.inspect("no file")
-
         render(conn, "new-for-work.html",
           work: work,
           changeset: Media.no_file_changeset(media_params),
@@ -157,9 +151,7 @@ defmodule FunkAndSchusterWeb.Art.MediaController do
     end
   end
 
-  def create(conn, %{"media" => media_params} = params) do
-    IO.inspect(params)
-
+  def create(conn, %{"media" => media_params}) do
     case FileService.upload_file(media_params["file"]) do
       {:ok, file_info} ->
         case Art.create_media(file_info, media_params) do
@@ -180,8 +172,6 @@ defmodule FunkAndSchusterWeb.Art.MediaController do
         end
 
       {:error, :no_file} ->
-        IO.inspect("no file")
-
         render(conn, "new.html",
           works: Art.list_works_with_artist(),
           artists: Art.list_artists(),

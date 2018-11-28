@@ -10,6 +10,7 @@
     add: 3,
     pipe_through: 1,
     resources: 2,
-    resources: 3
+    resources: 3,
+    drop: 1
   ]
 ]

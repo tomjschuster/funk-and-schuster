@@ -234,4 +234,14 @@ defmodule FunkAndSchuster.Art do
   def change_gallery(%Gallery{} = gallery) do
     Gallery.changeset(gallery, %{})
   end
+
+  def feature_gallery(%Gallery{id: id} = gallery) do
+    others_query = where(Gallery, [gallery], gallery.id != ^id)
+    changeset = Gallery.featured_changeset(gallery)
+
+    Ecto.Multi.new()
+    |> Ecto.Multi.update_all(:not_featured, others_query, set: [featured: false])
+    |> Ecto.Multi.update(:featured, changeset)
+    |> Repo.transaction()
+  end
 end

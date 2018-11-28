@@ -151,7 +151,7 @@ defmodule FunkAndSchusterWeb.Art.MediaController do
     end
   end
 
-  def create(conn, %{"media" => media_params} = params) do
+  def create(conn, %{"media" => media_params}) do
     case FileService.upload_file(media_params["file"]) do
       {:ok, file_info} ->
         case Art.create_media(file_info, media_params) do

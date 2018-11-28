@@ -6,6 +6,7 @@ defmodule FunkAndSchuster.Art.Gallery do
 
   schema "gallery" do
     field :title, :string
+    field :featured, :boolean, default: false
     has_many :gallery_media, GalleryMedia
 
     timestamps()
@@ -17,5 +18,11 @@ defmodule FunkAndSchuster.Art.Gallery do
     |> cast(attrs, [:title])
     |> cast_assoc(:gallery_media)
     |> validate_required([:title])
+  end
+
+  def featured_changeset(gallery) do
+    gallery
+    |> change()
+    |> put_change(:featured, true)
   end
 end

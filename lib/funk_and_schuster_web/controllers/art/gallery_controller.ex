@@ -16,7 +16,7 @@ defmodule FunkAndSchusterWeb.Art.GalleryController do
     )
   end
 
-  def create(conn, %{"gallery" => gallery_params} = params) do
+  def create(conn, %{"gallery" => gallery_params}) do
     case Art.create_gallery(gallery_params) do
       {:ok, gallery} ->
         conn
@@ -43,7 +43,7 @@ defmodule FunkAndSchusterWeb.Art.GalleryController do
     )
   end
 
-  def update(conn, %{"id" => id, "gallery" => gallery_params} = params) do
+  def update(conn, %{"id" => id, "gallery" => gallery_params}) do
     gallery = Art.get_gallery!(id)
 
     case Art.update_gallery(gallery, gallery_params) do
@@ -54,6 +54,22 @@ defmodule FunkAndSchusterWeb.Art.GalleryController do
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", gallery: gallery, changeset: changeset, media: Art.list_media())
+    end
+  end
+
+  def feature(conn, %{"id" => id}) do
+    gallery = Art.get_gallery!(id)
+
+    case Art.feature_gallery(gallery) do
+      {:ok, %{}} ->
+        conn
+        |> put_flash(:info, "Gallery updated successfully.")
+        |> redirect(to: gallery_path(conn, :index))
+
+      {:error, _, _, _} ->
+        conn
+        |> put_flash(:error, "Oops! Something wen wrong.")
+        |> redirect(to: gallery_path(conn, :index))
     end
   end
 

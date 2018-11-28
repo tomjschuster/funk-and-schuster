@@ -2,7 +2,6 @@
 
 ## TODO:
 - Admin Experience
-    - Galleries
     - Delete
     - Styling
 - Gallery view

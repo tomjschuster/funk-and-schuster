@@ -7,7 +7,7 @@ defmodule FunkAndSchuster.Art do
   alias FunkAndSchuster.Repo
 
   alias FunkAndSchuster.FileService
-  alias FunkAndSchuster.Art.{Artist, Work, Media, Gallery}
+  alias FunkAndSchuster.Art.{Artist, Work, Media, Gallery, GalleryMedia}
 
   # Artists
 
@@ -243,5 +243,16 @@ defmodule FunkAndSchuster.Art do
     |> Ecto.Multi.update_all(:not_featured, others_query, set: [featured: false])
     |> Ecto.Multi.update(:featured, changeset)
     |> Repo.transaction()
+  end
+
+  def list_featured_media do
+    Repo.all(
+      from media in Media,
+        join: gallery_media in GalleryMedia,
+        on: media.id == gallery_media.media_id,
+        join: gallery in Gallery,
+        on: gallery_media.gallery_id == gallery.id,
+        where: gallery.featured
+    )
   end
 end

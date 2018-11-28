@@ -3,6 +3,10 @@
 
 <main class="gallery content container">
     <h1 class="page-title">Gallery</h1>
+
+    <%= for media <- FunkAndSchuster.Art.list_featured_media()  do %>
+        <%= img_tag("/media/#{media.filename}", style: "width: 100px; height: 100px") %>
+    <% end %>
 </main>
 
 <%= render LayoutView, "footer.html", assigns %>

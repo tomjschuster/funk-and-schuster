@@ -20,6 +20,8 @@ config :funk_and_schuster, FunkAndSchusterWeb.Endpoint,
     ]
   ]
 
+config :funk_and_schuster, base_path: "localhost:4000"
+
 # ## SSL Support
 #
 # In order to use HTTPS in development, a self-signed

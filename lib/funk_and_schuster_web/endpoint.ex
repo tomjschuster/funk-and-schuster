@@ -1,7 +1,9 @@
 defmodule FunkAndSchusterWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :funk_and_schuster
 
-  socket("/socket", FunkAndSchusterWeb.UserSocket)
+  socket "/socket", FunkAndSchusterWeb.UserSocket,
+    websocket: true,
+    longpoll: false
 
   # Serve at "/" the static files from "priv/static" directory.
   #
@@ -21,12 +23,13 @@ defmodule FunkAndSchusterWeb.Endpoint do
     plug Phoenix.CodeReloader
   end
 
+  plug Plug.RequestId
   plug Plug.Logger
 
   plug Plug.Parsers,
     parsers: [:urlencoded, :multipart, :json],
     pass: ["*/*"],
-    json_decoder: Poison
+    json_decoder: Phoenix.json_library()
 
   plug Plug.MethodOverride
   plug Plug.Head
@@ -42,19 +45,4 @@ defmodule FunkAndSchusterWeb.Endpoint do
   plug FunkAndSchusterWeb.Plugs.VerifyAdmin
 
   plug FunkAndSchusterWeb.Router
-
-  @doc """
-  Callback invoked for dynamically configuring the endpoint.
-
-  It receives the endpoint configuration and checks if
-  configuration should be loaded from the system environment.
-  """
-  def init(_key, config) do
-    if config[:load_from_system_env] do
-      port = System.get_env("PORT") || raise "expected the PORT environment variable to be set"
-      {:ok, Keyword.put(config, :http, [:inet6, port: port])}
-    else
-      {:ok, config}
-    end
-  end
 end

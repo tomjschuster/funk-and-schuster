@@ -24,7 +24,7 @@ defmodule FunkAndSchusterWeb.Art.ArtistController do
       {:ok, %{artist: artist}} ->
         conn
         |> put_flash(:info, "Artist created successfully.")
-        |> redirect(to: artist_path(conn, :show, artist))
+        |> redirect(to: Routes.artist_path(conn, :show, artist))
 
       {:error, :artist, %Ecto.Changeset{} = changeset, _errors} ->
         FileService.batch_delete_files!(files)
@@ -55,7 +55,7 @@ defmodule FunkAndSchusterWeb.Art.ArtistController do
       {:ok, %{artist: artist}} ->
         conn
         |> put_flash(:info, "Artist updated successfully.")
-        |> redirect(to: artist_path(conn, :show, artist))
+        |> redirect(to: Routes.artist_path(conn, :show, artist))
 
       {:error, :artist, %Ecto.Changeset{} = changeset, _errors} ->
         FileService.batch_delete_files!(files)

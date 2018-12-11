@@ -21,7 +21,7 @@ defmodule FunkAndSchusterWeb.Art.GalleryController do
       {:ok, gallery} ->
         conn
         |> put_flash(:info, "Gallery created successfully.")
-        |> redirect(to: gallery_path(conn, :show, gallery))
+        |> redirect(to: Routes.gallery_path(conn, :show, gallery))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "new.html", changeset: changeset, media: Art.list_media())
@@ -50,7 +50,7 @@ defmodule FunkAndSchusterWeb.Art.GalleryController do
       {:ok, gallery} ->
         conn
         |> put_flash(:info, "Gallery updated successfully.")
-        |> redirect(to: gallery_path(conn, :show, gallery))
+        |> redirect(to: Routes.gallery_path(conn, :show, gallery))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html", gallery: gallery, changeset: changeset, media: Art.list_media())
@@ -64,12 +64,12 @@ defmodule FunkAndSchusterWeb.Art.GalleryController do
       {:ok, %{}} ->
         conn
         |> put_flash(:info, "Gallery updated successfully.")
-        |> redirect(to: gallery_path(conn, :index))
+        |> redirect(to: Routes.gallery_path(conn, :index))
 
       {:error, _, _, _} ->
         conn
         |> put_flash(:error, "Oops! Something wen wrong.")
-        |> redirect(to: gallery_path(conn, :index))
+        |> redirect(to: Routes.gallery_path(conn, :index))
     end
   end
 
@@ -79,6 +79,6 @@ defmodule FunkAndSchusterWeb.Art.GalleryController do
 
     conn
     |> put_flash(:info, "Gallery deleted successfully.")
-    |> redirect(to: gallery_path(conn, :index))
+    |> redirect(to: Routes.gallery_path(conn, :index))
   end
 end

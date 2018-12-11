@@ -1,6 +1,6 @@
 <h2>New Work</h2>
 
-<% action = work_path(@conn, :create) %>
+<% action = Routes.work_path(@conn, :create) %>
 <%= render "form.html", Map.merge(assigns, %{action: action}) %>
 
-<span><%= link "Back", to: work_path(@conn, :index) %></span>
+<span><%= link "Back", to: Routes.work_path(@conn, :index) %></span>

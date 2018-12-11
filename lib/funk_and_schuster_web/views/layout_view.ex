@@ -3,11 +3,12 @@ defmodule FunkAndSchusterWeb.LayoutView do
 
   def nav_link(conn, page, label, opts \\ []) do
     all_opts =
-      [to: page_path(conn, page), role: "menuitem", class: active_class(conn, page)] ++ opts
+      [to: Routes.page_path(conn, page), role: "menuitem", class: active_class(conn, page)] ++
+        opts
 
     link(label, all_opts)
   end
 
   def active_class(conn, page),
-    do: if(page_path(conn, page) == conn.request_path, do: "active", else: "")
+    do: if(Routes.page_path(conn, page) == conn.request_path, do: "active", else: "")
 end

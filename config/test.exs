@@ -11,7 +11,6 @@ config :logger, level: :warn
 
 # Configure your database
 config :funk_and_schuster, FunkAndSchuster.Repo,
-  adapter: Ecto.Adapters.Postgres,
   username: "postgres",
   password: "postgres",
   database: "funk_and_schuster_test",

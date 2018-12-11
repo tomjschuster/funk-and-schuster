@@ -3,8 +3,8 @@
   <input type="checkbox" id="nav-toggle" checked />
   <label for="nav-toggle" class="open-nav"><i></i></label>
 
-  <a class="logo" href="<%= page_path(@conn, :index) %>">
-    <img src="<%= static_path(@conn, "/images/logo.svg") %>" alt="logo">
+  <a class="logo" href="<%= Routes.page_path(@conn, :index) %>">
+    <img src="<%= Routes.static_path(@conn, "/images/logo.svg") %>" alt="logo">
   </a>
 
   <nav class="nav">

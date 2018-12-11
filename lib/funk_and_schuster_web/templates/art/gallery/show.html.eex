@@ -9,5 +9,5 @@
 
 </ul>
 
-<span><%= link "Edit", to: gallery_path(@conn, :edit, @gallery) %></span>
-<span><%= link "Back", to: gallery_path(@conn, :index) %></span>
+<span><%= link "Edit", to: Routes.gallery_path(@conn, :edit, @gallery) %></span>
+<span><%= link "Back", to: Routes.gallery_path(@conn, :index) %></span>

@@ -1,6 +1,6 @@
 <h2>Art</h2>
 
-<%= link "Artists", to: artist_path(@conn, :index) %>
-<%= link "Works", to: work_path(@conn, :index) %>
-<%= link "Media", to: media_path(@conn, :index) %>
-<%= link "Galleries", to: gallery_path(@conn, :index) %>
+<%= link "Artists", to: Routes.artist_path(@conn, :index) %>
+<%= link "Works", to: Routes.work_path(@conn, :index) %>
+<%= link "Media", to: Routes.media_path(@conn, :index) %>
+<%= link "Galleries", to: Routes.gallery_path(@conn, :index) %>

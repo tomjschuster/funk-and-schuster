@@ -1,5 +1,5 @@
 <h2>New Gallery</h2>
 
-<%= render "form.html", Map.put(assigns, :action, gallery_path(@conn, :create)) %>
+<%= render "form.html", Map.put(assigns, :action, Routes.gallery_path(@conn, :create)) %>
 
-<span><%= link "Back", to: gallery_path(@conn, :index) %></span>
+<span><%= link "Back", to: Routes.gallery_path(@conn, :index) %></span>

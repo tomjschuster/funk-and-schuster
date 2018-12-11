@@ -1,6 +1,6 @@
 <h2>Edit Media</h2>
 <%= img_tag "/media/#{@media.filename}", style: "width: 100px; height: 100px" %>
 
-<%= render "form-for-artist.html", Map.put(assigns, :action, artist_media_path(@conn, :update, @media.artist, @media)) %>
+<%= render "form-for-artist.html", Map.put(assigns, :action, Routes.artist_media_path(@conn, :update, @media.artist, @media)) %>
 
-<span><%= link "Back", to: artist_media_path(@conn, :index, @media.artist) %></span>
+<span><%= link "Back", to: Routes.artist_media_path(@conn, :index, @media.artist) %></span>

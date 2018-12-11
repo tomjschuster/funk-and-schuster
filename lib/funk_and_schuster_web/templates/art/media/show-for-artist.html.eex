@@ -1,7 +1,7 @@
 <h2>Show Media for <%= @media.artist.first_name <> " " <> @media.artist.last_name %></h2>
 
-<span><%= link "Edit", to: artist_media_path(@conn, :edit, @media.artist, @media) %></span>
-<span><%= link "Back", to: artist_media_path(@conn, :index, @media.artist) %></span>
+<span><%= link "Edit", to: Routes.artist_media_path(@conn, :edit, @media.artist, @media) %></span>
+<span><%= link "Back", to: Routes.artist_media_path(@conn, :index, @media.artist) %></span>
 
 <%= img_tag "/media/#{@media.filename}", style: "width: 100px; height: 100px" %>
 
@@ -19,7 +19,7 @@
 
   <li>
     <strong>Artist:</strong>
-    <%= link @media.artist.first_name <> " " <> @media.artist.last_name, to: artist_path(@conn, :show, @media.artist)  %>
+    <%= link @media.artist.first_name <> " " <> @media.artist.last_name, to: Routes.artist_path(@conn, :show, @media.artist)  %>
   </li>
 </ul>
 

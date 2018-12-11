@@ -1,13 +1,13 @@
 <h2>Show Work</h2>
 
-<span><%= link "Edit", to: work_path(@conn, :edit, @work) %></span>
-<span><%= link "Back", to: work_path(@conn, :index) %></span>
+<span><%= link "Edit", to: Routes.work_path(@conn, :edit, @work) %></span>
+<span><%= link "Back", to: Routes.work_path(@conn, :index) %></span>
 
 <ul>
 
   <li>
     <strong>Artist:</strong>
-    <%= link @work.artist.first_name <> " " <> @work.artist.last_name, to: artist_path(@conn, :show, @work.artist) %>
+    <%= link @work.artist.first_name <> " " <> @work.artist.last_name, to: Routes.artist_path(@conn, :show, @work.artist) %>
   </li>
 
   <li>
@@ -31,5 +31,5 @@
   </li>
 </ul>
 
-<span><%= link "Media", to: work_media_path(@conn, :index, @work) %></span>
+<span><%= link "Media", to: Routes.work_media_path(@conn, :index, @work) %></span>
 

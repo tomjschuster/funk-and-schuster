@@ -1,7 +1,7 @@
 <h2>Edit Work for <%= @work.artist.first_name <> " " <> @work.artist.last_name %></h2>
 
-<% action = artist_work_path(@conn, :update, @work.artist, @work) %>
+<% action = Routes.artist_work_path(@conn, :update, @work.artist, @work) %>
 
 <%= render "form-for-artist.html", Map.merge(assigns, %{action: action}) %>
 
-<span><%= link "Back", to: artist_work_path(@conn, :index, @work.artist) %></span>
+<span><%= link "Back", to: Routes.artist_work_path(@conn, :index, @work.artist) %></span>

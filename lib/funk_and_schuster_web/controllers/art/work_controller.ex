@@ -42,7 +42,7 @@ defmodule FunkAndSchusterWeb.Art.WorkController do
       {:ok, %{work: work}} ->
         conn
         |> put_flash(:info, "Work created successfully.")
-        |> redirect(to: artist_work_path(conn, :show, artist, work))
+        |> redirect(to: Routes.artist_work_path(conn, :show, artist, work))
 
       {:error, :work, %Ecto.Changeset{} = changeset, _errors} ->
         FileService.batch_delete_files!(files)
@@ -60,7 +60,7 @@ defmodule FunkAndSchusterWeb.Art.WorkController do
       {:ok, %{work: work}} ->
         conn
         |> put_flash(:info, "Work created successfully.")
-        |> redirect(to: work_path(conn, :show, work))
+        |> redirect(to: Routes.work_path(conn, :show, work))
 
       {:error, :work, %Ecto.Changeset{} = changeset, _errors} ->
         FileService.batch_delete_files!(files)
@@ -112,7 +112,7 @@ defmodule FunkAndSchusterWeb.Art.WorkController do
 
         conn
         |> put_flash(:info, "Work updated successfully.")
-        |> redirect(to: artist_work_path(conn, :show, work.artist, work))
+        |> redirect(to: Routes.artist_work_path(conn, :show, work.artist, work))
 
       {:error, :work, %Ecto.Changeset{} = changeset, _errors} ->
         FileService.batch_delete_files!(files)
@@ -136,7 +136,7 @@ defmodule FunkAndSchusterWeb.Art.WorkController do
 
         conn
         |> put_flash(:info, "Work updated successfully.")
-        |> redirect(to: work_path(conn, :show, work))
+        |> redirect(to: Routes.work_path(conn, :show, work))
 
       {:error, :work, %Ecto.Changeset{} = changeset, _errors} ->
         FileService.batch_delete_files!(files)

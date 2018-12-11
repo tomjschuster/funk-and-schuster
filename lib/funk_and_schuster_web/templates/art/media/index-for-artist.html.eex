@@ -1,7 +1,7 @@
 <h2>Listing Media for <%= @artist.first_name <> " " <> @artist.last_name %></h2>
 
-<span><%= link "New Media", to: artist_media_path(@conn, :new, @artist) %></span>
-<span><%= link "Back", to: artist_path(@conn, :show, @artist) %></span>
+<span><%= link "New Media", to: Routes.artist_media_path(@conn, :new, @artist) %></span>
+<span><%= link "Back", to: Routes.artist_path(@conn, :show, @artist) %></span>
 
 <table class="table">
   <thead>
@@ -16,7 +16,7 @@
 <%= for media <- @media do %>
     <tr>
       <td>
-        <%= link to: artist_media_path(@conn, :show, @artist, media) do %>
+        <%= link to: Routes.artist_media_path(@conn, :show, @artist, media) do %>
           <%= img_tag "/media/#{media.filename}", style: "width: 100px; height: 100px" %>
         <% end %>
       </td>
@@ -24,9 +24,9 @@
       <td><%= media.caption %></td>
 
       <td class="text-right">
-        <span><%= link "Show", to: artist_media_path(@conn, :show, @artist, media), class: "btn btn-default btn-xs" %></span>
-        <span><%= link "Edit", to: artist_media_path(@conn, :edit, @artist, media), class: "btn btn-default btn-xs" %></span>
-        <span><%= link "Delete", to: artist_media_path(@conn, :delete, @artist, media), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
+        <span><%= link "Show", to: Routes.artist_media_path(@conn, :show, @artist, media), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Edit", to: Routes.artist_media_path(@conn, :edit, @artist, media), class: "btn btn-default btn-xs" %></span>
+        <span><%= link "Delete", to: Routes.artist_media_path(@conn, :delete, @artist, media), method: :delete, data: [confirm: "Are you sure?"], class: "btn btn-danger btn-xs" %></span>
       </td>
     </tr>
 <% end %>

@@ -70,7 +70,7 @@ defmodule FunkAndSchusterWeb.Art.MediaController do
           {:ok, media} ->
             conn
             |> put_flash(:info, "Media created successfully.")
-            |> redirect(to: artist_work_media_path(conn, :show, work.artist, work, media))
+            |> redirect(to: Routes.artist_work_media_path(conn, :show, work.artist, work, media))
 
           {:error, %Ecto.Changeset{} = changeset} ->
             FileService.delete_file!(file_info)
@@ -100,7 +100,7 @@ defmodule FunkAndSchusterWeb.Art.MediaController do
           {:ok, media} ->
             conn
             |> put_flash(:info, "Media created successfully.")
-            |> redirect(to: artist_media_path(conn, :show, artist, media))
+            |> redirect(to: Routes.artist_media_path(conn, :show, artist, media))
 
           {:error, %Ecto.Changeset{} = changeset} ->
             FileService.delete_file!(file_info)
@@ -130,7 +130,7 @@ defmodule FunkAndSchusterWeb.Art.MediaController do
           {:ok, media} ->
             conn
             |> put_flash(:info, "Media created successfully.")
-            |> redirect(to: work_media_path(conn, :show, work, media))
+            |> redirect(to: Routes.work_media_path(conn, :show, work, media))
 
           {:error, %Ecto.Changeset{} = changeset} ->
             FileService.delete_file!(file_info)
@@ -158,7 +158,7 @@ defmodule FunkAndSchusterWeb.Art.MediaController do
           {:ok, media} ->
             conn
             |> put_flash(:info, "Media created successfully.")
-            |> redirect(to: media_path(conn, :show, media))
+            |> redirect(to: Routes.media_path(conn, :show, media))
 
           {:error, %Ecto.Changeset{} = changeset} ->
             FileService.delete_file!(file_info)
@@ -247,7 +247,9 @@ defmodule FunkAndSchusterWeb.Art.MediaController do
       {:ok, media} ->
         conn
         |> put_flash(:info, "Media updated successfully.")
-        |> redirect(to: artist_work_media_path(conn, :show, media.work.artist, media.work, media))
+        |> redirect(
+          to: Routes.artist_work_media_path(conn, :show, media.work.artist, media.work, media)
+        )
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit-for-artist-work.html",
@@ -265,7 +267,7 @@ defmodule FunkAndSchusterWeb.Art.MediaController do
       {:ok, media} ->
         conn
         |> put_flash(:info, "Media updated successfully.")
-        |> redirect(to: artist_media_path(conn, :show, media.artist, media))
+        |> redirect(to: Routes.artist_media_path(conn, :show, media.artist, media))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit-for-artist.html",
@@ -283,7 +285,7 @@ defmodule FunkAndSchusterWeb.Art.MediaController do
       {:ok, media} ->
         conn
         |> put_flash(:info, "Media updated successfully.")
-        |> redirect(to: work_media_path(conn, :show, media.work, media))
+        |> redirect(to: Routes.work_media_path(conn, :show, media.work, media))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit-for-work.html",
@@ -301,7 +303,7 @@ defmodule FunkAndSchusterWeb.Art.MediaController do
       {:ok, media} ->
         conn
         |> put_flash(:info, "Media updated successfully.")
-        |> redirect(to: media_path(conn, :show, media))
+        |> redirect(to: Routes.media_path(conn, :show, media))
 
       {:error, %Ecto.Changeset{} = changeset} ->
         render(conn, "edit.html",

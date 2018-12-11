@@ -20,9 +20,10 @@ defmodule FunkAndSchusterWeb do
   def controller do
     quote do
       use Phoenix.Controller, namespace: FunkAndSchusterWeb
+
       import Plug.Conn
-      import FunkAndSchusterWeb.Router.Helpers
       import FunkAndSchusterWeb.Gettext
+      alias FunkAndSchusterWeb.Router.Helpers, as: Routes
 
       use Thesis.Controller
     end
@@ -30,8 +31,9 @@ defmodule FunkAndSchusterWeb do
 
   def view do
     quote do
-      use Phoenix.View, root: "lib/funk_and_schuster_web/templates",
-                        namespace: FunkAndSchusterWeb
+      use Phoenix.View,
+        root: "lib/funk_and_schuster_web/templates",
+        namespace: FunkAndSchusterWeb
 
       # Import convenience functions from controllers
       import Phoenix.Controller, only: [get_flash: 2, view_module: 1]
@@ -39,9 +41,9 @@ defmodule FunkAndSchusterWeb do
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
 
-      import FunkAndSchusterWeb.Router.Helpers
       import FunkAndSchusterWeb.ErrorHelpers
       import FunkAndSchusterWeb.Gettext
+      alias FunkAndSchusterWeb.Router.Helpers, as: Routes
 
       use Thesis.View
     end

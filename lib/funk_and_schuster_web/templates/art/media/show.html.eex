@@ -1,7 +1,7 @@
 <h2>Show Media</h2>
 
-<span><%= link "Edit", to: media_path(@conn, :edit, @media) %></span>
-<span><%= link "Back", to: media_path(@conn, :index) %></span>
+<span><%= link "Edit", to: Routes.media_path(@conn, :edit, @media) %></span>
+<span><%= link "Back", to: Routes.media_path(@conn, :index) %></span>
 
 <%= img_tag "/media/#{@media.filename}", style: "width: 100px; height: 100px" %>
 
@@ -23,18 +23,18 @@
 
     <li>
       <strong>Artist:</strong>
-      <%= link artist.first_name <> " " <> artist.last_name, to: artist_path(@conn, :show, artist)  %>
+      <%= link artist.first_name <> " " <> artist.last_name, to: Routes.artist_path(@conn, :show, artist)  %>
     </li>
 
     <% %Media{work: %Work{} = work} -> %>
 
     <li>
       <strong>Artist:</strong>
-      <%= link work.artist.first_name <> " " <> work.artist.last_name, to: artist_path(@conn, :show, work.artist)  %>
+      <%= link work.artist.first_name <> " " <> work.artist.last_name, to: Routes.artist_path(@conn, :show, work.artist)  %>
     </li>
     <li>
       <strong>Work:</strong>
-      <%= link work.title, to: artist_work_path(@conn, :show, work.artist, work)  %>
+      <%= link work.title, to: Routes.artist_work_path(@conn, :show, work.artist, work)  %>
     </li>
 
     <% %Media{} -> %>

@@ -20,7 +20,12 @@ config :funk_and_schuster, FunkAndSchusterWeb.Endpoint,
     ]
   ]
 
-config :funk_and_schuster, base_path: "localhost:4000"
+config :funk_and_schuster, :static_site,
+  hostname: "http://localhost:4000",
+  static_path: "./priv/static/",
+  static_dirs: ~w(images icons),
+  slugs: ~w(index about gallery contacts process),
+  output: "/home/tom/site-1/"
 
 # ## SSL Support
 #

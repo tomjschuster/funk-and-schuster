@@ -3,8 +3,18 @@ defmodule FunkAndSchusterWeb.WorkControllerTest do
 
   alias FunkAndSchuster.Art
 
-  @create_attrs %{date: ~D[2010-04-17], dimensions: "some dimensions", medium: "some medium", title: "some title"}
-  @update_attrs %{date: ~D[2011-05-18], dimensions: "some updated dimensions", medium: "some updated medium", title: "some updated title"}
+  @create_attrs %{
+    date: ~D[2010-04-17],
+    dimensions: "some dimensions",
+    medium: "some medium",
+    title: "some title"
+  }
+  @update_attrs %{
+    date: ~D[2011-05-18],
+    dimensions: "some updated dimensions",
+    medium: "some updated medium",
+    title: "some updated title"
+  }
   @invalid_attrs %{date: nil, dimensions: nil, medium: nil, title: nil}
 
   def fixture(:work) do
@@ -75,6 +85,7 @@ defmodule FunkAndSchusterWeb.WorkControllerTest do
     test "deletes chosen work", %{conn: conn, work: work} do
       conn = delete conn, work_path(conn, :delete, work)
       assert redirected_to(conn) == work_path(conn, :index)
+
       assert_error_sent 404, fn ->
         get conn, work_path(conn, :show, work)
       end

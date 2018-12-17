@@ -11,7 +11,7 @@ defmodule FunkAndSchuster.Application do
       # Start the Ecto repository
       supervisor(FunkAndSchuster.Repo, []),
       # Start the endpoint when the application starts
-      supervisor(FunkAndSchusterWeb.Endpoint, []),
+      supervisor(FunkAndSchusterWeb.Endpoint, [])
       # Start your own worker by calling: FunkAndSchuster.Worker.start_link(arg1, arg2, arg3)
       # worker(FunkAndSchuster.Worker, [arg1, arg2, arg3]),
     ]

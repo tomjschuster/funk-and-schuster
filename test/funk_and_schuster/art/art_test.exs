@@ -6,8 +6,16 @@ defmodule FunkAndSchuster.ArtTest do
   describe "artists" do
     alias FunkAndSchuster.Art.Artist
 
-    @valid_attrs %{dob: ~D[2010-04-17], first_name: "some first_name", last_name: "some last_name"}
-    @update_attrs %{dob: ~D[2011-05-18], first_name: "some updated first_name", last_name: "some updated last_name"}
+    @valid_attrs %{
+      dob: ~D[2010-04-17],
+      first_name: "some first_name",
+      last_name: "some last_name"
+    }
+    @update_attrs %{
+      dob: ~D[2011-05-18],
+      first_name: "some updated first_name",
+      last_name: "some updated last_name"
+    }
     @invalid_attrs %{dob: nil, first_name: nil, last_name: nil}
 
     def artist_fixture(attrs \\ %{}) do
@@ -70,8 +78,18 @@ defmodule FunkAndSchuster.ArtTest do
   describe "works" do
     alias FunkAndSchuster.Art.Work
 
-    @valid_attrs %{date: ~D[2010-04-17], dimensions: "some dimensions", medium: "some medium", title: "some title"}
-    @update_attrs %{date: ~D[2011-05-18], dimensions: "some updated dimensions", medium: "some updated medium", title: "some updated title"}
+    @valid_attrs %{
+      date: ~D[2010-04-17],
+      dimensions: "some dimensions",
+      medium: "some medium",
+      title: "some title"
+    }
+    @update_attrs %{
+      date: ~D[2011-05-18],
+      dimensions: "some updated dimensions",
+      medium: "some updated medium",
+      title: "some updated title"
+    }
     @invalid_attrs %{date: nil, dimensions: nil, medium: nil, title: nil}
 
     def work_fixture(attrs \\ %{}) do

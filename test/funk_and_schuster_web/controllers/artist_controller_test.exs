@@ -4,7 +4,11 @@ defmodule FunkAndSchusterWeb.ArtistControllerTest do
   alias FunkAndSchuster.Art
 
   @create_attrs %{dob: ~D[2010-04-17], first_name: "some first_name", last_name: "some last_name"}
-  @update_attrs %{dob: ~D[2011-05-18], first_name: "some updated first_name", last_name: "some updated last_name"}
+  @update_attrs %{
+    dob: ~D[2011-05-18],
+    first_name: "some updated first_name",
+    last_name: "some updated last_name"
+  }
   @invalid_attrs %{dob: nil, first_name: nil, last_name: nil}
 
   def fixture(:artist) do
@@ -75,6 +79,7 @@ defmodule FunkAndSchusterWeb.ArtistControllerTest do
     test "deletes chosen artist", %{conn: conn, artist: artist} do
       conn = delete conn, artist_path(conn, :delete, artist)
       assert redirected_to(conn) == artist_path(conn, :index)
+
       assert_error_sent 404, fn ->
         get conn, artist_path(conn, :show, artist)
       end

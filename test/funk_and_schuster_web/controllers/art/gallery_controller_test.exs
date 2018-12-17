@@ -75,6 +75,7 @@ defmodule FunkAndSchusterWeb.Art.GalleryControllerTest do
     test "deletes chosen gallery", %{conn: conn, gallery: gallery} do
       conn = delete conn, art_gallery_path(conn, :delete, gallery)
       assert redirected_to(conn) == art_gallery_path(conn, :index)
+
       assert_error_sent 404, fn ->
         get conn, art_gallery_path(conn, :show, gallery)
       end

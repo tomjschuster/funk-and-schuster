@@ -75,6 +75,7 @@ defmodule FunkAndSchusterWeb.Art.MediaControllerTest do
     test "deletes chosen media", %{conn: conn, media: media} do
       conn = delete conn, art_media_path(conn, :delete, media)
       assert redirected_to(conn) == art_media_path(conn, :index)
+
       assert_error_sent 404, fn ->
         get conn, art_media_path(conn, :show, media)
       end

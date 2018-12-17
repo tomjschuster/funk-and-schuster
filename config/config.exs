@@ -14,8 +14,7 @@ config :funk_and_schuster, FunkAndSchusterWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "B6gIMt263Iw/qrIrCCNzcoHi4cOpYSU2wyM5gdFjmlOOB2Ira6z/3Sb3ug8pj5QO",
   render_errors: [view: FunkAndSchusterWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: FunkAndSchuster.PubSub,
-           adapter: Phoenix.PubSub.PG2]
+  pubsub: [name: FunkAndSchuster.PubSub, adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger
 config :logger, :console,
@@ -24,7 +23,7 @@ config :logger, :console,
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
-import_config "#{Mix.env}.exs"
+import_config "#{Mix.env()}.exs"
 
 # Thesis Main Config
 config :thesis,
@@ -34,7 +33,7 @@ config :thesis,
 
 # Thesis Store Config
 config :thesis, Thesis.EctoStore, repo: FunkAndSchuster.Repo
-config :thesis, :mix_env, Mix.env
+config :thesis, :mix_env, Mix.env()
 
 # Thesis Notifications Config
 # config :thesis, :notifications,
@@ -48,4 +47,3 @@ config :thesis, :mix_env, Mix.env
 #   templates: ["index.html", "otherview.html"],
 #   not_found_view: FunkAndSchusterWeb.ErrorView,
 #   not_found_template: "404.html"
-

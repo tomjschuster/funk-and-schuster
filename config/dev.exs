@@ -23,9 +23,9 @@ config :funk_and_schuster, FunkAndSchusterWeb.Endpoint,
 config :funk_and_schuster, :static_site,
   hostname: "http://localhost:4000",
   static_path: "./priv/static/",
-  static_dirs: ~w(images icons),
-  slugs: ~w(index about gallery contacts process),
-  output: "/home/tom/site-1/"
+  static_dirs: ~w(images icons css fonts),
+  slugs: ~w(index about gallery contact process),
+  output: "/home/tom/static-site/"
 
 # ## SSL Support
 #
@@ -68,3 +68,5 @@ config :funk_and_schuster, FunkAndSchuster.Repo,
   database: "funk_and_schuster_dev",
   hostname: "localhost",
   pool_size: 10
+
+import_config "dev.secret.exs"

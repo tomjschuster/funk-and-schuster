@@ -19,7 +19,7 @@ pre_erlang_get_and_update_deps() {
 }
 
 pre_erlang_clean_compile() {
-  status "Preparing assets with: brunch build and phoenix.digest"
+  status "Preparing assets with: brunch build and phx.digest"
   __sync_remote "
     # runs the commands on the build host
     [ -f ~/.profile ] && source ~/.profile # load profile (optional)
@@ -30,7 +30,7 @@ pre_erlang_clean_compile() {
     # enter the build directory on the build host (required)
     cd '$BUILD_AT'
 
-    mkdir -p priv/static # required by the phoenix.digest task
+    mkdir -p priv/static # required by the phx.digest task
 
     cd assets
 
@@ -44,7 +44,7 @@ pre_erlang_clean_compile() {
     cd '$BUILD_AT'
 
     # run your custom task
-    APP='$APP' MIX_ENV='$TARGET_MIX_ENV' $MIX_CMD phoenix.digest $SILENCE
+    APP='$APP' MIX_ENV='$TARGET_MIX_ENV' $MIX_CMD phx.digest $SILENCE
   "
 } 
 

@@ -25,7 +25,7 @@ defmodule FunkAndSchuster.Tasks.StaticSite do
         IO.puts("Something went wrong. See above output for more details.")
     end
 
-    :ok = cleanup(cwd, opts)
+    :ok = cleanup!(cwd, opts)
   end
 
   defp build_static_assets do
@@ -108,7 +108,7 @@ defmodule FunkAndSchuster.Tasks.StaticSite do
     File.cd!(cwd)
   end
 
-  defp cleanup(cwd, %{output: output}) do
+  defp cleanup!(cwd, %{output: output}) do
     File.cd!(cwd)
     File.rm_rf!(output)
     :ok

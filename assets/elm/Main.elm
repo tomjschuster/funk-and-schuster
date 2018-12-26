@@ -2,7 +2,9 @@ module Main exposing (main)
 
 import Browser
 import Html
+import Http
 import Json.Decode as JD
+import Task exposing (Task)
 import Time
 import Url exposing (Url)
 
@@ -166,3 +168,50 @@ mediaOwnerDecoder =
 contentTypeDecoder : JD.Decoder ContentType
 contentTypeDecoder =
     JD.map OtherContentType JD.string
+
+
+
+-- HTTP
+
+
+getTask : JD.Decoder a -> String -> Task Http.Error a
+getTask decoder url =
+    Http.task
+        { method = "GET"
+        , headers = []
+        , url = url
+        , body = Http.emptyBody
+        , resolver = jsonResolver decoder
+        , timeout = Nothing
+        }
+
+
+jsonResolver : JD.Decoder a -> Http.Resolver Http.Error a
+jsonResolver decoder =
+    decoder
+        |> handleJsonResponse
+        |> Http.stringResolver
+
+
+handleJsonResponse : JD.Decoder a -> Http.Response String -> Result Http.Error a
+handleJsonResponse decoder response =
+    case response of
+        Http.BadUrl_ url ->
+            Err (Http.BadUrl url)
+
+        Http.Timeout_ ->
+            Err Http.Timeout
+
+        Http.NetworkError_ ->
+            Err Http.NetworkError
+
+        Http.BadStatus_ metadata body ->
+            Err (Http.BadStatus metadata.statusCode)
+
+        Http.GoodStatus_ metadata body ->
+            case JD.decodeString decoder body of
+                Ok value ->
+                    Ok value
+
+                Err err ->
+                    Err (Http.BadBody (JD.errorToString err))

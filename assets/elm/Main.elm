@@ -1,6 +1,7 @@
 module Main exposing (main)
 
 import Browser
+import Browser.Navigation
 import Html
 import Http
 import Json.Decode as JD
@@ -9,28 +10,88 @@ import Time
 import Url exposing (Url)
 
 
-main : Program () Model ()
+main : Program () Model Msg
 main =
     Browser.application
-        { init = \() _ _ -> ( initialModel, Cmd.none )
-        , view = \model -> { title = "hello elm", body = [ Html.text "hi there?" ] }
-        , update = \() model -> ( initialModel, Cmd.none )
-        , subscriptions = \model -> Sub.none
-        , onUrlRequest = \_ -> ()
-        , onUrlChange = \_ -> ()
+        { init = init
+        , view = \model -> { title = "hello elm", body = [ Html.text "working" ] }
+        , update = update
+        , subscriptions = subscriptions
+        , onUrlRequest = UrlRequested
+        , onUrlChange = UrlChanged
         }
 
 
+
+-- Model
+
+
 type alias Model =
+    { navKey : Browser.Navigation.Key
+    , error : Maybe String
+    , artists : List Artist
+    , works : List Work
+    , media : List Media
+    }
+
+
+initialModel : Browser.Navigation.Key -> Model
+initialModel navKey =
+    { navKey = navKey, error = Nothing, artists = [], works = [], media = [] }
+
+
+init : () -> Url -> Browser.Navigation.Key -> ( Model, Cmd Msg )
+init () url navKey =
+    ( initialModel navKey, Cmd.none )
+
+
+
+-- Update
+
+
+type Msg
+    = InitialDataReceived (Result Http.Error InitialData)
+    | UrlRequested Browser.UrlRequest
+    | UrlChanged Url
+
+
+type alias InitialData =
     { artists : List Artist, works : List Work, media : List Media }
 
 
-initialModel : Model
-initialModel =
-    { artists = [], works = [], media = [] }
+update : Msg -> Model -> ( Model, Cmd Msg )
+update msg model =
+    case msg of
+        InitialDataReceived (Ok { artists, works, media }) ->
+            ( { model
+                | artists = artists
+                , works = works
+                , media = media
+              }
+            , Cmd.none
+            )
+
+        InitialDataReceived (Err httpError) ->
+            ( { model | error = Just "Something went wrong" }, Cmd.none )
+
+        UrlRequested urlRequest ->
+            ( model, Cmd.none )
+
+        UrlChanged url ->
+            ( model, Cmd.none )
 
 
 
+-- Subscriptions
+
+
+subscriptions : Model -> Sub Msg
+subscriptions model =
+    Sub.none
+
+
+
+-- Types
 -- Artist
 
 

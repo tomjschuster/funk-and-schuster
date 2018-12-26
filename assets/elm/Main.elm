@@ -132,8 +132,8 @@ artistDecoder : JD.Decoder Artist
 artistDecoder =
     JD.map4 Artist
         (JD.field "id" artistIdDecoder)
-        (JD.field "firstName" JD.string)
-        (JD.field "lastName" JD.string)
+        (JD.field "first_name" JD.string)
+        (JD.field "last_name" JD.string)
         (JD.field "dob" (JD.map Time.millisToPosix JD.int))
 
 
@@ -172,7 +172,7 @@ workDecoder : JD.Decoder Work
 workDecoder =
     JD.map6 Work
         (JD.field "id" workIdDecoder)
-        (JD.field "artistId" artistIdDecoder)
+        (JD.field "artist_id" artistIdDecoder)
         (JD.field "title" JD.string)
         (JD.field "date" (JD.map Time.millisToPosix JD.int))
         (JD.field "medium" mediumDecoder)
@@ -228,9 +228,9 @@ mediaDecoder =
         (JD.field "id" mediaIdDecoder)
         mediaOwnerDecoder
         (JD.field "title" JD.string)
-        (JD.field "caption" JD.string)
+        (JD.field "caption" (JD.map (Maybe.withDefault "") (JD.maybe JD.string)))
         (JD.field "src" JD.string)
-        (JD.field "contentType" contentTypeDecoder)
+        (JD.field "content_type" contentTypeDecoder)
 
 
 mediaIdDecoder : JD.Decoder MediaId
@@ -241,8 +241,8 @@ mediaIdDecoder =
 mediaOwnerDecoder : JD.Decoder MediaOwner
 mediaOwnerDecoder =
     JD.oneOf
-        [ JD.field "artistId" (JD.map ArtistOwner artistIdDecoder)
-        , JD.field "workId" (JD.map WorkOwner workIdDecoder)
+        [ JD.field "artist_id" (JD.map ArtistOwner artistIdDecoder)
+        , JD.field "work_id" (JD.map WorkOwner workIdDecoder)
         , JD.succeed NoOwner
         ]
 

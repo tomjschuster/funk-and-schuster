@@ -54,12 +54,12 @@ defmodule FunkAndSchusterWeb.Router do
     post "/galleries/:id/feature", GalleryController, :feature
   end
 
-  scope "/api/art", FunkAndSchusterWeb.Art do
+  scope "/api/art", FunkAndSchusterWeb.Api.Art do
     pipe_through :api
     pipe_through :art
 
-    resources "/artists", Api.ArtistController
-    resources "/works", Api.WorkController
-    resources "/media", Api.MediaController
+    resources "/artists", ArtistController
+    resources "/works", WorkController
+    resources "/media", MediaController
   end
 end

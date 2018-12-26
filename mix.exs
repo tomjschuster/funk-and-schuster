@@ -43,6 +43,7 @@ defmodule FunkAndSchuster.Mixfile do
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:gettext, "~> 0.11"},
       {:plug_cowboy, "~> 2.0"},
+      {:timex, "~> 3.1"},
       # {:thesis, "~> 0.3.0"},
       {:thesis,
        git: "https://github.com/tomjschuster/thesis-phoenix", branch: "app_env_instead_of_mix_env"},

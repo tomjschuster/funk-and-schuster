@@ -54,8 +54,12 @@ defmodule FunkAndSchusterWeb.Router do
     post "/galleries/:id/feature", GalleryController, :feature
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", FunkAndSchusterWeb do
-  #   pipe_through :api
-  # end
+  scope "/api/art", FunkAndSchusterWeb.Art do
+    pipe_through :api
+    pipe_through :art
+
+    resources "/artists", Api.ArtistController
+    resources "/works", Api.WorkController
+    resources "/media", Api.MediaController
+  end
 end

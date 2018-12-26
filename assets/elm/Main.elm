@@ -53,17 +53,17 @@ init () url navKey =
 
 loadArtists : Task Http.Error (List Artist)
 loadArtists =
-    getTask (JD.field "data" (JD.list artistDecoder)) "/api/artists"
+    getTask (JD.field "data" (JD.list artistDecoder)) "/api/art/artists"
 
 
 loadWorks : Task Http.Error (List Work)
 loadWorks =
-    getTask (JD.field "data" (JD.list workDecoder)) "/api/works"
+    getTask (JD.field "data" (JD.list workDecoder)) "/api/art/works"
 
 
 loadMedia : Task Http.Error (List Media)
 loadMedia =
-    getTask (JD.field "data" (JD.list mediaDecoder)) "/api/media"
+    getTask (JD.field "data" (JD.list mediaDecoder)) "/api/art/media"
 
 
 

@@ -42,7 +42,28 @@ initialModel navKey =
 
 init : () -> Url -> Browser.Navigation.Key -> ( Model, Cmd Msg )
 init () url navKey =
-    ( initialModel navKey, Cmd.none )
+    ( initialModel navKey
+    , Task.map3 InitialData
+        loadArtists
+        loadWorks
+        loadMedia
+        |> Task.attempt InitialDataReceived
+    )
+
+
+loadArtists : Task Http.Error (List Artist)
+loadArtists =
+    getTask (JD.field "data" (JD.list artistDecoder)) "/api/artists"
+
+
+loadWorks : Task Http.Error (List Work)
+loadWorks =
+    getTask (JD.field "data" (JD.list workDecoder)) "/api/works"
+
+
+loadMedia : Task Http.Error (List Media)
+loadMedia =
+    getTask (JD.field "data" (JD.list mediaDecoder)) "/api/media"
 
 
 

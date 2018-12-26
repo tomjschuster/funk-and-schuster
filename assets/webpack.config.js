@@ -1,5 +1,4 @@
 const path = require('path')
-const glob = require('glob')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
@@ -23,19 +22,31 @@ module.exports = (env, options) => ({
     rules: [
       {
         test: /\.js$/,
-        exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader'
-        }
+        exclude: [/elm-stuff/, /node_modules/],
+        use: 'babel-loader'
+      },
+      {
+        test: /\.elm$/,
+        exclude: [/elm-stuff/, /node_modules/],
+        use:
+          options.mode === 'production'
+            ? [{ loader: 'elm-webpack-loader', options: { optimize: true } }]
+            : [
+              {
+                loader: 'elm-webpack-loader',
+                options: { debug: true, forceWatch: true }
+              }
+            ]
+      },
+      {
+        test: /\.css$/,
+        exclude: [/elm-stuff/, /node_modules/],
+        use: [MiniCssExtractPlugin.loader, 'css-loader']
       },
       {
         test: /\.scss$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          'css-loader',
-          'resolve-url-loader',
-          'sass-loader'
-        ]
+        exclude: [/elm-stuff/, /node_modules/],
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
       }
     ]
   },

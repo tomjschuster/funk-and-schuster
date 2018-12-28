@@ -43,27 +43,9 @@ initialModel navKey =
 init : () -> Url -> Browser.Navigation.Key -> ( Model, Cmd Msg )
 init () url navKey =
     ( initialModel navKey
-    , Task.map3 InitialData
-        loadArtists
-        loadWorks
-        loadMedia
+    , Task.map3 InitialData loadArtists loadWorks loadMedia
         |> Task.attempt InitialDataReceived
     )
-
-
-loadArtists : Task Http.Error (List Artist)
-loadArtists =
-    getTask (JD.field "data" (JD.list artistDecoder)) "/api/art/artists"
-
-
-loadWorks : Task Http.Error (List Work)
-loadWorks =
-    getTask (JD.field "data" (JD.list workDecoder)) "/api/art/works"
-
-
-loadMedia : Task Http.Error (List Media)
-loadMedia =
-    getTask (JD.field "data" (JD.list mediaDecoder)) "/api/art/media"
 
 
 
@@ -254,16 +236,56 @@ contentTypeDecoder =
 
 
 -- HTTP
+-- Requests
 
 
-getTask : JD.Decoder a -> String -> Task Http.Error a
-getTask decoder url =
+baseApi : String
+baseApi =
+    "/api/art"
+
+
+artistsUrl : String
+artistsUrl =
+    baseApi ++ "/artists"
+
+
+worksUrl : String
+worksUrl =
+    baseApi ++ "/works"
+
+
+mediaUrl : String
+mediaUrl =
+    baseApi ++ "/media"
+
+
+loadArtists : Task Http.Error (List Artist)
+loadArtists =
+    getData (JD.list artistDecoder) artistsUrl
+
+
+loadWorks : Task Http.Error (List Work)
+loadWorks =
+    getData (JD.list workDecoder) worksUrl
+
+
+loadMedia : Task Http.Error (List Media)
+loadMedia =
+    getData (JD.list mediaDecoder) mediaUrl
+
+
+
+-- HTTP Helpers
+
+
+getData : JD.Decoder a -> String -> Task Http.Error a
+getData decoder url =
     Http.task
         { method = "GET"
         , headers = []
         , url = url
         , body = Http.emptyBody
-        , resolver = jsonResolver decoder
+        , resolver = jsonResolver (JD.field "data" decoder)
         , timeout = Nothing
         }
 

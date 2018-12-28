@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# https://github.com/elm-community/elm-webpack-loader/issues/94#issuecomment-315500081
+# Fakes elm-make into printing colors when
+# run by elm-webpack-loader
+unbuffer node_modules/elm/bin/elm $@

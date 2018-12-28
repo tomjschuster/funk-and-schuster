@@ -107,7 +107,11 @@ module.exports = (env, options) =>
               { loader: 'elm-hot-webpack-loader' },
               {
                 loader: 'elm-webpack-loader',
-                options: { debug: true, forceWatch: true }
+                options: {
+                  debug: true,
+                  forceWatch: true,
+                  pathToElm: './bin/unbuffered-elm-make'
+                }
               }
             ]
           },
@@ -135,6 +139,7 @@ module.exports = (env, options) =>
         publicPath: 'http://localhost:8080/',
         contentBase: path.join(__dirname, 'static'),
         overlay: true,
+        stats: { colors: true },
         disableHostCheck: true
       },
       plugins: [

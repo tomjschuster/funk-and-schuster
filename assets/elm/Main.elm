@@ -14,7 +14,7 @@ main : Program () Model Msg
 main =
     Browser.application
         { init = init
-        , view = \model -> { title = "hello elm", body = [ Html.text "working" ] }
+        , view = \model -> { title = "hello elm", body = [ Html.text "working!!" ] }
         , update = update
         , subscriptions = subscriptions
         , onUrlRequest = UrlRequested

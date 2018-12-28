@@ -11,14 +11,16 @@ config :funk_and_schuster, FunkAndSchusterWeb.Endpoint,
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
+  static_url: [path: "http://localhost:8080"],
   watchers: [
-    node: [
-      "node_modules/webpack/bin/webpack.js",
-      "--mode",
-      "development",
-      "--watch-stdin",
-      cd: Path.expand("../assets", __DIR__)
-    ]
+    npm: ["run", "watch", cd: Path.expand("../assets", __DIR__)]
+    # node: [
+    #   "node_modules/webpack/bin/webpack.js",
+    #   "--mode",
+    #   "development",
+    #   "--watch-stdin",
+    #   cd: Path.expand("../assets", __DIR__)
+    # ]
   ]
 
 config :funk_and_schuster, :static_site,

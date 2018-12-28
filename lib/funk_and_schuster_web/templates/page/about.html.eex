@@ -7,7 +7,7 @@
 
      <div class="content-group">
 
-      <%= content(@conn, "About summary image", :image, classes: "img-container", do: "/images/image-placeholder_03.png") %>
+      <%= content(@conn, "About summary image", :image, classes: "img-container", do: Routes.static_path(@conn, "/images/image-placeholder_03.png")) %>
 
       <div class="content">
         <h2><%= content(@conn, "About summary title", :text, do: "for the artist") %></h2>
@@ -19,7 +19,7 @@
     </div>
 
     <div class="content-group">
-      <%= content(@conn, "About us image", :image, classes: "img-container", do: "/images/image-placeholder_03.png") %>
+      <%= content(@conn, "About us image", :image, classes: "img-container", do: Routes.static_path(@conn, "/images/image-placeholder_03.png")) %>
 
       <div class="content">
         <h2><%= content(@conn, "About us title", :text, do: "who we are") %></h2>
@@ -32,7 +32,7 @@
 
     <div class="content-group">
 
-      <%= content(@conn, "About process image", :image, classes: "img-container", do: "/images/image-placeholder_03.png") %>
+      <%= content(@conn, "About process image", :image, classes: "img-container", do: Routes.static_path(@conn, "/images/image-placeholder_03.png")) %>
 
       <div class="content">
         <h2><%= content(@conn, "About process title", :text, do: "the process") %></h2>
@@ -45,7 +45,7 @@
 
     <div class="content-group">
 
-      <%= content(@conn, "About community image", :image, classes: "img-container", do: "/images/image-placeholder_03.png") %>
+      <%= content(@conn, "About community image", :image, classes: "img-container", do: Routes.static_path(@conn, "/images/image-placeholder_03.png")) %>
 
       <div class="content">
         <h2><%= content(@conn, "About community title", :html, do: "the community") %></h2>

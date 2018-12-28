@@ -4,4 +4,4 @@
 <%= link "Works", to: Routes.work_path(@conn, :index) %>
 <%= link "Media", to: Routes.media_path(@conn, :index) %>
 <%= link "Galleries", to: Routes.gallery_path(@conn, :index) %>
-<script src="/js/app.js"></script>
+<script src="<%= IO.inspect(Routes.static_path(@conn, "/js/app.js"))%>"></script>

@@ -2,7 +2,7 @@
 <%= thesis_editor(@conn) %>
 
 <main class="home content container">
-  <%= content(@conn, "Home hero", :image, classes: "hero", alt: "paint-blobs", do: "/images/paint-blobs.jpg") %>
+  <%= content(@conn, "Home hero", :image, classes: "hero", alt: "paint-blobs", do: Routes.static_path(@conn, "/images/paint-blobs.jpg")) %>
   <div class="container">
 
     <section class="overview">

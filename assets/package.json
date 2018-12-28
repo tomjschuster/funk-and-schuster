@@ -3,7 +3,7 @@
   "license": "MIT",
   "scripts": {
     "deploy": "webpack --mode production",
-    "watch": "webpack-dev-server --mode development --hot --watch-stdin"
+    "watch": "webpack-dev-server --mode development --hot --watch-stdin --color"
   },
   "dependencies": {
     "phoenix": "file:../deps/phoenix",

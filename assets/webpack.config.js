@@ -134,6 +134,7 @@ module.exports = (env, options) =>
         },
         publicPath: 'http://localhost:8080/',
         contentBase: path.join(__dirname, 'static'),
+        overlay: true,
         disableHostCheck: true
       },
       plugins: [

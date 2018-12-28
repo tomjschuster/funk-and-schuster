@@ -2,7 +2,7 @@ defmodule FunkAndSchuster.Repo.Migrations.ChangeAndConvertPageDataTypeInBackupsT
   @moduledoc false
   use Ecto.Migration
   alias Thesis.Backup
-  import Thesis.Config
+  alias Thesis.Config
   import Ecto.Changeset, only: [change: 1, force_change: 3]
 
   def change do
@@ -32,7 +32,7 @@ defmodule FunkAndSchuster.Repo.Migrations.ChangeAndConvertPageDataTypeInBackupsT
   end
 
   def backups() do
-    repo().all(Backup)
+    Config.repo().all(Backup)
   end
 
   def decompress_page_data(page_data) do
@@ -46,7 +46,7 @@ defmodule FunkAndSchuster.Repo.Migrations.ChangeAndConvertPageDataTypeInBackupsT
   def save_converted_page_data(backups) do
     backups
     |> Enum.map(fn(b) -> conversion_changeset(b, :page_data, b.page_data) end)
-    |> Enum.map(fn(b) -> repo().update!(b) end)
+    |> Enum.map(fn(b) -> Config.repo().update!(b) end)
   end
 
   def conversion_changeset(backup, key, value) do

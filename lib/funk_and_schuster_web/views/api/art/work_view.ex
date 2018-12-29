@@ -11,11 +11,13 @@ defmodule FunkAndSchusterWeb.Api.Art.WorkView do
   end
 
   def render("work.json", %{work: work}) do
-    %{id: work.id,
+    %{
+      id: work.id,
       artist_id: work.artist_id,
       title: work.title,
-      date: work.date,
+      date: work.date |> Timex.to_datetime() |> Timex.to_unix(),
       medium: work.medium,
-      dimensions: work.dimensions}
+      dimensions: work.dimensions
+    }
   end
 end

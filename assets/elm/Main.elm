@@ -2,7 +2,7 @@ module Main exposing (main)
 
 import Browser
 import Browser.Navigation
-import Html
+import Html exposing (Html, h3, li, main_, section, text, ul)
 import Http
 import Json.Decode as JD
 import Task exposing (Task)
@@ -14,7 +14,7 @@ main : Program () Model Msg
 main =
     Browser.application
         { init = init
-        , view = \model -> { title = "hello elm", body = [ Html.text "working!!" ] }
+        , view = view
         , update = update
         , subscriptions = subscriptions
         , onUrlRequest = UrlRequested
@@ -91,6 +91,62 @@ update msg model =
 subscriptions : Model -> Sub Msg
 subscriptions model =
     Sub.none
+
+
+
+-- View
+
+
+view : Model -> Browser.Document Msg
+view model =
+    { title = "Art Database"
+    , body =
+        [ main_ []
+            [ section []
+                [ h3 [] [ text "Artists" ]
+                , artistsList model.artists
+                ]
+            , section []
+                [ h3 [] [ text "Works" ]
+                , worksList model.works
+                ]
+            , section []
+                [ h3 [] [ text "Media" ]
+                , mediaList model.media
+                ]
+            ]
+        ]
+    }
+
+
+artistsList : List Artist -> Html Msg
+artistsList artists =
+    ul [] (List.map artistItem artists)
+
+
+artistItem : Artist -> Html Msg
+artistItem artist =
+    li [] [ text (artist.firstName ++ " " ++ artist.lastName) ]
+
+
+worksList : List Work -> Html Msg
+worksList works =
+    ul [] (List.map workItem works)
+
+
+workItem : Work -> Html Msg
+workItem work =
+    li [] [ text work.title ]
+
+
+mediaList : List Media -> Html Msg
+mediaList media =
+    ul [] (List.map mediaItem media)
+
+
+mediaItem : Media -> Html Msg
+mediaItem media =
+    li [] [ text media.title ]
 
 
 

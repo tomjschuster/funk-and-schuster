@@ -1,16 +1,18 @@
 module Main exposing (main)
 
 import Browser
-import Browser.Navigation
+import Browser.Navigation as Navigation
 import Dict exposing (Dict)
-import Html exposing (Html, button, h2, h3, img, li, main_, section, text, ul)
-import Html.Attributes exposing (height, src, width)
+import Html exposing (Html, a, button, h2, h3, img, li, main_, section, text, ul)
+import Html.Attributes exposing (height, href, src, width)
 import Html.Events exposing (onClick)
 import Http
 import Json.Decode as JD
 import Task exposing (Task)
 import Time
 import Url exposing (Url)
+import Url.Builder
+import Url.Parser exposing ((</>))
 
 
 main : Program () Model Msg
@@ -26,11 +28,62 @@ main =
 
 
 
+-- Route
+
+
+type Route
+    = DashboardRoute
+    | ArtistRoute ArtistId
+    | WorkRoute WorkId
+
+
+routeParser : Url.Parser.Parser (Route -> a) a
+routeParser =
+    Url.Parser.oneOf
+        [ Url.Parser.map DashboardRoute (Url.Parser.s "art")
+        , Url.Parser.map (artistIdFromInt >> ArtistRoute) (Url.Parser.s "art" </> Url.Parser.s "artists" </> Url.Parser.int)
+        , Url.Parser.map (workIdFromInt >> WorkRoute) (Url.Parser.s "art" </> Url.Parser.s "works" </> Url.Parser.int)
+        ]
+
+
+parseRoute : Url -> Maybe Route
+parseRoute url =
+    Url.Parser.parse routeParser url
+
+
+routeToUrl : Route -> String
+routeToUrl route =
+    case route of
+        DashboardRoute ->
+            Url.Builder.absolute [ "art" ] []
+
+        ArtistRoute artistId ->
+            let
+                stringId =
+                    artistId |> artistIdToInt |> String.fromInt
+            in
+            Url.Builder.absolute [ "art", "artists", stringId ] []
+
+        WorkRoute workId ->
+            let
+                stringId =
+                    workId |> workIdToInt |> String.fromInt
+            in
+            Url.Builder.absolute [ "art", "works", stringId ] []
+
+
+routeLink : Route -> List (Html.Attribute msg) -> List (Html msg) -> Html msg
+routeLink route attributes children =
+    a (href (routeToUrl route) :: attributes) children
+
+
+
 -- Model
 
 
 type alias Model =
-    { navKey : Browser.Navigation.Key
+    { navKey : Navigation.Key
+    , route : Maybe Route
     , artDataState : ArtDataState
     , pageState : PageState
     }
@@ -51,22 +104,24 @@ type alias ArtData =
 
 type PageState
     = PageLoading
+    | NotFound
     | Dashboard DashboardArtData
     | ArtistPage ArtistPageArtist
     | WorkPage WorkPageWork
 
 
-initialModel : Browser.Navigation.Key -> Model
-initialModel navKey =
+initialModel : Navigation.Key -> Maybe Route -> Model
+initialModel navKey route =
     { navKey = navKey
+    , route = route
     , artDataState = ArtDataLoading
     , pageState = PageLoading
     }
 
 
-init : () -> Url -> Browser.Navigation.Key -> ( Model, Cmd Msg )
+init : () -> Url -> Navigation.Key -> ( Model, Cmd Msg )
 init () url navKey =
-    ( initialModel navKey
+    ( initialModel navKey (parseRoute url)
     , Task.map3 ArtData loadArtists loadWorks loadMedia
         |> Task.attempt ArtDataLoaded
     )
@@ -81,9 +136,6 @@ type Msg
     | UrlRequested Browser.UrlRequest
     | UrlChanged Url
     | ArtDataLoaded (Result Http.Error ArtData)
-    | GoToDashboard
-    | GoToArtistPage ArtistId
-    | GoToWorkPage WorkId
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -93,10 +145,27 @@ update msg model =
             ( model, Cmd.none )
 
         UrlRequested urlRequest ->
-            ( model, Cmd.none )
+            case urlRequest of
+                Browser.Internal url ->
+                    ( model, Navigation.pushUrl model.navKey (Url.toString url) )
+
+                Browser.External href ->
+                    ( model, Navigation.load href )
 
         UrlChanged url ->
-            ( model, Cmd.none )
+            case model.artDataState of
+                ArtDataReady artData ->
+                    let
+                        route =
+                            parseRoute url
+
+                        pageState =
+                            routeToPageState artData route
+                    in
+                    ( { model | route = route, pageState = pageState }, Cmd.none )
+
+                _ ->
+                    ( model, Cmd.none )
 
         ArtDataLoaded (Ok artData) ->
             ( { model
@@ -111,47 +180,21 @@ update msg model =
             , Cmd.none
             )
 
-        GoToDashboard ->
-            case model.artDataState of
-                ArtDataReady artData ->
-                    let
-                        dashoardArtData =
-                            artDataToDashboard artData
-                    in
-                    ( { model | pageState = Dashboard dashoardArtData }
-                    , Cmd.none
-                    )
 
-                _ ->
-                    ( model, Cmd.none )
+routeToPageState : ArtData -> Maybe Route -> PageState
+routeToPageState artData route =
+    case route of
+        Nothing ->
+            NotFound
 
-        GoToArtistPage artistId ->
-            case model.artDataState of
-                ArtDataReady artData ->
-                    let
-                        artistPageArtist =
-                            artistToArtistPage artData artistId
-                    in
-                    ( { model | pageState = ArtistPage artistPageArtist }
-                    , Cmd.none
-                    )
+        Just DashboardRoute ->
+            Dashboard (artDataToDashboard artData)
 
-                _ ->
-                    ( model, Cmd.none )
+        Just (ArtistRoute artistId) ->
+            ArtistPage (artistToArtistPage artData artistId)
 
-        GoToWorkPage workId ->
-            case model.artDataState of
-                ArtDataReady artData ->
-                    let
-                        workPageWork =
-                            workToWorkPage artData workId
-                    in
-                    ( { model | pageState = WorkPage workPageWork }
-                    , Cmd.none
-                    )
-
-                _ ->
-                    ( model, Cmd.none )
+        Just (WorkRoute workId) ->
+            WorkPage (workToWorkPage artData workId)
 
 
 
@@ -371,18 +414,29 @@ view model =
 
 viewBody : Model -> List (Html Msg)
 viewBody model =
-    case model.pageState of
-        PageLoading ->
+    case model.artDataState of
+        ArtDataLoading ->
             [ text "Loading..." ]
 
-        Dashboard artData ->
-            viewDashboard artData
+        ArtDataReady _ ->
+            case model.pageState of
+                PageLoading ->
+                    [ text "Loading..." ]
 
-        ArtistPage artist ->
-            viewArtistPage artist
+                NotFound ->
+                    [ text "Page not found" ]
 
-        WorkPage work ->
-            viewWorkPage work
+                Dashboard artData ->
+                    viewDashboard artData
+
+                ArtistPage artist ->
+                    viewArtistPage artist
+
+                WorkPage work ->
+                    viewWorkPage work
+
+        ArtDataError error ->
+            [ text error ]
 
 
 
@@ -415,8 +469,11 @@ artistsList artists =
 
 artistItem : DashboardArtist -> Html Msg
 artistItem artist =
-    li [ onClick (GoToArtistPage artist.id) ]
-        [ text (artist.fullName ++ " (" ++ pluralizeWorks artist.workCount ++ ")") ]
+    li []
+        [ routeLink (ArtistRoute artist.id)
+            []
+            [ text (artist.fullName ++ " (" ++ pluralizeWorks artist.workCount ++ ")") ]
+        ]
 
 
 worksList : List DashboardWork -> Html Msg
@@ -426,8 +483,12 @@ worksList works =
 
 workItem : DashboardWork -> Html Msg
 workItem work =
-    li [ onClick (GoToWorkPage work.id) ]
-        [ text (work.title ++ " - " ++ work.artist.fullName) ]
+    li []
+        [ routeLink (WorkRoute work.id)
+            []
+            [ text (work.title ++ " - " ++ work.artist.fullName)
+            ]
+        ]
 
 
 mediaList : List Media -> Html Msg
@@ -446,7 +507,7 @@ mediaItem media =
 
 viewArtistPage : ArtistPageArtist -> List (Html Msg)
 viewArtistPage artist =
-    [ button [ onClick GoToDashboard ] [ text "Back" ]
+    [ routeLink DashboardRoute [] [ text "Back" ]
     , h2 [] [ text artist.fullName ]
     ]
 
@@ -457,7 +518,7 @@ viewArtistPage artist =
 
 viewWorkPage : WorkPageWork -> List (Html Msg)
 viewWorkPage work =
-    [ button [ onClick GoToDashboard ] [ text "Back" ]
+    [ routeLink DashboardRoute [] [ text "Back" ]
     , h2 [] [ text work.title ]
     ]
 

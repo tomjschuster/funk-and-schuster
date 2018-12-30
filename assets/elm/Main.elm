@@ -3,8 +3,9 @@ module Main exposing (main)
 import Browser
 import Browser.Navigation
 import Dict exposing (Dict)
-import Html exposing (Html, h3, img, li, main_, section, text, ul)
+import Html exposing (Html, button, h2, h3, img, li, main_, section, text, ul)
 import Html.Attributes exposing (height, src, width)
+import Html.Events exposing (onClick)
 import Http
 import Json.Decode as JD
 import Task exposing (Task)
@@ -79,6 +80,9 @@ type Msg
     | UrlRequested Browser.UrlRequest
     | UrlChanged Url
     | ArtDataLoaded (Result Http.Error ArtData)
+    | GoToDashboard
+    | GoToArtistPage ArtistId
+    | GoToWorkPage WorkId
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -111,6 +115,15 @@ update msg model =
             , Cmd.none
             )
 
+        GoToDashboard ->
+            ( { model | pageState = Dashboard }, Cmd.none )
+
+        GoToArtistPage artistId ->
+            ( { model | pageState = ArtistPage artistId }, Cmd.none )
+
+        GoToWorkPage workId ->
+            ( { model | pageState = WorkPage workId }, Cmd.none )
+
 
 
 -- Subscriptions
@@ -125,15 +138,84 @@ subscriptions model =
 -- View
 
 
-type alias ArtistView =
+view : Model -> Browser.Document Msg
+view model =
+    { title = "Art Database", body = viewBody model }
+
+
+viewBody : Model -> List (Html Msg)
+viewBody model =
+    case model.artDataState of
+        ArtDataLoading ->
+            [ text "Loading..." ]
+
+        ArtDataReady artData ->
+            viewPage model.pageState artData
+
+        ArtDataError error ->
+            [ text error ]
+
+
+viewPage : PageState -> ArtData -> List (Html Msg)
+viewPage pageState artData =
+    case pageState of
+        Dashboard ->
+            viewDashboard artData
+
+        ArtistPage artistId ->
+            viewArtistPage artistId artData
+
+        WorkPage workId ->
+            viewWorkPage workId artData
+
+
+
+-- Dashboard View
+
+
+viewDashboard : ArtData -> List (Html Msg)
+viewDashboard artData =
+    let
+        workCountByArtistId =
+            List.foldl incrementWorkCount Dict.empty artData.works
+
+        dashboardArtists =
+            List.map (artistToDashboard workCountByArtistId) artData.artists
+
+        artistById =
+            dashboardArtists
+                |> List.map (\artist -> ( artistIdToInt artist.id, artist ))
+                |> Dict.fromList
+
+        dashboardWorks =
+            List.map (workToDashboard artistById) artData.works
+    in
+    [ main_ []
+        [ section []
+            [ h3 [] [ text "Artists" ]
+            , artistsList dashboardArtists
+            ]
+        , section []
+            [ h3 [] [ text "Works" ]
+            , worksList dashboardWorks
+            ]
+        , section []
+            [ h3 [] [ text "Media" ]
+            , mediaList artData.media
+            ]
+        ]
+    ]
+
+
+type alias DashboardArtist =
     { id : ArtistId
     , fullName : String
     , workCount : Int
     }
 
 
-artistToView : Dict Int Int -> Artist -> ArtistView
-artistToView workCountByArtistId artist =
+artistToDashboard : Dict Int Int -> Artist -> DashboardArtist
+artistToDashboard workCountByArtistId artist =
     { id = artist.id
     , fullName = artistFullName artist
     , workCount =
@@ -153,21 +235,21 @@ pluralizeWorks workCount =
             String.fromInt count ++ " works"
 
 
-type alias WorkView =
+type alias DashboardWork =
     { id : WorkId
     , title : String
-    , artist : ArtistView
+    , artist : DashboardArtist
     }
 
 
-workToView : Dict Int ArtistView -> Work -> WorkView
-workToView artistById work =
+workToDashboard : Dict Int DashboardArtist -> Work -> DashboardWork
+workToDashboard artistById work =
     { id = work.id
     , title = work.title
     , artist =
         artistById
             |> Dict.get (artistIdToInt work.artistId)
-            |> Maybe.withDefault (artistToView Dict.empty emptyArtist)
+            |> Maybe.withDefault (artistToDashboard Dict.empty emptyArtist)
     }
 
 
@@ -178,75 +260,23 @@ incrementWorkCount work workCountByArtistId =
         workCountByArtistId
 
 
-view : Model -> Browser.Document Msg
-view model =
-    { title = "Art Database", body = viewBody model }
-
-
-viewBody : Model -> List (Html Msg)
-viewBody model =
-    case model.artDataState of
-        ArtDataLoading ->
-            [ text "Loading..." ]
-
-        ArtDataReady artData ->
-            viewDashboard artData
-
-        ArtDataError error ->
-            [ text error ]
-
-
-viewDashboard : ArtData -> List (Html Msg)
-viewDashboard artData =
-    let
-        workCountByArtistId =
-            List.foldl incrementWorkCount Dict.empty artData.works
-
-        artistViews =
-            List.map (artistToView workCountByArtistId) artData.artists
-
-        artistById =
-            artistViews
-                |> List.map (\artist -> ( artistIdToInt artist.id, artist ))
-                |> Dict.fromList
-
-        workViews =
-            List.map (workToView artistById) artData.works
-    in
-    [ main_ []
-        [ section []
-            [ h3 [] [ text "Artists" ]
-            , artistsList artistViews
-            ]
-        , section []
-            [ h3 [] [ text "Works" ]
-            , worksList workViews
-            ]
-        , section []
-            [ h3 [] [ text "Media" ]
-            , mediaList artData.media
-            ]
-        ]
-    ]
-
-
-artistsList : List ArtistView -> Html Msg
+artistsList : List DashboardArtist -> Html Msg
 artistsList artists =
     ul [] (List.map artistItem artists)
 
 
-artistItem : ArtistView -> Html Msg
+artistItem : DashboardArtist -> Html Msg
 artistItem artist =
-    li []
+    li [ onClick (GoToArtistPage artist.id) ]
         [ text (artist.fullName ++ " (" ++ pluralizeWorks artist.workCount ++ ")") ]
 
 
-worksList : List WorkView -> Html Msg
+worksList : List DashboardWork -> Html Msg
 worksList works =
     ul [] (List.map workItem works)
 
 
-workItem : WorkView -> Html Msg
+workItem : DashboardWork -> Html Msg
 workItem work =
     li [] [ text (work.title ++ " - " ++ work.artist.fullName) ]
 
@@ -259,6 +289,110 @@ mediaList media =
 mediaItem : Media -> Html Msg
 mediaItem media =
     li [] [ text media.title, img [ src media.src, height 100, width 100 ] [] ]
+
+
+
+-- Artist View
+
+
+viewArtistPage : ArtistId -> ArtData -> List (Html Msg)
+viewArtistPage artistId artData =
+    let
+        artist =
+            artistToArtistPage artData artistId
+    in
+    [ button [ onClick GoToDashboard ] [ text "Back" ]
+    , h2 [] [ text artist.fullName ]
+    ]
+
+
+type alias ArtistPageArtist =
+    { fullName : String
+    , works : List ArtistPageWork
+    , media : List Media
+    }
+
+
+type alias ArtistPageWork =
+    { title : String
+    , media : List Media
+    }
+
+
+artistToArtistPage : ArtData -> ArtistId -> ArtistPageArtist
+artistToArtistPage artData artistId =
+    let
+        fullName =
+            artData.artists
+                |> List.filter (\artist -> artist.id == artistId)
+                |> List.head
+                |> Maybe.map artistFullName
+                |> Maybe.withDefault ""
+
+        mediaByWorkId =
+            groupMediaByWorkId artData.media
+
+        works =
+            artData.works
+                |> List.filter (\work -> work.artistId == artistId)
+                |> List.map (workToArtistPage mediaByWorkId)
+
+        artistMedia =
+            List.filter (mediaArtistId >> (==) (Just artistId)) artData.media
+    in
+    { fullName = fullName
+    , works = works
+    , media = artistMedia
+    }
+
+
+groupMediaByWorkId : List Media -> Dict Int (List Media)
+groupMediaByWorkId media =
+    media
+        |> filterWorkMedia
+        |> List.foldr consWorkMedia Dict.empty
+
+
+filterWorkMedia : List Media -> List ( Int, Media )
+filterWorkMedia media =
+    List.filterMap
+        (\currMedia ->
+            currMedia
+                |> mediaWorkId
+                |> Maybe.map (\workId -> ( workIdToInt workId, currMedia ))
+        )
+        media
+
+
+consWorkMedia : ( Int, Media ) -> Dict Int (List Media) -> Dict Int (List Media)
+consWorkMedia ( workId, media ) mediaByWorkId =
+    let
+        updatedMedia =
+            mediaByWorkId
+                |> Dict.get workId
+                |> Maybe.map ((::) media)
+                |> Maybe.withDefault [ media ]
+    in
+    Dict.insert workId updatedMedia mediaByWorkId
+
+
+workToArtistPage : Dict Int (List Media) -> Work -> ArtistPageWork
+workToArtistPage mediaByWorkId work =
+    { title = work.title
+    , media =
+        mediaByWorkId
+            |> Dict.get (workIdToInt work.id)
+            |> Maybe.withDefault []
+    }
+
+
+
+-- Work View
+
+
+viewWorkPage : WorkId -> ArtData -> List (Html Msg)
+viewWorkPage workId artData =
+    []
 
 
 
@@ -399,6 +533,32 @@ type MediaOwner
 
 type ContentType
     = OtherContentType String
+
+
+mediaArtistId : Media -> Maybe ArtistId
+mediaArtistId media =
+    case media.owner of
+        ArtistOwner artistId ->
+            Just artistId
+
+        WorkOwner _ ->
+            Nothing
+
+        NoOwner ->
+            Nothing
+
+
+mediaWorkId : Media -> Maybe WorkId
+mediaWorkId media =
+    case media.owner of
+        WorkOwner workId ->
+            Just workId
+
+        ArtistOwner _ ->
+            Nothing
+
+        NoOwner ->
+            Nothing
 
 
 mediaDecoder : JD.Decoder Media

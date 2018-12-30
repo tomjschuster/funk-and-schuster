@@ -75,14 +75,24 @@ init () url navKey =
 
 
 type Msg
-    = ArtDataLoaded (Result Http.Error ArtData)
+    = NoOp
     | UrlRequested Browser.UrlRequest
     | UrlChanged Url
+    | ArtDataLoaded (Result Http.Error ArtData)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
+        NoOp ->
+            ( model, Cmd.none )
+
+        UrlRequested urlRequest ->
+            ( model, Cmd.none )
+
+        UrlChanged url ->
+            ( model, Cmd.none )
+
         ArtDataLoaded (Ok { artists, works, media }) ->
             let
                 artDataState =
@@ -100,12 +110,6 @@ update msg model =
             ( { model | artDataState = ArtDataError (Debug.toString httpError) }
             , Cmd.none
             )
-
-        UrlRequested urlRequest ->
-            ( model, Cmd.none )
-
-        UrlChanged url ->
-            ( model, Cmd.none )
 
 
 

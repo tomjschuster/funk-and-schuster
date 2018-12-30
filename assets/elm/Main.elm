@@ -30,23 +30,43 @@ main =
 
 type alias Model =
     { navKey : Browser.Navigation.Key
-    , error : Maybe String
-    , artists : List Artist
+    , dataState : DataState
+    , pageState : PageState
+    }
+
+
+type DataState
+    = DataLoading
+    | DataReady Data
+    | DataError String
+
+
+type alias Data =
+    { artists : List Artist
     , works : List Work
     , media : List Media
     }
 
 
+type PageState
+    = Dashboard
+    | ArtistPage ArtistId
+    | WorkPage WorkId
+
+
 initialModel : Browser.Navigation.Key -> Model
 initialModel navKey =
-    { navKey = navKey, error = Nothing, artists = [], works = [], media = [] }
+    { navKey = navKey
+    , dataState = DataLoading
+    , pageState = Dashboard
+    }
 
 
 init : () -> Url -> Browser.Navigation.Key -> ( Model, Cmd Msg )
 init () url navKey =
     ( initialModel navKey
     , Task.map3 InitialData loadArtists loadWorks loadMedia
-        |> Task.attempt InitialDataReceived
+        |> Task.attempt DataReceived
     )
 
 
@@ -55,7 +75,7 @@ init () url navKey =
 
 
 type Msg
-    = InitialDataReceived (Result Http.Error InitialData)
+    = DataReceived (Result Http.Error InitialData)
     | UrlRequested Browser.UrlRequest
     | UrlChanged Url
 
@@ -67,17 +87,23 @@ type alias InitialData =
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        InitialDataReceived (Ok { artists, works, media }) ->
-            ( { model
-                | artists = artists
-                , works = works
-                , media = media
-              }
+        DataReceived (Ok { artists, works, media }) ->
+            let
+                dataState =
+                    DataReady
+                        { artists = artists
+                        , works = works
+                        , media = media
+                        }
+            in
+            ( { model | dataState = dataState }
             , Cmd.none
             )
 
-        InitialDataReceived (Err httpError) ->
-            ( { model | error = Just "Something went wrong" }, Cmd.none )
+        DataReceived (Err httpError) ->
+            ( { model | dataState = DataError (Debug.toString httpError) }
+            , Cmd.none
+            )
 
         UrlRequested urlRequest ->
             ( model, Cmd.none )
@@ -154,12 +180,30 @@ incrementWorkCount work workCountByArtistId =
 
 view : Model -> Browser.Document Msg
 view model =
+    { title = "Art Database", body = viewBody model }
+
+
+viewBody : Model -> List (Html Msg)
+viewBody model =
+    case model.dataState of
+        DataLoading ->
+            [ text "Loading..." ]
+
+        DataReady data ->
+            viewDashboard data
+
+        DataError error ->
+            [ text error ]
+
+
+viewDashboard : Data -> List (Html Msg)
+viewDashboard data =
     let
         workCountByArtistId =
-            List.foldl incrementWorkCount Dict.empty model.works
+            List.foldl incrementWorkCount Dict.empty data.works
 
         artistViews =
-            List.map (artistToView workCountByArtistId) model.artists
+            List.map (artistToView workCountByArtistId) data.artists
 
         artistById =
             artistViews
@@ -167,26 +211,23 @@ view model =
                 |> Dict.fromList
 
         workViews =
-            List.map (workToView artistById) model.works
+            List.map (workToView artistById) data.works
     in
-    { title = "Art Database"
-    , body =
-        [ main_ []
-            [ section []
-                [ h3 [] [ text "Artists" ]
-                , artistsList artistViews
-                ]
-            , section []
-                [ h3 [] [ text "Works" ]
-                , worksList workViews
-                ]
-            , section []
-                [ h3 [] [ text "Media" ]
-                , mediaList model.media
-                ]
+    [ main_ []
+        [ section []
+            [ h3 [] [ text "Artists" ]
+            , artistsList artistViews
+            ]
+        , section []
+            [ h3 [] [ text "Works" ]
+            , worksList workViews
+            ]
+        , section []
+            [ h3 [] [ text "Media" ]
+            , mediaList data.media
             ]
         ]
-    }
+    ]
 
 
 artistsList : List ArtistView -> Html Msg

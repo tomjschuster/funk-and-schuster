@@ -30,18 +30,18 @@ main =
 
 type alias Model =
     { navKey : Browser.Navigation.Key
-    , dataState : DataState
+    , artDataState : ArtDataState
     , pageState : PageState
     }
 
 
-type DataState
-    = DataLoading
-    | DataReady Data
-    | DataError String
+type ArtDataState
+    = ArtDataLoading
+    | ArtDataReady ArtData
+    | ArtDataError String
 
 
-type alias Data =
+type alias ArtData =
     { artists : List Artist
     , works : List Work
     , media : List Media
@@ -57,7 +57,7 @@ type PageState
 initialModel : Browser.Navigation.Key -> Model
 initialModel navKey =
     { navKey = navKey
-    , dataState = DataLoading
+    , artDataState = ArtDataLoading
     , pageState = Dashboard
     }
 
@@ -65,8 +65,8 @@ initialModel navKey =
 init : () -> Url -> Browser.Navigation.Key -> ( Model, Cmd Msg )
 init () url navKey =
     ( initialModel navKey
-    , Task.map3 InitialData loadArtists loadWorks loadMedia
-        |> Task.attempt DataReceived
+    , Task.map3 ArtData loadArtists loadWorks loadMedia
+        |> Task.attempt ArtDataLoaded
     )
 
 
@@ -75,33 +75,29 @@ init () url navKey =
 
 
 type Msg
-    = DataReceived (Result Http.Error InitialData)
+    = ArtDataLoaded (Result Http.Error ArtData)
     | UrlRequested Browser.UrlRequest
     | UrlChanged Url
-
-
-type alias InitialData =
-    { artists : List Artist, works : List Work, media : List Media }
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        DataReceived (Ok { artists, works, media }) ->
+        ArtDataLoaded (Ok { artists, works, media }) ->
             let
-                dataState =
-                    DataReady
+                artDataState =
+                    ArtDataReady
                         { artists = artists
                         , works = works
                         , media = media
                         }
             in
-            ( { model | dataState = dataState }
+            ( { model | artDataState = artDataState }
             , Cmd.none
             )
 
-        DataReceived (Err httpError) ->
-            ( { model | dataState = DataError (Debug.toString httpError) }
+        ArtDataLoaded (Err httpError) ->
+            ( { model | artDataState = ArtDataError (Debug.toString httpError) }
             , Cmd.none
             )
 
@@ -185,25 +181,25 @@ view model =
 
 viewBody : Model -> List (Html Msg)
 viewBody model =
-    case model.dataState of
-        DataLoading ->
+    case model.artDataState of
+        ArtDataLoading ->
             [ text "Loading..." ]
 
-        DataReady data ->
-            viewDashboard data
+        ArtDataReady artData ->
+            viewDashboard artData
 
-        DataError error ->
+        ArtDataError error ->
             [ text error ]
 
 
-viewDashboard : Data -> List (Html Msg)
-viewDashboard data =
+viewDashboard : ArtData -> List (Html Msg)
+viewDashboard artData =
     let
         workCountByArtistId =
-            List.foldl incrementWorkCount Dict.empty data.works
+            List.foldl incrementWorkCount Dict.empty artData.works
 
         artistViews =
-            List.map (artistToView workCountByArtistId) data.artists
+            List.map (artistToView workCountByArtistId) artData.artists
 
         artistById =
             artistViews
@@ -211,7 +207,7 @@ viewDashboard data =
                 |> Dict.fromList
 
         workViews =
-            List.map (workToView artistById) data.works
+            List.map (workToView artistById) artData.works
     in
     [ main_ []
         [ section []
@@ -224,7 +220,7 @@ viewDashboard data =
             ]
         , section []
             [ h3 [] [ text "Media" ]
-            , mediaList data.media
+            , mediaList artData.media
             ]
         ]
     ]

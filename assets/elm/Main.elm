@@ -2,7 +2,9 @@ module Main exposing (main)
 
 import Browser
 import Browser.Navigation
-import Html exposing (Html, h3, li, main_, section, text, ul)
+import Dict exposing (Dict)
+import Html exposing (Html, h3, img, li, main_, section, text, ul)
+import Html.Attributes exposing (height, src, width)
 import Http
 import Json.Decode as JD
 import Task exposing (Task)
@@ -97,18 +99,86 @@ subscriptions model =
 -- View
 
 
+type alias ArtistView =
+    { id : ArtistId
+    , fullName : String
+    , workCount : Int
+    }
+
+
+artistToView : Dict Int Int -> Artist -> ArtistView
+artistToView workCountByArtistId artist =
+    { id = artist.id
+    , fullName = artistFullName artist
+    , workCount =
+        workCountByArtistId
+            |> Dict.get (artistIdToInt artist.id)
+            |> Maybe.withDefault 0
+    }
+
+
+pluralizeWorks : Int -> String
+pluralizeWorks workCount =
+    case workCount of
+        1 ->
+            "1 work"
+
+        count ->
+            String.fromInt count ++ " works"
+
+
+type alias WorkView =
+    { id : WorkId
+    , title : String
+    , artist : ArtistView
+    }
+
+
+workToView : Dict Int ArtistView -> Work -> WorkView
+workToView artistById work =
+    { id = work.id
+    , title = work.title
+    , artist =
+        artistById
+            |> Dict.get (artistIdToInt work.artistId)
+            |> Maybe.withDefault (artistToView Dict.empty emptyArtist)
+    }
+
+
+incrementWorkCount : Work -> Dict Int Int -> Dict Int Int
+incrementWorkCount work workCountByArtistId =
+    Dict.update (workIdToInt work.id)
+        (Maybe.map (\count -> count + 1) >> Maybe.withDefault 1 >> Just)
+        workCountByArtistId
+
+
 view : Model -> Browser.Document Msg
 view model =
+    let
+        workCountByArtistId =
+            List.foldl incrementWorkCount Dict.empty model.works
+
+        artistViews =
+            List.map (artistToView workCountByArtistId) model.artists
+
+        artistById =
+            artistViews
+                |> List.map (\artist -> ( artistIdToInt artist.id, artist ))
+                |> Dict.fromList
+
+        workViews =
+            List.map (workToView artistById) model.works
+    in
     { title = "Art Database"
     , body =
         [ main_ []
             [ section []
                 [ h3 [] [ text "Artists" ]
-                , artistsList model.artists
+                , artistsList artistViews
                 ]
             , section []
                 [ h3 [] [ text "Works" ]
-                , worksList model.works
+                , worksList workViews
                 ]
             , section []
                 [ h3 [] [ text "Media" ]
@@ -119,24 +189,25 @@ view model =
     }
 
 
-artistsList : List Artist -> Html Msg
+artistsList : List ArtistView -> Html Msg
 artistsList artists =
     ul [] (List.map artistItem artists)
 
 
-artistItem : Artist -> Html Msg
+artistItem : ArtistView -> Html Msg
 artistItem artist =
-    li [] [ text (artist.firstName ++ " " ++ artist.lastName) ]
+    li []
+        [ text (artist.fullName ++ " (" ++ pluralizeWorks artist.workCount ++ ")") ]
 
 
-worksList : List Work -> Html Msg
+worksList : List WorkView -> Html Msg
 worksList works =
     ul [] (List.map workItem works)
 
 
-workItem : Work -> Html Msg
+workItem : WorkView -> Html Msg
 workItem work =
-    li [] [ text work.title ]
+    li [] [ text (work.title ++ " - " ++ work.artist.fullName) ]
 
 
 mediaList : List Media -> Html Msg
@@ -146,7 +217,7 @@ mediaList media =
 
 mediaItem : Media -> Html Msg
 mediaItem media =
-    li [] [ text media.title ]
+    li [] [ text media.title, img [ src media.src, height 100, width 100 ] [] ]
 
 
 
@@ -164,6 +235,30 @@ type alias Artist =
 
 type ArtistId
     = ArtistId Int
+
+
+artistIdToInt : ArtistId -> Int
+artistIdToInt (ArtistId id) =
+    id
+
+
+artistIdFromInt : Int -> ArtistId
+artistIdFromInt id =
+    ArtistId id
+
+
+emptyArtist : Artist
+emptyArtist =
+    { id = artistIdFromInt 0
+    , firstName = ""
+    , lastName = ""
+    , dob = Time.millisToPosix 0
+    }
+
+
+artistFullName : Artist -> String
+artistFullName artist =
+    artist.firstName ++ " " ++ artist.lastName
 
 
 artistDecoder : JD.Decoder Artist
@@ -196,6 +291,11 @@ type alias Work =
 
 type WorkId
     = WorkId Int
+
+
+workIdToInt : WorkId -> Int
+workIdToInt (WorkId id) =
+    id
 
 
 type Medium

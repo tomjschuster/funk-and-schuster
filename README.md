@@ -1,10 +1,11 @@
 ![CircleCI](https://circleci.com/gh/tomjschuster/funk-and-schuster.svg?style=svg&circle-token=cf1fa1c679d9fcfede3b89551d2d53d871d59e9a)
 
 ## TODO:
-- Admin SPA
-    - Edit
-    - Media
-- Admin Experience
+- Admin
+    - SPA Edit
+    - Refactor Elm into multiple files
+    - Media tags instead of owner
+    - SPA media management
     - Delete
     - Styling
 - Gallery view

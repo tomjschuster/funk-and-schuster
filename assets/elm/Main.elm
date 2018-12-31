@@ -166,6 +166,9 @@ type Msg
       -- Dashboard
     | NewArtist
     | CancelNewArtist
+    | InputNewArtistFirstName String
+    | InputNewArtistLastName String
+    | InputNewArtistDob String
     | NewWork
     | CancelNewWork
 
@@ -213,28 +216,43 @@ update msg model =
             )
 
         NewArtist ->
-            dashboardUpdate
+            updateDashboard
                 (\dashboardModel ->
                     ( { dashboardModel | dashboardForm = NewArtistForm emptyArtistForm }, Cmd.none )
                 )
                 model
 
         CancelNewArtist ->
-            dashboardUpdate
+            updateDashboard
                 (\dashboardModel ->
                     ( { dashboardModel | dashboardForm = NoDashboardForm }, Cmd.none )
                 )
                 model
 
+        InputNewArtistFirstName firstName ->
+            ( mapDashboard (mapNewArtistForm (\f -> { f | firstName = firstName })) model
+            , Cmd.none
+            )
+
+        InputNewArtistLastName lastName ->
+            ( mapDashboard (mapNewArtistForm (\f -> { f | lastName = lastName })) model
+            , Cmd.none
+            )
+
+        InputNewArtistDob dobString ->
+            ( mapDashboard (mapNewArtistForm (\f -> { f | dob = iso8601DateToPosix dobString })) model
+            , Cmd.none
+            )
+
         NewWork ->
-            dashboardUpdate
+            updateDashboard
                 (\dashboardModel ->
                     ( { dashboardModel | dashboardForm = NewWorkForm emptyWorkForm }, Cmd.none )
                 )
                 model
 
         CancelNewWork ->
-            dashboardUpdate
+            updateDashboard
                 (\dashboardModel ->
                     ( { dashboardModel | dashboardForm = NoDashboardForm }, Cmd.none )
                 )
@@ -261,8 +279,8 @@ routeToPageState artData route =
 -- Dashboard Page Transformation
 
 
-dashboardUpdate : (DashboardModel -> ( DashboardModel, Cmd Msg )) -> Model -> ( Model, Cmd Msg )
-dashboardUpdate f model =
+updateDashboard : (DashboardModel -> ( DashboardModel, Cmd Msg )) -> Model -> ( Model, Cmd Msg )
+updateDashboard f model =
     case model.pageState of
         Dashboard dashboardModel ->
             let
@@ -273,6 +291,26 @@ dashboardUpdate f model =
 
         _ ->
             ( model, Cmd.none )
+
+
+mapDashboard : (DashboardModel -> DashboardModel) -> Model -> Model
+mapDashboard f model =
+    case model.pageState of
+        Dashboard dashboardModel ->
+            { model | pageState = Dashboard (f dashboardModel) }
+
+        _ ->
+            model
+
+
+mapNewArtistForm : (ArtistFormData -> ArtistFormData) -> DashboardModel -> DashboardModel
+mapNewArtistForm f dashboardModel =
+    case dashboardModel.dashboardForm of
+        NewArtistForm artistFormData ->
+            { dashboardModel | dashboardForm = NewArtistForm (f artistFormData) }
+
+        _ ->
+            dashboardModel
 
 
 type alias DashboardModel =
@@ -297,7 +335,6 @@ type DashboardForm
 type alias ArtistFormData =
     { firstName : String
     , lastName : String
-    , dobString : String
     , dob : Maybe Time.Posix
     }
 
@@ -306,7 +343,6 @@ emptyArtistForm : ArtistFormData
 emptyArtistForm =
     { firstName = ""
     , lastName = ""
-    , dobString = ""
     , dob = Nothing
     }
 
@@ -736,15 +772,30 @@ viewDashboard { artData, dashboardForm } =
                 , form [ onSubmit CancelNewArtist ]
                     [ label []
                         [ text "First Name"
-                        , input [ type_ "text", name "first-name" ] []
+                        , input
+                            [ type_ "text"
+                            , name "first-name"
+                            , onInput InputNewArtistFirstName
+                            ]
+                            []
                         ]
                     , label []
                         [ text "Last Name"
-                        , input [ type_ "dobtext", name "last-name" ] []
+                        , input
+                            [ type_ "dobtext"
+                            , name "last-name"
+                            , onInput InputNewArtistLastName
+                            ]
+                            []
                         ]
                     , label []
                         [ text "DOB"
-                        , input [ type_ "date", name "dob" ] []
+                        , input
+                            [ type_ "date"
+                            , name "dob"
+                            , onInput InputNewArtistDob
+                            ]
+                            []
                         ]
                     , button [ type_ "submit" ] [ text "Create" ]
                     ]
@@ -757,23 +808,48 @@ viewDashboard { artData, dashboardForm } =
                 , form [ onSubmit CancelNewWork ]
                     [ label []
                         [ text "Title"
-                        , input [ type_ "text", name "title" ] []
+                        , input
+                            [ type_ "text"
+                            , name "title"
+                            , onInput (always NoOp)
+                            ]
+                            []
                         ]
                     , label []
                         [ text "Artist"
-                        , input [ type_ "text", name "artist" ] []
+                        , input
+                            [ type_ "text"
+                            , name "artist"
+                            , onInput (always NoOp)
+                            ]
+                            []
                         ]
                     , label []
                         [ text "Date"
-                        , input [ type_ "date", name "date" ] []
+                        , input
+                            [ type_ "date"
+                            , name "date"
+                            , onInput (always NoOp)
+                            ]
+                            []
                         ]
                     , label []
                         [ text "Medium"
-                        , input [ type_ "text", name "medium" ] []
+                        , input
+                            [ type_ "text"
+                            , name "medium"
+                            , onInput (always NoOp)
+                            ]
+                            []
                         ]
                     , label []
                         [ text "Dimensions"
-                        , input [ type_ "text", name "dimensions" ] []
+                        , input
+                            [ type_ "text"
+                            , name "dimensions"
+                            , onInput (always NoOp)
+                            ]
+                            []
                         ]
                     , button [ type_ "submit" ] [ text "Create" ]
                     ]

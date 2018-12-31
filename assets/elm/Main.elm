@@ -181,6 +181,7 @@ type Msg
     | NewWork
     | CancelNewWork
     | CreateNewWork
+    | WorkCreated (Result Http.Error WorkId)
     | InputNewWorkTitle String
     | InputNewWorkArtist (Maybe Int)
     | InputNewWorkDate String
@@ -296,6 +297,22 @@ update msg model =
                 model
 
         CreateNewWork ->
+            updateDashboard
+                (updateNewWorkForm
+                    (\formData ->
+                        ( formData
+                        , formData |> createWork |> Task.attempt WorkCreated
+                        )
+                    )
+                )
+                model
+
+        WorkCreated (Ok workId) ->
+            ( model |> addNewWorkToArtData workId |> clearDashboardForm
+            , Cmd.none
+            )
+
+        WorkCreated (Err error) ->
             ( model, Cmd.none )
 
         InputNewWorkTitle title ->
@@ -362,6 +379,34 @@ addNewArtistToArtData artistId model =
                     in
                     { model
                         | artDataState = ArtDataReady { artData | artists = artist :: artData.artists }
+                        , pageState = Dashboard { dashboardModel | artData = dashboardArtData }
+                    }
+
+                _ ->
+                    model
+
+        _ ->
+            model
+
+
+addNewWorkToArtData : WorkId -> Model -> Model
+addNewWorkToArtData workId model =
+    case ( model.artDataState, model.pageState ) of
+        ( ArtDataReady artData, Dashboard dashboardModel ) ->
+            case dashboardModel.dashboardForm of
+                NewWorkForm formData ->
+                    let
+                        work =
+                            formDataToWork workId formData
+
+                        updatedArtData =
+                            { artData | works = artData.works ++ [ work ] }
+
+                        dashboardArtData =
+                            artDataToDashboard updatedArtData
+                    in
+                    { model
+                        | artDataState = ArtDataReady { artData | works = work :: artData.works }
                         , pageState = Dashboard { dashboardModel | artData = dashboardArtData }
                     }
 
@@ -520,6 +565,17 @@ type alias WorkFormData =
     }
 
 
+formDataToWork : WorkId -> WorkFormData -> Work
+formDataToWork workId formData =
+    { id = workId
+    , title = formData.title
+    , artistId = Maybe.withDefault (artistIdFromInt 0) formData.artistId
+    , date = formData.date
+    , medium = OtherMedium formData.medium
+    , dimensions = CustomDimensions formData.dimensions
+    }
+
+
 emptyWorkForm : WorkFormData
 emptyWorkForm =
     { title = ""
@@ -541,7 +597,7 @@ encodeNewWorkForm formData =
           )
         , ( "date"
           , formData.date
-                |> Maybe.map (Time.posixToMillis >> JE.int)
+                |> Maybe.map (posixToIso8601Date >> JE.string)
                 |> Maybe.withDefault JE.null
           )
         , ( "medium", JE.string formData.medium )
@@ -810,7 +866,7 @@ workToDashboard artistById work =
 
 incrementWorkCount : Work -> Dict Int Int -> Dict Int Int
 incrementWorkCount work workCountByArtistId =
-    Dict.update (workIdToInt work.id)
+    Dict.update (artistIdToInt work.artistId)
         (Maybe.map (\count -> count + 1) >> Maybe.withDefault 1 >> Just)
         workCountByArtistId
 
@@ -1035,7 +1091,7 @@ viewDashboard { artData, dashboardForm } =
         NewWorkForm workForm ->
             [ main_ []
                 [ button [ onClick CancelNewWork ] [ text "Cancel" ]
-                , form [ onSubmit CancelNewWork ]
+                , form [ onSubmit CreateNewWork ]
                     [ label []
                         [ text "Title"
                         , input
@@ -1224,7 +1280,7 @@ type alias Work =
     { id : WorkId
     , artistId : ArtistId
     , title : String
-    , date : Time.Posix
+    , date : Maybe Time.Posix
     , medium : Medium
     , dimensions : Dimensions
     }
@@ -1257,7 +1313,7 @@ emptyWork =
     { id = workIdFromInt 0
     , artistId = artistIdFromInt 0
     , title = ""
-    , date = Time.millisToPosix 0
+    , date = Nothing
     , medium = OtherMedium ""
     , dimensions = CustomDimensions ""
     }
@@ -1269,7 +1325,7 @@ workDecoder =
         (JD.field "id" workIdDecoder)
         (JD.field "artist_id" artistIdDecoder)
         (JD.field "title" JD.string)
-        (JD.field "date" (JD.map Time.millisToPosix JD.int))
+        (JD.field "date" (JD.maybe (JD.map Time.millisToPosix JD.int)))
         (JD.field "medium" mediumDecoder)
         (JD.field "dimensions" dimensionsDecoder)
 
@@ -1450,7 +1506,7 @@ createArtist formData =
 
 createWork : WorkFormData -> Task Http.Error WorkId
 createWork formData =
-    postData (encodeNewWorkForm formData) workIdDecoder (worksUrl ++ "/")
+    postData (JE.object [ ( "work", encodeNewWorkForm formData ) ]) workIdDecoder (worksUrl ++ "/")
 
 
 

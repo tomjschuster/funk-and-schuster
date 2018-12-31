@@ -10,6 +10,10 @@ defmodule FunkAndSchusterWeb.Api.Art.WorkView do
     %{data: render_one(work, WorkView, "work.json")}
   end
 
+  def render("id.json", %{work: work}) do
+    %{data: work.id}
+  end
+
   def render("work.json", %{work: work}) do
     %{
       id: work.id,

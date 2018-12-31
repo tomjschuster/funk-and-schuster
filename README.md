@@ -2,8 +2,8 @@
 
 ## TODO:
 - Admin SPA
-    - Create
     - Edit
+    - Media
 - Admin Experience
     - Delete
     - Styling

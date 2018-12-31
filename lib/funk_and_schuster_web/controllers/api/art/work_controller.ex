@@ -14,11 +14,11 @@ defmodule FunkAndSchusterWeb.Api.Art.WorkController do
   def create(conn, %{"work" => work_params}) do
     files = []
 
-    with {:ok, %Work{} = work} <- ArtApi.create_work(work_params, files) do
+    with {:ok, %{work: %Work{} = work}} <- ArtApi.create_work(work_params, files) do
       conn
       |> put_status(:created)
       # |> put_resp_header("location", Routes.api_art_work_path(conn, :show, work))
-      |> render("show.json", work: work)
+      |> render("id.json", work: work)
     end
   end
 

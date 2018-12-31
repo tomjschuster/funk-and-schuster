@@ -3,9 +3,36 @@ module Main exposing (main)
 import Browser
 import Browser.Navigation as Navigation
 import Dict exposing (Dict)
-import Html exposing (Html, a, button, h2, h3, img, li, main_, section, text, ul)
-import Html.Attributes exposing (height, href, src, width)
-import Html.Events exposing (onClick)
+import Html
+    exposing
+        ( Html
+        , a
+        , button
+        , form
+        , h2
+        , h3
+        , img
+        , input
+        , label
+        , li
+        , main_
+        , section
+        , text
+        , ul
+        )
+import Html.Attributes
+    exposing
+        ( disabled
+        , for
+        , height
+        , href
+        , id
+        , name
+        , src
+        , type_
+        , width
+        )
+import Html.Events exposing (onClick, onInput, onSubmit)
 import Http
 import Json.Decode as JD
 import Task exposing (Task)
@@ -105,7 +132,7 @@ type alias ArtData =
 type PageState
     = PageLoading
     | NotFound
-    | Dashboard DashboardArtData
+    | Dashboard DashboardModel
     | ArtistPage ArtistPageArtist
     | WorkPage WorkPageWork
 
@@ -136,6 +163,11 @@ type Msg
     | UrlRequested Browser.UrlRequest
     | UrlChanged Url
     | ArtDataLoaded (Result Http.Error ArtData)
+      -- Dashboard
+    | NewArtist
+    | CancelNewArtist
+    | NewWork
+    | CancelNewWork
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -170,7 +202,7 @@ update msg model =
         ArtDataLoaded (Ok artData) ->
             ( { model
                 | artDataState = ArtDataReady artData
-                , pageState = Dashboard (artDataToDashboard artData)
+                , pageState = routeToPageState artData model.route
               }
             , Cmd.none
             )
@@ -180,6 +212,34 @@ update msg model =
             , Cmd.none
             )
 
+        NewArtist ->
+            dashboardUpdate
+                (\dashboardModel ->
+                    ( { dashboardModel | dashboardForm = NewArtistForm emptyArtistForm }, Cmd.none )
+                )
+                model
+
+        CancelNewArtist ->
+            dashboardUpdate
+                (\dashboardModel ->
+                    ( { dashboardModel | dashboardForm = NoDashboardForm }, Cmd.none )
+                )
+                model
+
+        NewWork ->
+            dashboardUpdate
+                (\dashboardModel ->
+                    ( { dashboardModel | dashboardForm = NewWorkForm emptyWorkForm }, Cmd.none )
+                )
+                model
+
+        CancelNewWork ->
+            dashboardUpdate
+                (\dashboardModel ->
+                    ( { dashboardModel | dashboardForm = NoDashboardForm }, Cmd.none )
+                )
+                model
+
 
 routeToPageState : ArtData -> Maybe Route -> PageState
 routeToPageState artData route =
@@ -188,7 +248,7 @@ routeToPageState artData route =
             NotFound
 
         Just DashboardRoute ->
-            Dashboard (artDataToDashboard artData)
+            Dashboard (DashboardModel (artDataToDashboard artData) NoDashboardForm)
 
         Just (ArtistRoute artistId) ->
             ArtistPage (artistToArtistPage artData artistId)
@@ -201,9 +261,23 @@ routeToPageState artData route =
 -- Dashboard Page Transformation
 
 
+dashboardUpdate : (DashboardModel -> ( DashboardModel, Cmd Msg )) -> Model -> ( Model, Cmd Msg )
+dashboardUpdate f model =
+    case model.pageState of
+        Dashboard dashboardModel ->
+            let
+                ( updatedDashboardModel, cmd ) =
+                    f dashboardModel
+            in
+            ( { model | pageState = Dashboard updatedDashboardModel }, cmd )
+
+        _ ->
+            ( model, Cmd.none )
+
+
 type alias DashboardModel =
     { artData : DashboardArtData
-    , artistForm : ArtistForm
+    , dashboardForm : DashboardForm
     }
 
 
@@ -214,10 +288,10 @@ type alias DashboardArtData =
     }
 
 
-type ArtistForm
-    = NoArtistForm
+type DashboardForm
+    = NoDashboardForm
     | NewArtistForm ArtistFormData
-    | EditArtistForm Artist ArtistFormData
+    | NewWorkForm WorkFormData
 
 
 type alias ArtistFormData =
@@ -225,6 +299,36 @@ type alias ArtistFormData =
     , lastName : String
     , dobString : String
     , dob : Maybe Time.Posix
+    }
+
+
+emptyArtistForm : ArtistFormData
+emptyArtistForm =
+    { firstName = ""
+    , lastName = ""
+    , dobString = ""
+    , dob = Nothing
+    }
+
+
+type alias WorkFormData =
+    { title : String
+    , artistId : Maybe ArtistId
+    , dateString : String
+    , date : Maybe Time.Posix
+    , medium : String
+    , dimensions : String
+    }
+
+
+emptyWorkForm : WorkFormData
+emptyWorkForm =
+    { title = ""
+    , artistId = Nothing
+    , dateString = ""
+    , date = Nothing
+    , medium = ""
+    , dimensions = ""
     }
 
 
@@ -587,8 +691,8 @@ viewBody model =
                 NotFound ->
                     [ text "Page not found" ]
 
-                Dashboard artData ->
-                    viewDashboard artData
+                Dashboard dashboardModel ->
+                    viewDashboard dashboardModel
 
                 ArtistPage artist ->
                     viewArtistPage artist
@@ -604,23 +708,77 @@ viewBody model =
 -- Dashboard View
 
 
-viewDashboard : DashboardArtData -> List (Html Msg)
-viewDashboard artData =
-    [ main_ []
-        [ section []
-            [ h3 [] [ text "Artists" ]
-            , artistsList artData.artists
+viewDashboard : DashboardModel -> List (Html Msg)
+viewDashboard { artData, dashboardForm } =
+    case dashboardForm of
+        NoDashboardForm ->
+            [ main_ []
+                [ button [ onClick NewArtist ] [ text "New Artist" ]
+                , button [ onClick NewWork ] [ text "New Work" ]
+                , section []
+                    [ h3 [] [ text "Artists" ]
+                    , artistsList artData.artists
+                    ]
+                , section []
+                    [ h3 [] [ text "Works" ]
+                    , worksList artData.works
+                    ]
+                , section []
+                    [ h3 [] [ text "Media" ]
+                    , mediaList artData.media
+                    ]
+                ]
             ]
-        , section []
-            [ h3 [] [ text "Works" ]
-            , worksList artData.works
+
+        NewArtistForm artistForm ->
+            [ main_ []
+                [ button [ onClick CancelNewArtist ] [ text "Cancel" ]
+                , form [ onSubmit CancelNewArtist ]
+                    [ label []
+                        [ text "First Name"
+                        , input [ type_ "text", name "first-name" ] []
+                        ]
+                    , label []
+                        [ text "Last Name"
+                        , input [ type_ "dobtext", name "last-name" ] []
+                        ]
+                    , label []
+                        [ text "DOB"
+                        , input [ type_ "date", name "dob" ] []
+                        ]
+                    , button [ type_ "submit" ] [ text "Create" ]
+                    ]
+                ]
             ]
-        , section []
-            [ h3 [] [ text "Media" ]
-            , mediaList artData.media
+
+        NewWorkForm workForm ->
+            [ main_ []
+                [ button [ onClick CancelNewWork ] [ text "Cancel" ]
+                , form [ onSubmit CancelNewWork ]
+                    [ label []
+                        [ text "Title"
+                        , input [ type_ "text", name "title" ] []
+                        ]
+                    , label []
+                        [ text "Artist"
+                        , input [ type_ "text", name "artist" ] []
+                        ]
+                    , label []
+                        [ text "Date"
+                        , input [ type_ "date", name "date" ] []
+                        ]
+                    , label []
+                        [ text "Medium"
+                        , input [ type_ "text", name "medium" ] []
+                        ]
+                    , label []
+                        [ text "Dimensions"
+                        , input [ type_ "text", name "dimensions" ] []
+                        ]
+                    , button [ type_ "submit" ] [ text "Create" ]
+                    ]
+                ]
             ]
-        ]
-    ]
 
 
 artistsList : List DashboardArtist -> Html Msg

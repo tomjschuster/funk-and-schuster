@@ -16,7 +16,9 @@ import Html
         , label
         , li
         , main_
+        , option
         , section
+        , select
         , text
         , ul
         )
@@ -28,8 +30,10 @@ import Html.Attributes
         , href
         , id
         , name
+        , selected
         , src
         , type_
+        , value
         , width
         )
 import Html.Events exposing (onClick, onInput, onSubmit)
@@ -163,14 +167,21 @@ type Msg
     | UrlRequested Browser.UrlRequest
     | UrlChanged Url
     | ArtDataLoaded (Result Http.Error ArtData)
-      -- Dashboard
+      -- DASHBOARD
+      -- New Artist Form
     | NewArtist
     | CancelNewArtist
     | InputNewArtistFirstName String
     | InputNewArtistLastName String
     | InputNewArtistDob String
+      -- New Work Form
     | NewWork
     | CancelNewWork
+    | InputNewWorkTitle String
+    | InputNewWorkArtist (Maybe Int)
+    | InputNewWorkDate String
+    | InputNewWorkMedium String
+    | InputNewWorkDimensions String
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -215,6 +226,8 @@ update msg model =
             , Cmd.none
             )
 
+        -- DASHBOARD
+        -- New Artist Form
         NewArtist ->
             updateDashboard
                 (\dashboardModel ->
@@ -244,6 +257,7 @@ update msg model =
             , Cmd.none
             )
 
+        -- New Work Form
         NewWork ->
             updateDashboard
                 (\dashboardModel ->
@@ -257,6 +271,31 @@ update msg model =
                     ( { dashboardModel | dashboardForm = NoDashboardForm }, Cmd.none )
                 )
                 model
+
+        InputNewWorkTitle title ->
+            ( mapDashboard (mapNewWorkForm (\f -> { f | title = title })) model
+            , Cmd.none
+            )
+
+        InputNewWorkArtist artistId ->
+            ( mapDashboard (mapNewWorkForm (\f -> { f | artistId = Maybe.map artistIdFromInt artistId })) model
+            , Cmd.none
+            )
+
+        InputNewWorkDate dateString ->
+            ( mapDashboard (mapNewWorkForm (\f -> { f | date = iso8601DateToPosix dateString })) model
+            , Cmd.none
+            )
+
+        InputNewWorkMedium medium ->
+            ( mapDashboard (mapNewWorkForm (\f -> { f | medium = medium })) model
+            , Cmd.none
+            )
+
+        InputNewWorkDimensions dimensions ->
+            ( mapDashboard (mapNewWorkForm (\f -> { f | dimensions = dimensions })) model
+            , Cmd.none
+            )
 
 
 routeToPageState : ArtData -> Maybe Route -> PageState
@@ -313,6 +352,16 @@ mapNewArtistForm f dashboardModel =
             dashboardModel
 
 
+mapNewWorkForm : (WorkFormData -> WorkFormData) -> DashboardModel -> DashboardModel
+mapNewWorkForm f dashboardModel =
+    case dashboardModel.dashboardForm of
+        NewWorkForm workFormData ->
+            { dashboardModel | dashboardForm = NewWorkForm (f workFormData) }
+
+        _ ->
+            dashboardModel
+
+
 type alias DashboardModel =
     { artData : DashboardArtData
     , dashboardForm : DashboardForm
@@ -350,7 +399,6 @@ emptyArtistForm =
 type alias WorkFormData =
     { title : String
     , artistId : Maybe ArtistId
-    , dateString : String
     , date : Maybe Time.Posix
     , medium : String
     , dimensions : String
@@ -361,7 +409,6 @@ emptyWorkForm : WorkFormData
 emptyWorkForm =
     { title = ""
     , artistId = Nothing
-    , dateString = ""
     , date = Nothing
     , medium = ""
     , dimensions = ""
@@ -811,25 +858,20 @@ viewDashboard { artData, dashboardForm } =
                         , input
                             [ type_ "text"
                             , name "title"
-                            , onInput (always NoOp)
+                            , onInput InputNewWorkTitle
                             ]
                             []
                         ]
                     , label []
                         [ text "Artist"
-                        , input
-                            [ type_ "text"
-                            , name "artist"
-                            , onInput (always NoOp)
-                            ]
-                            []
+                        , artistDropDown workForm.artistId artData.artists
                         ]
                     , label []
                         [ text "Date"
                         , input
                             [ type_ "date"
                             , name "date"
-                            , onInput (always NoOp)
+                            , onInput InputNewWorkDate
                             ]
                             []
                         ]
@@ -838,7 +880,7 @@ viewDashboard { artData, dashboardForm } =
                         , input
                             [ type_ "text"
                             , name "medium"
-                            , onInput (always NoOp)
+                            , onInput InputNewWorkMedium
                             ]
                             []
                         ]
@@ -847,7 +889,7 @@ viewDashboard { artData, dashboardForm } =
                         , input
                             [ type_ "text"
                             , name "dimensions"
-                            , onInput (always NoOp)
+                            , onInput InputNewWorkDimensions
                             ]
                             []
                         ]
@@ -855,6 +897,24 @@ viewDashboard { artData, dashboardForm } =
                     ]
                 ]
             ]
+
+
+artistDropDown : Maybe ArtistId -> List DashboardArtist -> Html Msg
+artistDropDown artistId artists =
+    select
+        [ name "artist-id"
+        , onInput (String.toInt >> InputNewWorkArtist)
+        ]
+        (option [ value "-", selected (artistId == Nothing) ] [ text "-" ] :: List.map (artistOption artistId) artists)
+
+
+artistOption : Maybe ArtistId -> DashboardArtist -> Html Msg
+artistOption artistId artist =
+    option
+        [ value (artist.id |> artistIdToInt |> String.fromInt)
+        , selected (Just artist.id == artistId)
+        ]
+        [ text artist.fullName ]
 
 
 artistsList : List DashboardArtist -> Html Msg

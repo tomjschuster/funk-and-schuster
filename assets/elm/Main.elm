@@ -201,11 +201,172 @@ routeToPageState artData route =
 -- Dashboard Page Transformation
 
 
+type alias DashboardModel =
+    { artData : DashboardArtData
+    , artistForm : ArtistForm
+    }
+
+
 type alias DashboardArtData =
     { artists : List DashboardArtist
     , works : List DashboardWork
     , media : List Media
     }
+
+
+type ArtistForm
+    = NoArtistForm
+    | NewArtistForm ArtistFormData
+    | EditArtistForm Artist ArtistFormData
+
+
+type alias ArtistFormData =
+    { firstName : String
+    , lastName : String
+    , dobString : String
+    , dob : Maybe Time.Posix
+    }
+
+
+iso8601DateToPosix : String -> Maybe Time.Posix
+iso8601DateToPosix isoString =
+    case String.split "-" isoString of
+        [ "", y, m, d ] ->
+            Maybe.map3 ymdToPosix
+                (String.toInt y |> Maybe.map ((*) -1))
+                (String.toInt m)
+                (String.toInt d)
+                |> Maybe.withDefault Nothing
+
+        [ y, m, d ] ->
+            Maybe.map3 ymdToPosix
+                (String.toInt y)
+                (String.toInt m)
+                (String.toInt d)
+                |> Maybe.withDefault Nothing
+
+        _ ->
+            Nothing
+
+
+ymdToPosix : Int -> Int -> Int -> Maybe Time.Posix
+ymdToPosix year month day =
+    if monthIsValid month && dayIsValid year month day then
+        (monthDayToMillis year month day + yearToMillis year)
+            |> negateIfBefore1970 year
+            |> Time.millisToPosix
+            |> Just
+    else
+        Nothing
+
+
+dayIsValid : Int -> Int -> Int -> Bool
+dayIsValid year month day =
+    year
+        |> monthDays
+        |> List.drop (month - 1)
+        |> List.head
+        |> Maybe.map (\days -> day > 0 && day <= days)
+        |> Maybe.withDefault False
+
+
+monthIsValid : Int -> Bool
+monthIsValid month =
+    month > 0 && month < 13
+
+
+yearToMillis : Int -> Int
+yearToMillis year =
+    let
+        yearRange =
+            if year < 1970 then
+                List.range (year + 1) 1969
+            else
+                List.range 1970 (year - 1)
+    in
+    yearRange
+        |> List.map millisInYear
+        |> List.sum
+
+
+millisInYear : Int -> Int
+millisInYear year =
+    if isLeapYear year then
+        366 * millisInDay
+    else
+        365 * millisInDay
+
+
+millisInDay : Int
+millisInDay =
+    24 * 60 * 60 * 1000
+
+
+monthDayToMillis : Int -> Int -> Int -> Int
+monthDayToMillis year month day =
+    let
+        currentMonthDays =
+            if year < 1970 then
+                year
+                    |> monthDays
+                    |> List.drop (month - 1)
+                    |> List.head
+                    |> Maybe.map ((-) day >> (+) 1)
+                    |> Maybe.withDefault 0
+            else
+                day - 1
+
+        previousMonthDays =
+            if year < 1970 then
+                year
+                    |> monthDays
+                    |> List.drop month
+                    |> List.sum
+            else
+                year
+                    |> monthDays
+                    |> List.take (month - 1)
+                    |> List.sum
+    in
+    (currentMonthDays + previousMonthDays) * millisInDay
+
+
+monthDays : Int -> List Int
+monthDays year =
+    if isLeapYear year then
+        [ 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ]
+    else
+        [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ]
+
+
+isLeapYear : Int -> Bool
+isLeapYear year =
+    let
+        divisibleBy4 =
+            remainderBy 4 year == 0
+
+        divisibleBy100 =
+            remainderBy 100 year == 0
+
+        divisibleBy400 =
+            remainderBy 400 year == 0
+    in
+    if divisibleBy400 then
+        True
+    else if divisibleBy100 then
+        False
+    else if divisibleBy4 then
+        True
+    else
+        False
+
+
+negateIfBefore1970 : Int -> Int -> Int
+negateIfBefore1970 year millis =
+    if year < 1970 then
+        -1 * millis
+    else
+        millis
 
 
 artDataToDashboard : ArtData -> DashboardArtData

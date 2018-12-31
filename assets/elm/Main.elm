@@ -39,6 +39,7 @@ import Html.Attributes
 import Html.Events exposing (onClick, onInput, onSubmit)
 import Http
 import Json.Decode as JD
+import Json.Encode as JE
 import Task exposing (Task)
 import Time
 import Url exposing (Url)
@@ -171,12 +172,15 @@ type Msg
       -- New Artist Form
     | NewArtist
     | CancelNewArtist
+    | CreateNewArtist
+    | ArtistCreated (Result Http.Error ArtistId)
     | InputNewArtistFirstName String
     | InputNewArtistLastName String
     | InputNewArtistDob String
       -- New Work Form
     | NewWork
     | CancelNewWork
+    | CreateNewWork
     | InputNewWorkTitle String
     | InputNewWorkArtist (Maybe Int)
     | InputNewWorkDate String
@@ -242,6 +246,25 @@ update msg model =
                 )
                 model
 
+        CreateNewArtist ->
+            updateDashboard
+                (updateNewArtistForm
+                    (\formData ->
+                        ( formData
+                        , formData |> createArtist |> Task.attempt ArtistCreated
+                        )
+                    )
+                )
+                model
+
+        ArtistCreated (Ok artistId) ->
+            ( model |> addNewArtistToArtData artistId |> clearDashboardForm
+            , Cmd.none
+            )
+
+        ArtistCreated (Err error) ->
+            ( model, Cmd.none )
+
         InputNewArtistFirstName firstName ->
             ( mapDashboard (mapNewArtistForm (\f -> { f | firstName = firstName })) model
             , Cmd.none
@@ -271,6 +294,9 @@ update msg model =
                     ( { dashboardModel | dashboardForm = NoDashboardForm }, Cmd.none )
                 )
                 model
+
+        CreateNewWork ->
+            ( model, Cmd.none )
 
         InputNewWorkTitle title ->
             ( mapDashboard (mapNewWorkForm (\f -> { f | title = title })) model
@@ -318,6 +344,39 @@ routeToPageState artData route =
 -- Dashboard Page Transformation
 
 
+addNewArtistToArtData : ArtistId -> Model -> Model
+addNewArtistToArtData artistId model =
+    case ( model.artDataState, model.pageState ) of
+        ( ArtDataReady artData, Dashboard dashboardModel ) ->
+            case dashboardModel.dashboardForm of
+                NewArtistForm formData ->
+                    let
+                        artist =
+                            formDataToArtist artistId formData
+
+                        updatedArtData =
+                            { artData | artists = artData.artists ++ [ artist ] }
+
+                        dashboardArtData =
+                            artDataToDashboard updatedArtData
+                    in
+                    { model
+                        | artDataState = ArtDataReady { artData | artists = artist :: artData.artists }
+                        , pageState = Dashboard { dashboardModel | artData = dashboardArtData }
+                    }
+
+                _ ->
+                    model
+
+        _ ->
+            model
+
+
+clearDashboardForm : Model -> Model
+clearDashboardForm model =
+    mapDashboard (\d -> { d | dashboardForm = NoDashboardForm }) model
+
+
 updateDashboard : (DashboardModel -> ( DashboardModel, Cmd Msg )) -> Model -> ( Model, Cmd Msg )
 updateDashboard f model =
     case model.pageState of
@@ -342,21 +401,55 @@ mapDashboard f model =
             model
 
 
+updateNewArtistForm :
+    (ArtistFormData -> ( ArtistFormData, Cmd Msg ))
+    -> DashboardModel
+    -> ( DashboardModel, Cmd Msg )
+updateNewArtistForm f dashboardModel =
+    case dashboardModel.dashboardForm of
+        NewArtistForm formData ->
+            let
+                ( updatedFormData, cmd ) =
+                    f formData
+            in
+            ( { dashboardModel | dashboardForm = NewArtistForm updatedFormData }, cmd )
+
+        _ ->
+            ( dashboardModel, Cmd.none )
+
+
 mapNewArtistForm : (ArtistFormData -> ArtistFormData) -> DashboardModel -> DashboardModel
 mapNewArtistForm f dashboardModel =
     case dashboardModel.dashboardForm of
-        NewArtistForm artistFormData ->
-            { dashboardModel | dashboardForm = NewArtistForm (f artistFormData) }
+        NewArtistForm formData ->
+            { dashboardModel | dashboardForm = NewArtistForm (f formData) }
 
         _ ->
             dashboardModel
 
 
+updateNewWorkForm :
+    (WorkFormData -> ( WorkFormData, Cmd Msg ))
+    -> DashboardModel
+    -> ( DashboardModel, Cmd Msg )
+updateNewWorkForm f dashboardModel =
+    case dashboardModel.dashboardForm of
+        NewWorkForm formData ->
+            let
+                ( updatedFormData, cmd ) =
+                    f formData
+            in
+            ( { dashboardModel | dashboardForm = NewWorkForm updatedFormData }, cmd )
+
+        _ ->
+            ( dashboardModel, Cmd.none )
+
+
 mapNewWorkForm : (WorkFormData -> WorkFormData) -> DashboardModel -> DashboardModel
 mapNewWorkForm f dashboardModel =
     case dashboardModel.dashboardForm of
-        NewWorkForm workFormData ->
-            { dashboardModel | dashboardForm = NewWorkForm (f workFormData) }
+        NewWorkForm formData ->
+            { dashboardModel | dashboardForm = NewWorkForm (f formData) }
 
         _ ->
             dashboardModel
@@ -388,12 +481,34 @@ type alias ArtistFormData =
     }
 
 
+formDataToArtist : ArtistId -> ArtistFormData -> Artist
+formDataToArtist artistId formData =
+    { id = artistId
+    , firstName = formData.firstName
+    , lastName = formData.lastName
+    , dob = formData.dob
+    }
+
+
 emptyArtistForm : ArtistFormData
 emptyArtistForm =
     { firstName = ""
     , lastName = ""
     , dob = Nothing
     }
+
+
+encodeNewArtistForm : ArtistFormData -> JE.Value
+encodeNewArtistForm formData =
+    JE.object
+        [ ( "first_name", JE.string formData.firstName )
+        , ( "last_name", JE.string formData.lastName )
+        , ( "dob"
+          , formData.dob
+                |> Maybe.map (posixToIso8601Date >> JE.string)
+                |> Maybe.withDefault JE.null
+          )
+        ]
 
 
 type alias WorkFormData =
@@ -415,6 +530,25 @@ emptyWorkForm =
     }
 
 
+encodeNewWorkForm : WorkFormData -> JE.Value
+encodeNewWorkForm formData =
+    JE.object
+        [ ( "title", JE.string formData.title )
+        , ( "artist_id"
+          , formData.artistId
+                |> Maybe.map (artistIdToInt >> JE.int)
+                |> Maybe.withDefault JE.null
+          )
+        , ( "date"
+          , formData.date
+                |> Maybe.map (Time.posixToMillis >> JE.int)
+                |> Maybe.withDefault JE.null
+          )
+        , ( "medium", JE.string formData.medium )
+        , ( "dimensions", JE.string formData.dimensions )
+        ]
+
+
 iso8601DateToPosix : String -> Maybe Time.Posix
 iso8601DateToPosix isoString =
     case String.split "-" isoString of
@@ -434,6 +568,55 @@ iso8601DateToPosix isoString =
 
         _ ->
             Nothing
+
+
+posixToIso8601Date : Time.Posix -> String
+posixToIso8601Date posix =
+    (posix |> Time.toYear Time.utc |> String.fromInt |> String.padLeft 4 '0')
+        ++ "-"
+        ++ (posix |> Time.toMonth Time.utc |> monthToInt |> String.fromInt |> String.padLeft 2 '0')
+        ++ "-"
+        ++ (posix |> Time.toDay Time.utc |> String.fromInt |> String.padLeft 2 '0')
+
+
+monthToInt : Time.Month -> Int
+monthToInt month =
+    case month of
+        Time.Jan ->
+            1
+
+        Time.Feb ->
+            2
+
+        Time.Mar ->
+            3
+
+        Time.Apr ->
+            4
+
+        Time.May ->
+            5
+
+        Time.Jun ->
+            6
+
+        Time.Jul ->
+            7
+
+        Time.Aug ->
+            8
+
+        Time.Sep ->
+            9
+
+        Time.Oct ->
+            10
+
+        Time.Nov ->
+            11
+
+        Time.Dec ->
+            12
 
 
 ymdToPosix : Int -> Int -> Int -> Maybe Time.Posix
@@ -816,7 +999,7 @@ viewDashboard { artData, dashboardForm } =
         NewArtistForm artistForm ->
             [ main_ []
                 [ button [ onClick CancelNewArtist ] [ text "Cancel" ]
-                , form [ onSubmit CancelNewArtist ]
+                , form [ onSubmit CreateNewArtist ]
                     [ label []
                         [ text "First Name"
                         , input
@@ -987,7 +1170,7 @@ type alias Artist =
     { id : ArtistId
     , firstName : String
     , lastName : String
-    , dob : Time.Posix
+    , dob : Maybe Time.Posix
     }
 
 
@@ -1010,7 +1193,7 @@ emptyArtist =
     { id = artistIdFromInt 0
     , firstName = ""
     , lastName = ""
-    , dob = Time.millisToPosix 0
+    , dob = Nothing
     }
 
 
@@ -1025,7 +1208,7 @@ artistDecoder =
         (JD.field "id" artistIdDecoder)
         (JD.field "first_name" JD.string)
         (JD.field "last_name" JD.string)
-        (JD.field "dob" (JD.map Time.millisToPosix JD.int))
+        (JD.field "dob" (JD.maybe (JD.map Time.millisToPosix JD.int)))
 
 
 artistIdDecoder : JD.Decoder ArtistId
@@ -1260,6 +1443,16 @@ loadMedia =
     getData (JD.list mediaDecoder) mediaUrl
 
 
+createArtist : ArtistFormData -> Task Http.Error ArtistId
+createArtist formData =
+    postData (JE.object [ ( "artist", encodeNewArtistForm formData ) ]) artistIdDecoder (artistsUrl ++ "/")
+
+
+createWork : WorkFormData -> Task Http.Error WorkId
+createWork formData =
+    postData (encodeNewWorkForm formData) workIdDecoder (worksUrl ++ "/")
+
+
 
 -- HTTP Helpers
 
@@ -1271,6 +1464,18 @@ getData decoder url =
         , headers = []
         , url = url
         , body = Http.emptyBody
+        , resolver = jsonResolver (JD.field "data" decoder)
+        , timeout = Nothing
+        }
+
+
+postData : JE.Value -> JD.Decoder a -> String -> Task Http.Error a
+postData body decoder url =
+    Http.task
+        { method = "POST"
+        , headers = []
+        , url = url
+        , body = Http.jsonBody body
         , resolver = jsonResolver (JD.field "data" decoder)
         , timeout = Nothing
         }

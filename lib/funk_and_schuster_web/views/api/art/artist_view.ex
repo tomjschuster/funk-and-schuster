@@ -10,6 +10,10 @@ defmodule FunkAndSchusterWeb.Api.Art.ArtistView do
     %{data: render_one(artist, ArtistView, "artist.json")}
   end
 
+  def render("id.json", %{artist: artist}) do
+    %{data: artist.id}
+  end
+
   def render("artist.json", %{artist: artist}) do
     %{
       id: artist.id,

@@ -14,11 +14,11 @@ defmodule FunkAndSchusterWeb.Api.Art.ArtistController do
   def create(conn, %{"artist" => artist_params}) do
     files = []
 
-    with {:ok, %Artist{} = artist} <- ArtApi.create_artist(artist_params, files) do
+    with {:ok, %{artist: %Artist{} = artist}} <- ArtApi.create_artist(artist_params, files) do
       conn
       |> put_status(:created)
       # |> put_resp_header("location", Routes.api_art_artist_path(conn, :show, artist))
-      |> render("show.json", artist: artist)
+      |> render("id.json", artist: artist)
     end
   end
 

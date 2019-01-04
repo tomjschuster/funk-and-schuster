@@ -17,6 +17,7 @@ import Html
         , li
         , main_
         , option
+        , p
         , section
         , select
         , text
@@ -356,7 +357,18 @@ routeToPageState artData route =
             Dashboard (DashboardModel (artDataToDashboard artData) NoDashboardForm)
 
         Just (ArtistRoute artistId) ->
-            ArtistPage (artistToArtistPage artData artistId)
+            let
+                maybeArtist =
+                    artData.artists
+                        |> List.filter (\artist -> artist.id == artistId)
+                        |> List.head
+            in
+            case maybeArtist of
+                Just artist ->
+                    ArtistPage (artistToArtistPage artData artist)
+
+                Nothing ->
+                    NotFound
 
         Just (WorkRoute workId) ->
             WorkPage (workToWorkPage artData workId)
@@ -610,196 +622,6 @@ encodeNewWorkForm formData =
         ]
 
 
-iso8601DateToPosix : String -> Maybe Time.Posix
-iso8601DateToPosix isoString =
-    case String.split "-" isoString of
-        [ "", y, m, d ] ->
-            Maybe.map3 ymdToPosix
-                (String.toInt y |> Maybe.map ((*) -1))
-                (String.toInt m)
-                (String.toInt d)
-                |> Maybe.withDefault Nothing
-
-        [ y, m, d ] ->
-            Maybe.map3 ymdToPosix
-                (String.toInt y)
-                (String.toInt m)
-                (String.toInt d)
-                |> Maybe.withDefault Nothing
-
-        _ ->
-            Nothing
-
-
-posixToIso8601Date : Time.Posix -> String
-posixToIso8601Date posix =
-    (posix |> Time.toYear Time.utc |> String.fromInt |> String.padLeft 4 '0')
-        ++ "-"
-        ++ (posix |> Time.toMonth Time.utc |> monthToInt |> String.fromInt |> String.padLeft 2 '0')
-        ++ "-"
-        ++ (posix |> Time.toDay Time.utc |> String.fromInt |> String.padLeft 2 '0')
-
-
-monthToInt : Time.Month -> Int
-monthToInt month =
-    case month of
-        Time.Jan ->
-            1
-
-        Time.Feb ->
-            2
-
-        Time.Mar ->
-            3
-
-        Time.Apr ->
-            4
-
-        Time.May ->
-            5
-
-        Time.Jun ->
-            6
-
-        Time.Jul ->
-            7
-
-        Time.Aug ->
-            8
-
-        Time.Sep ->
-            9
-
-        Time.Oct ->
-            10
-
-        Time.Nov ->
-            11
-
-        Time.Dec ->
-            12
-
-
-ymdToPosix : Int -> Int -> Int -> Maybe Time.Posix
-ymdToPosix year month day =
-    if monthIsValid month && dayIsValid year month day then
-        (monthDayToMillis year month day + yearToMillis year)
-            |> negateIfBefore1970 year
-            |> Time.millisToPosix
-            |> Just
-    else
-        Nothing
-
-
-dayIsValid : Int -> Int -> Int -> Bool
-dayIsValid year month day =
-    year
-        |> monthDays
-        |> List.drop (month - 1)
-        |> List.head
-        |> Maybe.map (\days -> day > 0 && day <= days)
-        |> Maybe.withDefault False
-
-
-monthIsValid : Int -> Bool
-monthIsValid month =
-    month > 0 && month < 13
-
-
-yearToMillis : Int -> Int
-yearToMillis year =
-    let
-        yearRange =
-            if year < 1970 then
-                List.range (year + 1) 1969
-            else
-                List.range 1970 (year - 1)
-    in
-    yearRange
-        |> List.map millisInYear
-        |> List.sum
-
-
-millisInYear : Int -> Int
-millisInYear year =
-    if isLeapYear year then
-        366 * millisInDay
-    else
-        365 * millisInDay
-
-
-millisInDay : Int
-millisInDay =
-    24 * 60 * 60 * 1000
-
-
-monthDayToMillis : Int -> Int -> Int -> Int
-monthDayToMillis year month day =
-    let
-        currentMonthDays =
-            if year < 1970 then
-                year
-                    |> monthDays
-                    |> List.drop (month - 1)
-                    |> List.head
-                    |> Maybe.map ((-) day >> (+) 1)
-                    |> Maybe.withDefault 0
-            else
-                day - 1
-
-        previousMonthDays =
-            if year < 1970 then
-                year
-                    |> monthDays
-                    |> List.drop month
-                    |> List.sum
-            else
-                year
-                    |> monthDays
-                    |> List.take (month - 1)
-                    |> List.sum
-    in
-    (currentMonthDays + previousMonthDays) * millisInDay
-
-
-monthDays : Int -> List Int
-monthDays year =
-    if isLeapYear year then
-        [ 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ]
-    else
-        [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ]
-
-
-isLeapYear : Int -> Bool
-isLeapYear year =
-    let
-        divisibleBy4 =
-            remainderBy 4 year == 0
-
-        divisibleBy100 =
-            remainderBy 100 year == 0
-
-        divisibleBy400 =
-            remainderBy 400 year == 0
-    in
-    if divisibleBy400 then
-        True
-    else if divisibleBy100 then
-        False
-    else if divisibleBy4 then
-        True
-    else
-        False
-
-
-negateIfBefore1970 : Int -> Int -> Int
-negateIfBefore1970 year millis =
-    if year < 1970 then
-        -1 * millis
-    else
-        millis
-
-
 artDataToDashboard : ArtData -> DashboardArtData
 artDataToDashboard artData =
     let
@@ -884,6 +706,7 @@ type alias ArtistPageArtist =
     { fullName : String
     , works : List ArtistPageWork
     , media : List Media
+    , dob : Maybe Time.Posix
     }
 
 
@@ -893,28 +716,22 @@ type alias ArtistPageWork =
     }
 
 
-artistToArtistPage : ArtData -> ArtistId -> ArtistPageArtist
-artistToArtistPage artData artistId =
+artistToArtistPage : ArtData -> Artist -> ArtistPageArtist
+artistToArtistPage artData artist =
     let
-        fullName =
-            artData.artists
-                |> List.filter (\artist -> artist.id == artistId)
-                |> List.head
-                |> Maybe.map artistFullName
-                |> Maybe.withDefault ""
-
         mediaByWorkId =
             groupMediaByWorkId artData.media
 
         works =
             artData.works
-                |> List.filter (\work -> work.artistId == artistId)
+                |> List.filter (\work -> work.artistId == artist.id)
                 |> List.map (workToArtistPage mediaByWorkId)
 
         artistMedia =
-            List.filter (mediaArtistId >> (==) (Just artistId)) artData.media
+            List.filter (mediaArtistId >> (==) (Just artist.id)) artData.media
     in
-    { fullName = fullName
+    { fullName = artistFullName artist
+    , dob = artist.dob
     , works = works
     , media = artistMedia
     }
@@ -1208,7 +1025,38 @@ viewArtistPage : ArtistPageArtist -> List (Html Msg)
 viewArtistPage artist =
     [ routeLink DashboardRoute [] [ text "Back" ]
     , h2 [] [ text artist.fullName ]
+    , section []
+        [ h3 [] [ text "About" ]
+        , ul []
+            ([ Maybe.map dobItem artist.dob ]
+                |> List.filterMap identity
+            )
+        ]
+    , section []
+        [ h3 [] [ text "Works" ]
+        , artistWorksList artist.works
+        ]
     ]
+
+
+dobItem : Time.Posix -> Html Msg
+dobItem dob =
+    li [] [ text ("DOB: " ++ displayDate dob) ]
+
+
+artistWorksList : List ArtistPageWork -> Html Msg
+artistWorksList works =
+    case works of
+        [] ->
+            p [] [ text "This artist has no works." ]
+
+        multipleWorks ->
+            ul [] (List.map artistWorkItem multipleWorks)
+
+
+artistWorkItem : ArtistPageWork -> Html Msg
+artistWorkItem work =
+    li [] [ text work.title ]
 
 
 
@@ -1571,3 +1419,207 @@ handleJsonResponse decoder response =
 
                 Err err ->
                     Err (Http.BadBody (JD.errorToString err))
+
+
+
+-- Date/Time Helpers
+
+
+displayDate : Time.Posix -> String
+displayDate posix =
+    [ posix |> Time.toMonth Time.utc |> monthToInt
+    , posix |> Time.toDay Time.utc
+    , posix |> Time.toYear Time.utc
+    ]
+        |> List.map String.fromInt
+        |> String.join "/"
+
+
+iso8601DateToPosix : String -> Maybe Time.Posix
+iso8601DateToPosix isoString =
+    case String.split "-" isoString of
+        [ "", y, m, d ] ->
+            Maybe.map3 ymdToPosix
+                (String.toInt y |> Maybe.map ((*) -1))
+                (String.toInt m)
+                (String.toInt d)
+                |> Maybe.withDefault Nothing
+
+        [ y, m, d ] ->
+            Maybe.map3 ymdToPosix
+                (String.toInt y)
+                (String.toInt m)
+                (String.toInt d)
+                |> Maybe.withDefault Nothing
+
+        _ ->
+            Nothing
+
+
+posixToIso8601Date : Time.Posix -> String
+posixToIso8601Date posix =
+    (posix |> Time.toYear Time.utc |> String.fromInt |> String.padLeft 4 '0')
+        ++ "-"
+        ++ (posix |> Time.toMonth Time.utc |> monthToInt |> String.fromInt |> String.padLeft 2 '0')
+        ++ "-"
+        ++ (posix |> Time.toDay Time.utc |> String.fromInt |> String.padLeft 2 '0')
+
+
+monthToInt : Time.Month -> Int
+monthToInt month =
+    case month of
+        Time.Jan ->
+            1
+
+        Time.Feb ->
+            2
+
+        Time.Mar ->
+            3
+
+        Time.Apr ->
+            4
+
+        Time.May ->
+            5
+
+        Time.Jun ->
+            6
+
+        Time.Jul ->
+            7
+
+        Time.Aug ->
+            8
+
+        Time.Sep ->
+            9
+
+        Time.Oct ->
+            10
+
+        Time.Nov ->
+            11
+
+        Time.Dec ->
+            12
+
+
+ymdToPosix : Int -> Int -> Int -> Maybe Time.Posix
+ymdToPosix year month day =
+    if monthIsValid month && dayIsValid year month day then
+        (monthDayToMillis year month day + yearToMillis year)
+            |> negateIfBefore1970 year
+            |> Time.millisToPosix
+            |> Just
+    else
+        Nothing
+
+
+dayIsValid : Int -> Int -> Int -> Bool
+dayIsValid year month day =
+    year
+        |> monthDays
+        |> List.drop (month - 1)
+        |> List.head
+        |> Maybe.map (\days -> day > 0 && day <= days)
+        |> Maybe.withDefault False
+
+
+monthIsValid : Int -> Bool
+monthIsValid month =
+    month > 0 && month < 13
+
+
+yearToMillis : Int -> Int
+yearToMillis year =
+    let
+        yearRange =
+            if year < 1970 then
+                List.range (year + 1) 1969
+            else
+                List.range 1970 (year - 1)
+    in
+    yearRange
+        |> List.map millisInYear
+        |> List.sum
+
+
+millisInYear : Int -> Int
+millisInYear year =
+    if isLeapYear year then
+        366 * millisInDay
+    else
+        365 * millisInDay
+
+
+millisInDay : Int
+millisInDay =
+    24 * 60 * 60 * 1000
+
+
+monthDayToMillis : Int -> Int -> Int -> Int
+monthDayToMillis year month day =
+    let
+        currentMonthDays =
+            if year < 1970 then
+                year
+                    |> monthDays
+                    |> List.drop (month - 1)
+                    |> List.head
+                    |> Maybe.map ((-) day >> (+) 1)
+                    |> Maybe.withDefault 0
+            else
+                day - 1
+
+        previousMonthDays =
+            if year < 1970 then
+                year
+                    |> monthDays
+                    |> List.drop month
+                    |> List.sum
+            else
+                year
+                    |> monthDays
+                    |> List.take (month - 1)
+                    |> List.sum
+    in
+    (currentMonthDays + previousMonthDays) * millisInDay
+
+
+monthDays : Int -> List Int
+monthDays year =
+    if isLeapYear year then
+        [ 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ]
+    else
+        [ 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 ]
+
+
+isLeapYear : Int -> Bool
+isLeapYear year =
+    let
+        divisibleBy4 =
+            remainderBy 4 year == 0
+
+        divisibleBy100 =
+            remainderBy 100 year == 0
+
+        divisibleBy400 =
+            remainderBy 400 year == 0
+    in
+    if divisibleBy400 then
+        True
+    else if divisibleBy100 then
+        False
+    else if divisibleBy4 then
+        True
+    else
+        False
+
+
+negateIfBefore1970 : Int -> Int -> Int
+negateIfBefore1970 year millis =
+    if year < 1970 then
+        -1 * millis
+    else
+        millis

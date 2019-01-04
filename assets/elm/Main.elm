@@ -109,6 +109,11 @@ routeLink route attributes children =
     a (href (routeToUrl route) :: attributes) children
 
 
+goToRoute : Navigation.Key -> Route -> Cmd Msg
+goToRoute key =
+    routeToUrl >> Navigation.pushUrl key
+
+
 
 -- Model
 
@@ -260,7 +265,7 @@ update msg model =
 
         ArtistCreated (Ok artistId) ->
             ( model |> addNewArtistToArtData artistId |> clearDashboardForm
-            , Cmd.none
+            , artistId |> ArtistRoute |> goToRoute model.navKey
             )
 
         ArtistCreated (Err error) ->
@@ -309,7 +314,7 @@ update msg model =
 
         WorkCreated (Ok workId) ->
             ( model |> addNewWorkToArtData workId |> clearDashboardForm
-            , Cmd.none
+            , workId |> WorkRoute |> goToRoute model.navKey
             )
 
         WorkCreated (Err error) ->
